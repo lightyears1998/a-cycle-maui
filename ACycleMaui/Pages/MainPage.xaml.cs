@@ -1,4 +1,6 @@
-﻿namespace ACycleMaui;
+﻿using ACycle;
+
+namespace ACycleMaui;
 
 public partial class MainPage : ContentPage
 {
@@ -12,5 +14,6 @@ public partial class MainPage : ContentPage
     private void OnCounterClicked(object sender, EventArgs e)
     {
         // 源与流 爱与恨 杯酒与千秋
+        Class1 cls = new Class1();
     }
 }
