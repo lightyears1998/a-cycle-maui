@@ -1,4 +1,4 @@
-﻿namespace ACycle;
+﻿namespace ACycleMaui;
 
 public partial class AppShell : Shell
 {

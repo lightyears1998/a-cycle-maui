@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace ACycle;
+namespace ACycleMaui;
 
 [Application]
 public class MainApplication : MauiApplication
