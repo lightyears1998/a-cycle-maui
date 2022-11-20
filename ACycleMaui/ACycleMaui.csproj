@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-maccatalyst;net6.0-android</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks>net7.0-android</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows')) and '$(MSBuildRuntimeType)' == 'Full'">$(TargetFrameworks);net7.0-windows10.0.19041</TargetFrameworks>
+		<Nullable>enable</Nullable>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>ACycleMaui</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -37,7 +38,6 @@
 		<GenerateTestArtifacts>True</GenerateTestArtifacts>
 		<AppInstallerUri>https://acycle.qfstudio.net/maui-app</AppInstallerUri>
 		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
