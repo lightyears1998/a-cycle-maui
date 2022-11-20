@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ACycle.Entities;
+using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +10,19 @@ namespace ACycle.Services.Impl
 {
     public class DatabaseService : IDatabaseService
     {
-        public readonly string EntryDatabasePath;
+        public readonly string MainDatabasePath;
+        public SQLiteAsyncConnection MainDatabase;
 
         public DatabaseService()
         {
-            EntryDatabasePath = Path.Join(FileSystem.AppDataDirectory, "EntryDatabase.sqlite3");
+            MainDatabasePath = Path.Join(FileSystem.AppDataDirectory, "EntryDatabase.sqlite3");
+            MainDatabase = new SQLiteAsyncConnection(MainDatabasePath);
+            CreateTables();
+        }
+
+        private async void CreateTables()
+        {
+            await MainDatabase.CreateTableAsync<EntryEntity>();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ACycle.Services;
+using System.Runtime.CompilerServices;
 
 namespace ACycleMaui;
 
@@ -16,5 +17,11 @@ public static class MauiProgram
             });
 
         return builder.Build();
+    }
+
+    public static MauiAppBuilder RegisterAppServices(this MauiAppBuilder builder)
+    {
+        builder.Services.AddSingleton();  // Oh my little John.
+        return builder;
     }
 }

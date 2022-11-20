@@ -15,7 +15,7 @@ public partial class DebuggingPage : ContentPage
         Button button = (Button)sender;
         button.IsEnabled = false;
 
-        ProcessStartInfo startInfo = new ProcessStartInfo
+        ProcessStartInfo startInfo = new()
         {
             Arguments = FileSystem.AppDataDirectory,
             FileName = "explorer.exe"
