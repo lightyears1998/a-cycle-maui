@@ -67,6 +67,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\DebuggingPage.xaml.cs">
+	    <DependentUpon>DebuggingPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\DebuggingPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\FocusPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
