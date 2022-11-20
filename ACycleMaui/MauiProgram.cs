@@ -1,4 +1,6 @@
-﻿namespace ACycleMaui;
+﻿using ACycle.Services;
+
+namespace ACycleMaui;
 
 public static class MauiProgram
 {

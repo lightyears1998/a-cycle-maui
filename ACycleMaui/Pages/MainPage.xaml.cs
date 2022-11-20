@@ -1,6 +1,4 @@
-﻿using ACycle;
-
-namespace ACycleMaui;
+﻿namespace ACycleMaui.Pages;
 
 public partial class MainPage : ContentPage
 {
