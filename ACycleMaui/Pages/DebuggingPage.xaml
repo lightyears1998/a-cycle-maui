@@ -4,10 +4,6 @@
              x:Class="ACycleMaui.Pages.DebuggingPage"
              Title="DebuggingPage">
     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-        <OnPlatform x:TypeArguments="Button">
-            <On Platform="WinUI">
-                <Button Text="Open ProgramData Directory in Explorer" Clicked="OnOpenProgramDataDirectoryInExplorerButtonClicked"></Button>
-            </On>
-        </OnPlatform>
+        <Button Text="Open ProgramData Directory in Explorer" Clicked="OnShowAppDataDirectoryButtonClicked"></Button>
     </VerticalStackLayout>
 </ContentPage>
