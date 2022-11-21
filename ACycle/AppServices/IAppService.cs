@@ -8,8 +8,5 @@ namespace ACycle.AppServices
 {
     public interface IAppService
     {
-        Task Start();
-
-        Task Stop();
     }
 }

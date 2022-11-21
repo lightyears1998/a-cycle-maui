@@ -17,16 +17,8 @@ namespace ACycle.AppServices.Impl
         {
             MainDatabasePath = Path.Join(FileSystem.AppDataDirectory, "EntryDatabase.sqlite3");
             MainDatabase = new SQLiteAsyncConnection(MainDatabasePath);
-        }
 
-        public async Task Start()
-        {
-            await CreateTables();
-        }
-
-        public Task Stop()
-        {
-            return Task.CompletedTask;
+            Task.Run(CreateTables).Wait();
         }
 
         private async Task CreateTables()

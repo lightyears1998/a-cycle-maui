@@ -32,13 +32,6 @@ public static class MauiProgram
             builder.Services.AddSingleton(service);
         }
 
-        foreach (var service in services)
-        {
-            var serviceStartTask = new Task(async () => await service.Start());
-            serviceStartTask.Start();
-            serviceStartTask.Wait();
-        }
-
         return builder;
     }
 }
