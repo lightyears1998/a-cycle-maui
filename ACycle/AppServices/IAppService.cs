@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACycle.Services
+namespace ACycle.AppServices
 {
-    public interface IDatabaseService
+    public interface IAppService
     {
+        Task Start();
+
+        Task Stop();
     }
 }

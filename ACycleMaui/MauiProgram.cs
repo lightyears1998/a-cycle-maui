@@ -1,4 +1,5 @@
-﻿using ACycle.Services;
+﻿using ACycle.AppServices;
+using ACycle.AppServices.Impl;
 using System.Runtime.CompilerServices;
 
 namespace ACycleMaui;
@@ -10,6 +11,7 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .RegisterAppServices()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -21,7 +23,22 @@ public static class MauiProgram
 
     public static MauiAppBuilder RegisterAppServices(this MauiAppBuilder builder)
     {
-        // builder.Services.AddSingleton();  // Oh my little John.
+        IAppService[] services = {
+            new DatabaseService()
+        };
+
+        foreach (var service in services)
+        {
+            builder.Services.AddSingleton(service);
+        }
+
+        foreach (var service in services)
+        {
+            var serviceStartTask = new Task(async () => await service.Start());
+            serviceStartTask.Start();
+            serviceStartTask.Wait();
+        }
+
         return builder;
     }
 }

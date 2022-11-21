@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACycle.Services.Impl
+namespace ACycle.AppServices.Impl
 {
     public class DatabaseService : IDatabaseService
     {
@@ -17,10 +17,19 @@ namespace ACycle.Services.Impl
         {
             MainDatabasePath = Path.Join(FileSystem.AppDataDirectory, "EntryDatabase.sqlite3");
             MainDatabase = new SQLiteAsyncConnection(MainDatabasePath);
-            CreateTables();
         }
 
-        private async void CreateTables()
+        public async Task Start()
+        {
+            await CreateTables();
+        }
+
+        public Task Stop()
+        {
+            return Task.CompletedTask;
+        }
+
+        private async Task CreateTables()
         {
             await MainDatabase.CreateTableAsync<EntryEntity>();
         }
