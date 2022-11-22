@@ -2,6 +2,6 @@
 {
     public abstract class Transaction
     {
-        public string Comments;
+        public string Comments { set; get; } = string.Empty;
     }
 }
