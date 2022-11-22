@@ -7,7 +7,7 @@
              x:DataType="viewmodels:DebuggingViewModel">
     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
         <Button
-            Text="Open ProgramData Directory in Explorer"
+            Text="Open App Data Directory in Explorer"
             Command="{x:Binding OpenDataDirectoryCommand}" />
     </VerticalStackLayout>
 </ContentPage>
