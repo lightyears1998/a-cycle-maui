@@ -24,6 +24,9 @@ namespace ACycle.AppServices.Impl
         private async Task CreateTables()
         {
             await MainDatabase.CreateTableAsync<EntryEntity>();
+            await MainDatabase.CreateTableAsync<EntryHistoryEntity>();
+            await MainDatabase.CreateTableAsync<MetadataEntity>();
+            await MainDatabase.CreateTableAsync<PeerNodeEntity>();
         }
     }
 }
