@@ -23,6 +23,11 @@
         Route="Acitivity" />
 
     <ShellContent
+        Title="Settings"
+        ContentTemplate="{DataTemplate views:SettingsView}"
+        Route="Settings" />
+
+    <ShellContent
         Title="Debugging"
         ContentTemplate="{DataTemplate views:DebuggingView}"
         Route="Debugging" />
