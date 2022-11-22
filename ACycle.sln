@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACycleMaui", "ACycleMaui\AC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACycle", "ACycle\ACycle.csproj", "{BCECF0E8-9EA1-41F2-B7BC-6603D257DEC3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACycleTest", "ACycleTest\ACycleTest.csproj", "{38A76794-61C0-416F-B471-4C68F7A10A30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACycle.UnitTests", "ACycleTest\ACycle.UnitTests.csproj", "{38A76794-61C0-416F-B471-4C68F7A10A30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
