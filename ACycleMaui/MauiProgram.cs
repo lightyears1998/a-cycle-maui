@@ -1,6 +1,7 @@
 ﻿using ACycle.AppServices;
 using ACycle.AppServices.Impl;
-using ACycleMaui.Pages;
+using ACycleMaui.ViewModels;
+using ACycleMaui.Views;
 
 namespace ACycleMaui;
 
@@ -25,19 +26,27 @@ public static class MauiProgram
 
     public static MauiAppBuilder RegisterAppServices(this MauiAppBuilder builder)
     {
-        builder.Services.AddSingleton<IDatabaseService, DatabaseService>();
+        builder.Services
+            .AddSingleton<IDatabaseService, DatabaseService>();
 
         return builder;
     }
 
     public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
     {
+        builder.Services
+            .AddSingleton<DebuggingViewModel>();
+
         return builder;
     }
 
     public static MauiAppBuilder RegisterViews(this MauiAppBuilder builder)
     {
-        builder.Services.AddTransient<DebuggingPage>();
+        builder.Services
+            .AddTransient<AcitivityView>()
+            .AddTransient<DebuggingView>()
+            .AddTransient<FocusView>();
+
         return builder;
     }
 }
