@@ -1,6 +1,6 @@
-on: [push]
-
 name: Make Badge
+
+on: [push]
 
 jobs:
   make-badge:
