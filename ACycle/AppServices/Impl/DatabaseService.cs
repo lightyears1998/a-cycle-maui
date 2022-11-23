@@ -3,20 +3,23 @@ using SQLite;
 
 namespace ACycle.AppServices.Impl
 {
-    public class DatabaseService : IDatabaseService
+    public class SQLiteDatabaseService : IDatabaseService
     {
         public readonly string MainDatabasePath;
         public SQLiteAsyncConnection MainDatabase;
 
-        public DatabaseService(string? databasePath = null)
+        public SQLiteDatabaseService(string? databasePath = null)
         {
             MainDatabasePath = databasePath ?? Path.Join(FileSystem.AppDataDirectory, "EntryDatabase.sqlite3");
             MainDatabase = new SQLiteAsyncConnection(MainDatabasePath);
-
-            Task.Run(CreateTables).Wait();
         }
 
-        private async Task CreateTables()
+        public Task Initialize()
+        {
+            return CreateTablesAsync();
+        }
+
+        private async Task CreateTablesAsync()
         {
             await MainDatabase.CreateTableAsync<EntryEntity>();
             await MainDatabase.CreateTableAsync<EntryHistoryEntity>();

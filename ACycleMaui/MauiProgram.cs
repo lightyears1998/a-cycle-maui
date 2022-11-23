@@ -27,7 +27,7 @@ public static class MauiProgram
     public static MauiAppBuilder RegisterAppServices(this MauiAppBuilder builder)
     {
         builder.Services
-            .AddSingleton<IDatabaseService, DatabaseService>();
+            .AddSingleton<IDatabaseService, SQLiteDatabaseService>();
 
         return builder;
     }
@@ -45,7 +45,9 @@ public static class MauiProgram
         builder.Services
             .AddTransient<AcitivityView>()
             .AddTransient<DebuggingView>()
-            .AddTransient<FocusView>();
+            .AddTransient<FocusView>()
+            .AddTransient<LandingView>()
+            .AddTransient<SettingsView>();
 
         return builder;
     }

@@ -1,12 +1,13 @@
-﻿namespace ACycleMaui;
+﻿using ACycleMaui.Views;
+
+namespace ACycleMaui;
 
 public partial class App : Application
 {
-    public App()
+    public App(LandingView landingView)
     {
         InitializeComponent();
-
-        MainPage = new AppShell();
+        MainPage = landingView;
     }
 
     protected override Window CreateWindow(IActivationState? activationState)

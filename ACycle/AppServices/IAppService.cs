@@ -8,5 +8,9 @@ namespace ACycle.AppServices
 {
     public interface IAppService
     {
+        public virtual Task Initialize()
+        {
+            return Task.CompletedTask;
+        }
     }
 }
