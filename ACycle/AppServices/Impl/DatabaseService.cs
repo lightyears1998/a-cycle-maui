@@ -1,22 +1,23 @@
 ﻿using ACycle.Entities;
 using SQLite;
+using System.Dynamic;
 
 namespace ACycle.AppServices.Impl
 {
-    public class SQLiteDatabaseService : IDatabaseService
+    public class DatabaseService : IDatabaseService
     {
         public readonly string MainDatabasePath;
         public SQLiteAsyncConnection MainDatabase;
 
-        public SQLiteDatabaseService(string? databasePath = null)
+        public DatabaseService(string? databasePath = null)
         {
             MainDatabasePath = databasePath ?? Path.Join(FileSystem.AppDataDirectory, "EntryDatabase.sqlite3");
             MainDatabase = new SQLiteAsyncConnection(MainDatabasePath);
         }
 
-        public Task Initialize()
+        public async Task Initialize()
         {
-            return CreateTablesAsync();
+            await CreateTablesAsync();
         }
 
         private async Task CreateTablesAsync()

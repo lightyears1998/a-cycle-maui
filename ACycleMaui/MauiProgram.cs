@@ -27,7 +27,7 @@ public static class MauiProgram
     public static MauiAppBuilder RegisterAppServices(this MauiAppBuilder builder)
     {
         builder.Services
-            .AddSingleton<IDatabaseService, SQLiteDatabaseService>();
+            .AddSingleton<IDatabaseService, DatabaseService>();
 
         return builder;
     }
