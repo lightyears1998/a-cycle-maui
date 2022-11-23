@@ -3,7 +3,7 @@
 namespace ACycle.Entities
 {
     [Table("metadata")]
-    public class MetadataEntity
+    public class MetadataEntity : IEntity
     {
         [PrimaryKey]
         [Column("key")]

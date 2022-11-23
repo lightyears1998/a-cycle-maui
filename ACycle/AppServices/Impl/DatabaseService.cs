@@ -6,12 +6,12 @@ namespace ACycle.AppServices.Impl
 {
     public class DatabaseService : IDatabaseService
     {
-        public readonly string MainDatabasePath;
-        public SQLiteAsyncConnection MainDatabase;
+        public string MainDatabasePath { protected set; get; }
+        public SQLiteAsyncConnection MainDatabase { protected set; get; }
 
-        public DatabaseService(string? databasePath = null)
+        public DatabaseService(string? mainDatabasePath = null)
         {
-            MainDatabasePath = databasePath ?? Path.Join(FileSystem.AppDataDirectory, "EntryDatabase.sqlite3");
+            MainDatabasePath = mainDatabasePath ?? Path.Join(FileSystem.AppDataDirectory, "EntryDatabase.sqlite3");
             MainDatabase = new SQLiteAsyncConnection(MainDatabasePath);
         }
 

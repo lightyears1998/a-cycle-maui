@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ACycle.Models
+﻿namespace ACycle.Models
 {
-    public class Diary
+    public class Diary : EntryBasedModel
     {
+        public override string EntryContentType { get; } = "diary";
+
+        public string title { get; set; }
+
+        public string description { get; set; }
+
+        public string content { get; set; }
     }
 }

@@ -3,7 +3,7 @@
 namespace ACycle.Entities
 {
     [Table("peer_node")]
-    public class PeerNodeEntity
+    public class PeerNodeEntity : IEntity
     {
         [PrimaryKey]
         [Column("uuid")]

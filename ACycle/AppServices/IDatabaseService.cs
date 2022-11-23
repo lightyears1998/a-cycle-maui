@@ -1,13 +1,11 @@
-﻿using ACycle.AppServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SQLite;
 
 namespace ACycle.AppServices
 {
     public interface IDatabaseService : IAppService
     {
+        public string MainDatabasePath { get; }
+
+        public SQLiteAsyncConnection MainDatabase { get; }
     }
 }

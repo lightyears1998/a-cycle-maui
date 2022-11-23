@@ -4,7 +4,7 @@ using SQLite;
 namespace ACycle.Entities
 {
     [Table("entry_history")]
-    public class EntryHistoryEntity
+    public class EntryHistoryEntity : IEntity
     {
         [PrimaryKey]
         [Column("id")]
@@ -20,6 +20,6 @@ namespace ACycle.Entities
         public Guid EntryUpdatedBy { get; set; } = Guid.Empty;
 
         [Column("createdAt")]
-        public DateTime createdAt { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }
