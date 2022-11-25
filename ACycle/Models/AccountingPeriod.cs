@@ -1,6 +1,6 @@
 ﻿namespace ACycle.Models
 {
-    public abstract class AccountingPeriod
+    public abstract class AccountingPeriod : IModel
     {
     }
 }

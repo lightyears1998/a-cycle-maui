@@ -1,6 +1,9 @@
-﻿namespace ACycle.Models
+﻿using ACycle.Models.Attributes;
+
+namespace ACycle.Models
 {
-    public class Diary : EntryBasedModel
+    [EntryBasedModel("diary")]
+    public class Diary : IModel
     {
         public static string EntryContentType { get; } = "diary";
 

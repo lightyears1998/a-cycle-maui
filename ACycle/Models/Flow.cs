@@ -1,6 +1,6 @@
 ﻿namespace ACycle.Models
 {
-    public abstract class Flow
+    public abstract class Flow : IModel
     {
         public string Name { set; get; } = "";
 

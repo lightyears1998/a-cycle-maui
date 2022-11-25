@@ -1,18 +1,26 @@
 ﻿using ACycle.AppServices;
 using ACycle.Entities;
 using ACycle.Models;
+using ACycle.Models.Attributes;
 using Newtonsoft.Json;
+using System.Reflection;
 
 namespace ACycle.EntityRepositories
 {
     public class EntryRepository<T>
-        where T : EntryBasedModel
+        where T : IModel, new()
     {
         private IDatabaseService _databaseService;
 
         public EntryRepository(IDatabaseService databaseService)
         {
             _databaseService = databaseService;
+        }
+
+        public EntryEntity? GetEntryEntity(T model)
+        {
+            var attr = typeof(T).GetCustomAttribute(typeof(EntryBasedModelAttribute), true) as EntryBasedModelAttribute ?? throw new ArgumentException($"{typeof(T).FullName} has no EntryBasedModelAttribute.");
+            return attr.Entry;
         }
 
         public async Task<T> InsertAsync(T model)

@@ -1,6 +1,6 @@
 ﻿namespace ACycle.Models
 {
-    public class Activity
+    public class Activity : IModel
     {
         public string Name { get; set; } = string.Empty;
 
