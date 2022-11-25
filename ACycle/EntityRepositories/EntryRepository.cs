@@ -49,7 +49,8 @@ namespace ACycle.EntityRepositories
 
         public async Task<List<T>> FindAllAsync()
         {
-            throw new NotImplementedException();
+            var query = await _databaseService.MainDatabase.Table<EntryEntity>().Where(v => v.ContentType.Equals(T.EntryContentType)).ToListAsync();
+            return new List<T>();
         }
     }
 }
