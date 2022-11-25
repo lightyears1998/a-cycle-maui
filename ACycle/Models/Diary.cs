@@ -4,10 +4,10 @@
     {
         public override string EntryContentType { get; } = "diary";
 
-        public string title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
-        public string description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
-        public string content { get; set; }
+        public string Content { get; set; } = string.Empty;
     }
 }

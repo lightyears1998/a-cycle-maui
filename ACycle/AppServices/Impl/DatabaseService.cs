@@ -1,6 +1,5 @@
 ﻿using ACycle.Entities;
 using SQLite;
-using System.Dynamic;
 
 namespace ACycle.AppServices.Impl
 {
