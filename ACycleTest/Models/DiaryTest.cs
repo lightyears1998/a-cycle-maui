@@ -37,6 +37,19 @@ namespace ACycle.UnitTests.Models
         }
 
         [TestMethod]
+        public async Task Diary_Update()
+        {
+            Diary diary = new Diary()
+            {
+                Title = "Title to be Updated"
+            };
+            await s_repo.InsertAsync(diary);
+
+            diary.Title = "Updated Title";
+            await s_repo.UpdateAsync(diary);
+        }
+
+        [TestMethod]
         public async Task Diary_Read()
         {
             await s_repo.FindAllAsync();

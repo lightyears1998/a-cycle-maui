@@ -1,11 +1,14 @@
-﻿using ACycle.Models.Attributes;
+﻿using ACycle.Entities;
+using ACycle.Models;
+using Newtonsoft.Json;
 
 namespace ACycle.Models
 {
-    [EntryBasedModel("diary")]
-    public class Diary : IModel
+    public class Diary : IEntryBasedModel
     {
         public static string EntryContentType { get; } = "diary";
+
+        public EntryEntity? EntryEntity { get; set; }
 
         public string Title { get; set; } = string.Empty;
 

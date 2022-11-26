@@ -1,14 +1,12 @@
 ﻿using ACycle.AppServices;
 using ACycle.Entities;
 using ACycle.Models;
-using ACycle.Models.Attributes;
 using Newtonsoft.Json;
-using System.Reflection;
 
 namespace ACycle.EntityRepositories
 {
     public class EntryRepository<T>
-        where T : IModel, new()
+        where T : IEntryBasedModel
     {
         private IDatabaseService _databaseService;
 
@@ -17,48 +15,51 @@ namespace ACycle.EntityRepositories
             _databaseService = databaseService;
         }
 
-        public EntryEntity? GetEntryEntity(T model)
-        {
-            var attr = typeof(T).GetCustomAttribute(typeof(EntryBasedModelAttribute), true) as EntryBasedModelAttribute ?? throw new ArgumentException($"{typeof(T).FullName} has no EntryBasedModelAttribute.");
-            return attr.Entry;
-        }
-
         public async Task<T> InsertAsync(T model)
         {
-            if (model.Entry != null)
+            if (model.EntryEntity != null)
             {
-                throw new ArgumentException("Entry is already in database.");
+                throw new ArgumentException("Entry is already in database. Use SaveAsync() or UpdateAsync() instead of InsertAsync().");
             }
 
-            model.Entry = new EntryEntity()
+            var entryEntity = new EntryEntity()
             {
-                ContentType = model.EntryContentType,
+                ContentType = T.EntryContentType,
                 Content = JsonConvert.SerializeObject(model),
                 UpdatedBy = Guid.NewGuid(),
             };
-            await _databaseService.MainDatabase.InsertAsync(model.Entry);
+
+            await _databaseService.MainDatabase.InsertAsync(entryEntity);
+            model.EntryEntity = entryEntity;
             return model;
         }
 
-        public async Task<T> UpdateAsync()
+        public async Task<T> UpdateAsync(T model)
+        {
+            if (model.EntryEntity == null)
+            {
+                throw new ArgumentException("Entry is not in database. Use SaveAsync() to save the entity into database first.");
+            }
+
+            await _databaseService.MainDatabase.UpdateAsync(model.EntryEntity);
+            return model;
+        }
+
+        public async Task<T> SaveAsync(T model)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<T> SaveAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task SaveIfNewOrFresherAsync()
+        public async Task SaveIfNewOrFresherAsync(T model)
         {
             throw new NotImplementedException();
         }
 
         public async Task<List<T>> FindAllAsync()
         {
-            var query = await _databaseService.MainDatabase.Table<EntryEntity>().Where(v => v.ContentType.Equals(T.EntryContentType)).ToListAsync();
-            return new List<T>();
+            //var query = await _databaseService.MainDatabase.Table<EntryEntity>().Where(v => v.ContentType.Equals(T.EntryContentType)).ToListAsync();
+            //return new List<T>();
+            throw new NotImplementedException();
         }
     }
 }
