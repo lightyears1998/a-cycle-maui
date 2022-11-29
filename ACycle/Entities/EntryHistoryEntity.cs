@@ -14,12 +14,12 @@ namespace ACycle.Entities
         public Guid EntryUuid { get; set; } = Guid.NewGuid();
 
         [Column("entryUpdatedAt")]
-        public string EntryUpdatedAt { get; set; } = DateTime.Now.ToString();
+        public DateTime EntryUpdatedAt { get; set; } = DateTime.UtcNow;
 
         [Column("entryUpdatedBy")]
         public Guid EntryUpdatedBy { get; set; } = Guid.Empty;
 
         [Column("createdAt")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

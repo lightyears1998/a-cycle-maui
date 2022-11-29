@@ -16,10 +16,10 @@ namespace ACycle.Entities
         public string Content { set; get; } = string.Empty;
 
         [Column("createdAt")]
-        public DateTime CreatedAt { set; get; } = DateTime.Now;
+        public DateTime CreatedAt { set; get; } = DateTime.UtcNow;
 
         [Column("updatedAt")]
-        public DateTime UpdatedAt { set; get; } = DateTime.Now;
+        public DateTime UpdatedAt { set; get; } = DateTime.UtcNow;
 
         [Column("updatedBy")]
         public Guid UpdatedBy { set; get; } = Guid.Empty;

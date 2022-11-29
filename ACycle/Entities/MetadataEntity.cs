@@ -13,6 +13,6 @@ namespace ACycle.Entities
         public string Value { get; set; } = string.Empty;
 
         [Column("updatedAt")]
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     }
 }

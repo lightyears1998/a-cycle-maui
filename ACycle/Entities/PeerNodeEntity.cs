@@ -13,6 +13,6 @@ namespace ACycle.Entities
         public string HistoryCursor { set; get; } = string.Empty;
 
         [Column("updatedAt")]
-        public DateTime UpdatedAt { set; get; } = DateTime.Now;
+        public DateTime UpdatedAt { set; get; } = DateTime.UtcNow;
     }
 }
