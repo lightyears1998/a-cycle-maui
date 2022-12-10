@@ -9,25 +9,34 @@ namespace ACycle.EntityRepositories
     {
         private readonly IDatabaseService _databaseService;
 
+        private readonly IConfigurationService _configurationService;
+
         public EntryRepository(
-            IDatabaseService databaseService)
+            IDatabaseService databaseService,
+            IConfigurationService configurationService)
         {
             _databaseService = databaseService;
+            _configurationService = configurationService;
         }
 
-        public async Task InsertAsync(EntryEntity entry)
+        private void UpdateTimestamp(EntryEntity entry)
         {
+            entry.UpdatedAt = DateTime.UtcNow;
+            entry.UpdatedBy = _configurationService.NodeUuid;
+        }
+
+        public async Task InsertAsync(EntryEntity entry, bool updateTimestamp = true)
+        {
+            if (updateTimestamp) UpdateTimestamp(entry);
+
             await _databaseService.MainDatabase.InsertAsync(entry);
         }
 
-        public async Task UpdateAsync(EntryEntity entry)
+        public async Task UpdateAsync(EntryEntity entry, bool updateTimestamp = true)
         {
-            await _databaseService.MainDatabase.UpdateAsync(entry);
-        }
+            if (updateTimestamp) UpdateTimestamp(entry);
 
-        public async Task SaveAsync(EntryEntity entry, bool updateTimestamp = true)
-        {
-            throw new NotImplementedException();
+            await _databaseService.MainDatabase.UpdateAsync(entry);
         }
 
         public async Task<List<EntryEntity>> FindAllAsync(string contentType)
@@ -41,12 +50,10 @@ namespace ACycle.EntityRepositories
         where T : IEntryBasedModel, new()
     {
         private readonly EntryRepository _repository;
-        private readonly IConfigurationService _configurationService;
 
-        public EntryRepository(EntryRepository entryRepository, IConfigurationService configurationService)
+        public EntryRepository(EntryRepository entryRepository)
         {
             _repository = entryRepository;
-            _configurationService = configurationService;
         }
 
         public async Task<T> InsertAsync(T model)
@@ -59,8 +66,7 @@ namespace ACycle.EntityRepositories
             var entryEntity = new EntryEntity()
             {
                 ContentType = T.EntryContentType,
-                Content = JsonConvert.SerializeObject(model),
-                UpdatedBy = _configurationService.NodeUuid,
+                Content = JsonConvert.SerializeObject(model)
             };
 
             await _repository.InsertAsync(entryEntity);
@@ -76,16 +82,8 @@ namespace ACycle.EntityRepositories
             }
 
             model.EntryEntity.Content = JsonConvert.SerializeObject(model);
-            model.EntryEntity.UpdatedAt = DateTime.UtcNow;
-            model.EntryEntity.UpdatedBy = _configurationService.NodeUuid;
-
             await _repository.UpdateAsync(model.EntryEntity);
             return model;
-        }
-
-        public async Task<T> SaveAsync(T model, bool updateStamp = true)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<List<T>> FindAllAsync()
