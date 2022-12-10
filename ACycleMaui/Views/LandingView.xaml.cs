@@ -5,10 +5,15 @@ namespace ACycleMaui.Views;
 public partial class LandingView : ContentPage
 {
     private readonly IDatabaseService _databaseService;
+    private readonly IConfigurationService _configurationService;
 
-    public LandingView(IDatabaseService databaseService)
+    public LandingView(
+        IDatabaseService databaseService,
+        IConfigurationService configurationService
+    )
     {
         _databaseService = databaseService;
+        _configurationService = configurationService;
         InitializeComponent();
         InitializeAndThenNavigateToAppShell();
     }
@@ -21,7 +26,8 @@ public partial class LandingView : ContentPage
 
     private async Task InitializeAppServices()
     {
-        await _databaseService.Initialize();
+        await _databaseService.InitializeAsync();
+        await _configurationService.InitializeAsync();
     }
 
     private static void NavigateToAppShell()

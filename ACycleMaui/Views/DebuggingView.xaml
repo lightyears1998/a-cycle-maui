@@ -6,6 +6,7 @@
              Title="DebuggingPage"
              x:DataType="viewmodels:DebuggingViewModel">
     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+        <Label Text="{x:Binding NodeUuidLabelText}" />
         <Button
             Text="Open App Data Directory in Explorer"
             Command="{x:Binding OpenDataDirectoryCommand}" />

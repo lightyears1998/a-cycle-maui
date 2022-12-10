@@ -14,7 +14,7 @@ namespace ACycle.AppServices.Impl
             MainDatabase = new SQLiteAsyncConnection(MainDatabasePath);
         }
 
-        public async Task Initialize()
+        public async Task InitializeAsync()
         {
             await CreateTablesAsync();
         }

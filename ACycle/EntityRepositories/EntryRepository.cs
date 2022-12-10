@@ -6,13 +6,15 @@ using Newtonsoft.Json;
 namespace ACycle.EntityRepositories
 {
     public class EntryRepository<T>
-        where T : IEntryBasedModel
+        where T : IEntryBasedModel, new()
     {
-        private IDatabaseService _databaseService;
+        private readonly IDatabaseService _databaseService;
+        private readonly IConfigurationService _configurationService;
 
-        public EntryRepository(IDatabaseService databaseService)
+        public EntryRepository(IDatabaseService databaseService, IConfigurationService configurationService)
         {
             _databaseService = databaseService;
+            _configurationService = configurationService;
         }
 
         public async Task<T> InsertAsync(T model)
@@ -26,7 +28,7 @@ namespace ACycle.EntityRepositories
             {
                 ContentType = T.EntryContentType,
                 Content = JsonConvert.SerializeObject(model),
-                UpdatedBy = Guid.NewGuid(),
+                UpdatedBy = _configurationService.NodeUuid,
             };
 
             await _databaseService.MainDatabase.InsertAsync(entryEntity);

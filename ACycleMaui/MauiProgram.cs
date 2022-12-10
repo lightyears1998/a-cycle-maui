@@ -1,5 +1,7 @@
 ﻿using ACycle.AppServices;
 using ACycle.AppServices.Impl;
+using ACycle.EntityRepositories;
+using ACycle.Models;
 using ACycleMaui.ViewModels;
 using ACycleMaui.Views;
 
@@ -17,6 +19,7 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             })
+            .RegisterEntityRepository()
             .RegisterAppServices()
             .RegisterViewModels()
             .RegisterViews();
@@ -27,7 +30,8 @@ public static class MauiProgram
     public static MauiAppBuilder RegisterAppServices(this MauiAppBuilder builder)
     {
         builder.Services
-            .AddSingleton<IDatabaseService, DatabaseService>();
+            .AddSingleton<IDatabaseService, DatabaseService>()
+            .AddSingleton<IConfigurationService, ConfigurationService>();
 
         return builder;
     }
@@ -48,6 +52,15 @@ public static class MauiProgram
             .AddTransient<FocusView>()
             .AddTransient<LandingView>()
             .AddTransient<SettingsView>();
+
+        return builder;
+    }
+
+    public static MauiAppBuilder RegisterEntityRepository(this MauiAppBuilder builder)
+    {
+        builder.Services
+            .AddTransient<EntryRepository<Diary>>()
+            .AddTransient<MetadataRepository>();
 
         return builder;
     }

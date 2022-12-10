@@ -7,13 +7,20 @@ namespace ACycleMaui.ViewModels
 {
     public class DebuggingViewModel
     {
-        private IDatabaseService _databseService;
+        private readonly IDatabaseService _databseService;
+        private readonly IConfigurationService _configurationService;
 
         public ICommand OpenDataDirectoryCommand { get; }
 
-        public DebuggingViewModel(IDatabaseService databaseService)
+        public string NodeUuidLabelText
+        {
+            get => $"Node UUID: {_configurationService.NodeUuid}";
+        }
+
+        public DebuggingViewModel(IDatabaseService databaseService, IConfigurationService configurationService)
         {
             _databseService = databaseService;
+            _configurationService = configurationService;
 
             OpenDataDirectoryCommand = new AsyncRelayCommand(OpenDataDirectoryAsync);
         }
