@@ -6,17 +6,46 @@ using Newtonsoft.Json;
 namespace ACycle.EntityRepositories
 {
     public class EntryRepository
-    { }
+    {
+        private readonly IDatabaseService _databaseService;
+
+        public EntryRepository(
+            IDatabaseService databaseService)
+        {
+            _databaseService = databaseService;
+        }
+
+        public async Task InsertAsync(EntryEntity entry)
+        {
+            await _databaseService.MainDatabase.InsertAsync(entry);
+        }
+
+        public async Task UpdateAsync(EntryEntity entry)
+        {
+            await _databaseService.MainDatabase.UpdateAsync(entry);
+        }
+
+        public async Task SaveAsync(EntryEntity entry, bool updateTimestamp = true)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<EntryEntity>> FindAllAsync(string contentType)
+        {
+            var query = _databaseService.MainDatabase.Table<EntryEntity>().Where(entity => entity.ContentType == contentType);
+            return await query.ToListAsync();
+        }
+    }
 
     public class EntryRepository<T>
         where T : IEntryBasedModel, new()
     {
-        private readonly IDatabaseService _databaseService;
+        private readonly EntryRepository _repository;
         private readonly IConfigurationService _configurationService;
 
-        public EntryRepository(IDatabaseService databaseService, IConfigurationService configurationService)
+        public EntryRepository(EntryRepository entryRepository, IConfigurationService configurationService)
         {
-            _databaseService = databaseService;
+            _repository = entryRepository;
             _configurationService = configurationService;
         }
 
@@ -34,7 +63,7 @@ namespace ACycle.EntityRepositories
                 UpdatedBy = _configurationService.NodeUuid,
             };
 
-            await _databaseService.MainDatabase.InsertAsync(entryEntity);
+            await _repository.InsertAsync(entryEntity);
             model.EntryEntity = entryEntity;
             return model;
         }
@@ -50,7 +79,7 @@ namespace ACycle.EntityRepositories
             model.EntryEntity.UpdatedAt = DateTime.UtcNow;
             model.EntryEntity.UpdatedBy = _configurationService.NodeUuid;
 
-            await _databaseService.MainDatabase.UpdateAsync(model.EntryEntity);
+            await _repository.UpdateAsync(model.EntryEntity);
             return model;
         }
 
@@ -61,21 +90,18 @@ namespace ACycle.EntityRepositories
 
         public async Task<List<T>> FindAllAsync()
         {
-            var entry_content_type = T.EntryContentType;
-            var query = _databaseService.MainDatabase.Table<EntryEntity>().Where(entity => entity.ContentType == entry_content_type);
-            var result = await query.ToListAsync();
-
-            var convertedResult = new List<T>();
-            foreach (var entity in result)
+            var entities = await _repository.FindAllAsync(T.EntryContentType);
+            var objects = new List<T>();
+            foreach (var entity in entities)
             {
                 var obj = JsonConvert.DeserializeObject<T>(entity.Content);
                 if (obj != null)
                 {
                     obj.EntryEntity = entity;
-                    convertedResult.Add(obj);
+                    objects.Add(obj);
                 }
             }
-            return convertedResult;
+            return objects;
         }
     }
 }

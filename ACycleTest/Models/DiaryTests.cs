@@ -13,7 +13,7 @@ namespace ACycle.UnitTests.Models
 
         private static readonly ConfigurationService s_config = new(new MetadataRepository(s_db));
 
-        private static readonly EntryRepository<Diary> s_repo = new(s_db, s_config);
+        private static readonly EntryRepository<Diary> s_repo = new(new EntryRepository(s_db), s_config);
 
         [ClassInitialize]
         public static async Task Initialize(TestContext _)
