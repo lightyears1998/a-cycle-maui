@@ -5,6 +5,9 @@ using Newtonsoft.Json;
 
 namespace ACycle.EntityRepositories
 {
+    public class EntryRepository
+    { }
+
     public class EntryRepository<T>
         where T : IEntryBasedModel, new()
     {
@@ -43,25 +46,36 @@ namespace ACycle.EntityRepositories
                 throw new ArgumentException("Entry is not in database. Use SaveAsync() to save the entity into database first.");
             }
 
+            model.EntryEntity.Content = JsonConvert.SerializeObject(model);
+            model.EntryEntity.UpdatedAt = DateTime.UtcNow;
+            model.EntryEntity.UpdatedBy = _configurationService.NodeUuid;
+
             await _databaseService.MainDatabase.UpdateAsync(model.EntryEntity);
             return model;
         }
 
-        public async Task<T> SaveAsync(T model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task SaveIfNewOrFresherAsync(T model)
+        public async Task<T> SaveAsync(T model, bool updateStamp = true)
         {
             throw new NotImplementedException();
         }
 
         public async Task<List<T>> FindAllAsync()
         {
-            //var query = await _databaseService.MainDatabase.Table<EntryEntity>().Where(v => v.ContentType.Equals(T.EntryContentType)).ToListAsync();
-            //return new List<T>();
-            throw new NotImplementedException();
+            var entry_content_type = T.EntryContentType;
+            var query = _databaseService.MainDatabase.Table<EntryEntity>().Where(entity => entity.ContentType == entry_content_type);
+            var result = await query.ToListAsync();
+
+            var convertedResult = new List<T>();
+            foreach (var entity in result)
+            {
+                var obj = JsonConvert.DeserializeObject<T>(entity.Content);
+                if (obj != null)
+                {
+                    obj.EntryEntity = entity;
+                    convertedResult.Add(obj);
+                }
+            }
+            return convertedResult;
         }
     }
 }

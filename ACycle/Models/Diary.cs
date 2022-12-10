@@ -1,5 +1,4 @@
 ﻿using ACycle.Entities;
-using ACycle.Models;
 using Newtonsoft.Json;
 
 namespace ACycle.Models
@@ -10,8 +9,10 @@ namespace ACycle.Models
 
         public EntryEntity? EntryEntity { get; set; }
 
+        [JsonProperty("title")]
         public string Title { get; set; } = string.Empty;
 
+        [JsonProperty("content")]
         public string Content { get; set; } = string.Empty;
     }
 }

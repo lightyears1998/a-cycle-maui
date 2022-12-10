@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ACycle.UnitTests.Entities
 {
     [TestClass]
-    public class EntryEntityTest
+    public class EntryEntityTests
     {
         [TestMethod]
         public void EntryEntity_Serialize()

@@ -59,6 +59,7 @@ public static class MauiProgram
     public static MauiAppBuilder RegisterEntityRepository(this MauiAppBuilder builder)
     {
         builder.Services
+            .AddTransient<EntryRepository>()
             .AddTransient<EntryRepository<Diary>>()
             .AddTransient<MetadataRepository>();
 

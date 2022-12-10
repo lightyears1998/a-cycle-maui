@@ -5,18 +5,21 @@ using ACycle.Models;
 namespace ACycle.UnitTests.Models
 {
     [TestClass]
-    public class DiaryTest
+    public class DiaryTests
     {
         private static readonly string s_test_database_path = "TestDatabase.sqlite3";
 
         private static readonly DatabaseService s_db = new(s_test_database_path);
 
-        private static readonly EntryRepository<Diary> s_repo = new(s_db);
+        private static readonly ConfigurationService s_config = new(new MetadataRepository(s_db));
+
+        private static readonly EntryRepository<Diary> s_repo = new(s_db, s_config);
 
         [ClassInitialize]
         public static async Task Initialize(TestContext _)
         {
-            await s_db.Initialize();
+            await s_db.InitializeAsync();
+            await s_config.InitializeAsync();
         }
 
         [TestMethod]
@@ -26,7 +29,7 @@ namespace ACycle.UnitTests.Models
         }
 
         [TestMethod]
-        public async Task Diary_Insert()
+        public async Task Diary_Save()
         {
             Diary diary = new()
             {
@@ -39,7 +42,7 @@ namespace ACycle.UnitTests.Models
         [TestMethod]
         public async Task Diary_Update()
         {
-            Diary diary = new Diary()
+            Diary diary = new()
             {
                 Title = "Title to be Updated"
             };
@@ -50,9 +53,10 @@ namespace ACycle.UnitTests.Models
         }
 
         [TestMethod]
-        public async Task Diary_Read()
+        public async Task Diary_SaveAndRead()
         {
-            await s_repo.FindAllAsync();
+            var result = await s_repo.FindAllAsync();
+            Assert.IsTrue(result.Count > 0, "Result size should be larger than zero.");
         }
     }
 }
