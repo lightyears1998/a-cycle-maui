@@ -1,7 +1,7 @@
 ﻿using ACycle.Entities;
 using SQLite;
 
-namespace ACycle.AppServices.Impl
+namespace ACycle.Services.Impl
 {
     public class DatabaseService : IDatabaseService
     {

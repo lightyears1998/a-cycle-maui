@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace ACycle.AppServices
+namespace ACycle.Services
 {
     public interface IDatabaseService : IAppService
     {

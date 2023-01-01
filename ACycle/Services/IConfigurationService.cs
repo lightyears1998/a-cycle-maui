@@ -1,4 +1,4 @@
-﻿namespace ACycle.AppServices
+﻿namespace ACycle.Services
 {
     public interface IConfigurationService : IAppService
     {

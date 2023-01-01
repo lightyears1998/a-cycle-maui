@@ -44,14 +44,14 @@ namespace ACycle.EntityRepositories
             return model;
         }
 
-        public async Task DeleteAsync(T model)
+        public async Task RemoveAsync(T model)
         {
             if (model.EntryEntity == null)
             {
                 throw new ArgumentException("Entry is not in database, thus it is not able to delete it from database.");
             }
 
-            await _rawRepository.DeleteAsync(model.EntryEntity);
+            await _rawRepository.RemoveAsync(model.EntryEntity);
         }
 
         public async Task<List<T>> FindAllAsync()

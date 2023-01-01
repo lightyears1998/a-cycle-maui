@@ -1,4 +1,4 @@
-﻿using ACycle.AppServices;
+﻿using ACycle.Services;
 using ACycle.Entities;
 
 namespace ACycle.EntityRepositories
@@ -37,7 +37,14 @@ namespace ACycle.EntityRepositories
             await _databaseService.MainDatabase.UpdateAsync(entry);
         }
 
-        public async Task DeleteAsync(EntryEntity entry)
+        public async Task RemoveAsync(EntryEntity entry)
+        {
+            entry.RemovedAt = DateTime.UtcNow;
+
+            await _databaseService.MainDatabase.UpdateAsync(entry);
+        }
+
+        public async Task ForceDelete(EntryEntity entry)
         {
             await _databaseService.MainDatabase.DeleteAsync(entry);
         }
