@@ -8,7 +8,7 @@
    version="1.1"
    id="svg5"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
-   sodipodi:docname="icon.svg"
+   sodipodi:docname="appicon.svg"
    inkscape:export-filename="C:\Users\lightyears\Documents\GitHub\a-cycle\a-cycle-maui\Assets\icon.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
@@ -34,7 +34,7 @@
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:zoom="1.5358305"
-     inkscape:cx="132.82716"
+     inkscape:cx="133.15271"
      inkscape:cy="261.42208"
      inkscape:window-width="1920"
      inkscape:window-height="1051"
@@ -47,32 +47,7 @@
   <g
      inkscape:label="图层 1"
      inkscape:groupmode="layer"
-     id="layer1">
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:179.258px;line-height:1.25;font-family:'Cormorant Garamond';-inkscape-font-specification:'Cormorant Garamond, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff7f2a;fill-opacity:1;stroke:none;stroke-width:4.48145"
-       x="6.8640175"
-       y="123.37063"
-       id="text2034"
-       transform="scale(0.98115922,1.0192026)"><tspan
-         sodipodi:role="line"
-         id="tspan2032"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:179.258px;font-family:'Cormorant Garamond';-inkscape-font-specification:'Cormorant Garamond, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:4.48145;fill:#ff7f2a"
-         x="6.8640175"
-         y="123.37063">C</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:107.281px;line-height:1.25;font-family:'Cormorant Garamond';-inkscape-font-specification:'Cormorant Garamond, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff7f2a;fill-opacity:1;stroke:none;stroke-width:2.68204"
-       x="44.656033"
-       y="90.854416"
-       id="text3094"
-       transform="scale(0.92686085,1.0789106)"><tspan
-         sodipodi:role="line"
-         id="tspan3092"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:107.281px;font-family:'Cormorant Garamond';-inkscape-font-specification:'Cormorant Garamond, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:2.68204;fill:#ff7f2a"
-         x="44.656033"
-         y="90.854416">A</tspan></text>
-  </g>
+     id="layer1" />
   <metadata
      id="metadata898">
     <rdf:RDF>
