@@ -1,6 +1,6 @@
 ﻿namespace ACycle.Services
 {
-    public interface IAppService
+    public interface IService
     {
         virtual Task InitializeAsync()
         {

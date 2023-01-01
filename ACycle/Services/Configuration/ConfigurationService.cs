@@ -1,6 +1,6 @@
 ﻿using ACycle.EntityRepositories;
 
-namespace ACycle.Services.Impl
+namespace ACycle.Services
 {
     public class ConfigurationService : IConfigurationService
     {

@@ -2,7 +2,7 @@
 
 namespace ACycle.Services
 {
-    public interface IDatabaseService : IAppService
+    public interface IDatabaseService : IService
     {
         public string MainDatabasePath { get; }
 

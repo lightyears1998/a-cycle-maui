@@ -1,6 +1,6 @@
 ﻿namespace ACycle.Services
 {
-    public interface IConfigurationService : IAppService
+    public interface IConfigurationService : IService
     {
         Guid NodeUuid { set; get; }
     }
