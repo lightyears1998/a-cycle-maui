@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:templates="clr-namespace:ACycleMaui.Views.Templates"
+             xmlns:viewModels="clr-namespace:ACycleMaui.ViewModels"
+             x:Class="ACycleMaui.Views.DiaryView"
+             x:DataType="viewModels:DiaryViewModel"
+             Title="Diary">
+
+    <VerticalStackLayout>
+        <HorizontalStackLayout>
+            <Button Text="&lt;" />
+            <DatePicker VerticalOptions="Fill" />
+            <Button Text="&gt;" />
+        </HorizontalStackLayout>
+
+        <CollectionView ItemsSource="{Binding Diaries}" SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <templates:DiaryTemplate />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <HorizontalStackLayout>
+            <Button Text="Add" Command="{Binding OpenEditorCommand}" />
+            <Button Text="Edit" />
+            <Button Text="Remove" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

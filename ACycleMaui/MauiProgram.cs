@@ -1,9 +1,9 @@
-﻿using ACycle.AppServices;
-using ACycle.AppServices.Impl;
+﻿using ACycle.Services;
 using ACycle.EntityRepositories;
 using ACycle.Models;
 using ACycleMaui.ViewModels;
 using ACycleMaui.Views;
+using ACycleMaui.Services;
 
 namespace ACycleMaui;
 
@@ -31,7 +31,8 @@ public static class MauiProgram
     {
         builder.Services
             .AddSingleton<IDatabaseService, DatabaseService>()
-            .AddSingleton<IConfigurationService, ConfigurationService>();
+            .AddSingleton<IConfigurationService, ConfigurationService>()
+            .AddSingleton<INavigationService, NavigationService>();
 
         return builder;
     }
@@ -39,7 +40,8 @@ public static class MauiProgram
     public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
     {
         builder.Services
-            .AddSingleton<DebuggingViewModel>();
+            .AddSingleton<DebuggingViewModel>()
+            .AddTransient<DiaryViewModel>();
 
         return builder;
     }
@@ -47,11 +49,15 @@ public static class MauiProgram
     public static MauiAppBuilder RegisterViews(this MauiAppBuilder builder)
     {
         builder.Services
-            .AddTransient<AcitivityView>()
+            .AddTransient<ActivityView>()
             .AddTransient<DebuggingView>()
+            .AddTransient<DiaryView>()
             .AddTransient<FocusView>()
+            .AddTransient<HealthView>()
             .AddTransient<LandingView>()
-            .AddTransient<SettingsView>();
+            .AddTransient<LedgerView>()
+            .AddTransient<SettingsView>()
+            .AddTransient<TodoListView>();
 
         return builder;
     }

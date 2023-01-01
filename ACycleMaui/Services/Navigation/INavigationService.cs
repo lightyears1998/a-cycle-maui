@@ -4,6 +4,6 @@ namespace ACycleMaui.Services
 {
     public interface INavigationService : IService
     {
-        public Task NavigatToAsync(string route);
+        public Task NavigateToAsync(string route);
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace ACycleMaui.Views;
 
-public partial class AcitivityView : ContentPage
+public partial class ActivityView : ContentPage
 {
-    public AcitivityView()
+    public ActivityView()
     {
         InitializeComponent();
     }
