@@ -2,9 +2,11 @@
 {
     public class NavigationService : INavigationService
     {
-        public async Task NavigateToAsync(string route)
+        public Task NavigateToAsync(string route, IDictionary<string, object>? parameters)
         {
-            await Shell.Current.GoToAsync(route);
+            return parameters != null ? Shell.Current.GoToAsync(route, parameters) : Shell.Current.GoToAsync(route);
         }
+
+        public Task PopAsync() => Shell.Current.GoToAsync("..");
     }
 }
