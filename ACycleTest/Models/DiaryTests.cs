@@ -1,5 +1,5 @@
 ﻿using ACycle.Services;
-using ACycle.EntityRepositories;
+using ACycle.Repositories;
 using ACycle.Models;
 
 namespace ACycle.UnitTests.Models
