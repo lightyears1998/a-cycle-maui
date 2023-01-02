@@ -4,22 +4,22 @@ using SQLite;
 namespace ACycle.Entities
 {
     [Table("entry_history")]
-    public class EntryHistoryEntity : IEntity
+    public class EntryHistory : IEntity
     {
         [PrimaryKey]
         [Column("id")]
         public int Id { get; set; }
 
-        [Column("entryUuid")]
+        [Column("entry_uuid")]
         public Guid EntryUuid { get; set; } = Guid.NewGuid();
 
-        [Column("entryUpdatedAt")]
+        [Column("entry_updated_at")]
         public DateTime EntryUpdatedAt { get; set; } = DateTime.UtcNow;
 
-        [Column("entryUpdatedBy")]
+        [Column("entry_updated_by")]
         public Guid EntryUpdatedBy { get; set; } = Guid.Empty;
 
-        [Column("createdAt")]
+        [Column("created_at")]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

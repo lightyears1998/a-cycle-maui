@@ -3,16 +3,16 @@
 namespace ACycle.Entities
 {
     [Table("peer_node")]
-    public class PeerNodeEntity : IEntity
+    public class PeerNode : IEntity
     {
         [PrimaryKey]
         [Column("uuid")]
         public Guid Uuid { get; set; } = Guid.NewGuid();
 
-        [Column("historyCursor")]
+        [Column("history_cursor")]
         public string HistoryCursor { set; get; } = string.Empty;
 
-        [Column("updatedAt")]
+        [Column("updated_at")]
         public DateTime UpdatedAt { set; get; } = DateTime.UtcNow;
     }
 }

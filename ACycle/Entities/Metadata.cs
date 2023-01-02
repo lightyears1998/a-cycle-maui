@@ -3,7 +3,7 @@
 namespace ACycle.Entities
 {
     [Table("metadata")]
-    public class MetadataEntity : IEntity
+    public class Metadata : IEntity
     {
         [PrimaryKey]
         [Column("key")]
@@ -12,7 +12,7 @@ namespace ACycle.Entities
         [Column("value")]
         public string Value { get; set; } = string.Empty;
 
-        [Column("updatedAt")]
+        [Column("updated_at")]
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     }
 }
