@@ -20,14 +20,14 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             })
             .RegisterEntityRepository()
-            .RegisterAppServices()
+            .RegisterServices()
             .RegisterViewModels()
             .RegisterViews();
 
         return builder.Build();
     }
 
-    public static MauiAppBuilder RegisterAppServices(this MauiAppBuilder builder)
+    public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
     {
         builder.Services
             .AddSingleton<IDatabaseService, DatabaseService>()
