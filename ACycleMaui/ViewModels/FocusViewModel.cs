@@ -1,6 +1,6 @@
 ﻿namespace ACycleMaui.ViewModels
 {
-    public class FocusViewModel
+    public class FocusViewModel : ViewModelBase
     {
     }
 }

@@ -2,11 +2,11 @@ using ACycleMaui.ViewModels;
 
 namespace ACycleMaui.Views;
 
-public partial class DiaryView : ContentPage
+public partial class DiaryView : ContentPageBase
 {
     public DiaryView(DiaryViewModel model)
     {
-        InitializeComponent();
         BindingContext = model;
+        InitializeComponent();
     }
 }

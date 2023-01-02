@@ -1,6 +1,6 @@
 namespace ACycleMaui.Views;
 
-public partial class FocusView : ContentPage
+public partial class FocusView : ContentPageBase
 {
     public FocusView()
     {

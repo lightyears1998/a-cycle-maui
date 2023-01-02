@@ -1,9 +1,9 @@
 namespace ACycleMaui.Views;
 
-public partial class HealthView : ContentPage
+public partial class HealthView : ContentPageBase
 {
-	public HealthView()
-	{
-		InitializeComponent();
-	}
+    public HealthView()
+    {
+        InitializeComponent();
+    }
 }

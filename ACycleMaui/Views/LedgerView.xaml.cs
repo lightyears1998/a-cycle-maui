@@ -1,9 +1,9 @@
 namespace ACycleMaui.Views;
 
-public partial class LedgerView : ContentPage
+public partial class LedgerView : ContentPageBase
 {
-	public LedgerView()
-	{
-		InitializeComponent();
-	}
+    public LedgerView()
+    {
+        InitializeComponent();
+    }
 }

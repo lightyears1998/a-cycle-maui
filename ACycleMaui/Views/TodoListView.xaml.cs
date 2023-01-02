@@ -1,6 +1,6 @@
 namespace ACycleMaui.Views;
 
-public partial class TodoListView : ContentPage
+public partial class TodoListView : ContentPageBase
 {
     public TodoListView()
     {

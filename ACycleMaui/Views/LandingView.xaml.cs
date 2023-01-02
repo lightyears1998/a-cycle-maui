@@ -2,7 +2,7 @@ using ACycle.Services;
 
 namespace ACycleMaui.Views;
 
-public partial class LandingView : ContentPage
+public partial class LandingView : ContentPageBase
 {
     private readonly IDatabaseService _databaseService;
     private readonly IConfigurationService _configurationService;
@@ -14,6 +14,7 @@ public partial class LandingView : ContentPage
     {
         _databaseService = databaseService;
         _configurationService = configurationService;
+
         InitializeComponent();
         InitializeAndThenNavigateToAppShell();
     }

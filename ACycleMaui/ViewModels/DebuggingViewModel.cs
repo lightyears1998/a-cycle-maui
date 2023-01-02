@@ -8,17 +8,17 @@ using System.Diagnostics;
 
 namespace ACycleMaui.ViewModels
 {
-    public class DebuggingViewModel
+    public class DebuggingViewModel : ViewModelBase
     {
+        private readonly IDatabaseService _databseService;
+        private readonly IConfigurationService _configurationService;
+
         public ICommand OpenDataDirectoryCommand { get; }
 
         public string NodeUuidLabelText
         {
             get => $"Node UUID: {_configurationService.NodeUuid}";
         }
-
-        private readonly IDatabaseService _databseService;
-        private readonly IConfigurationService _configurationService;
 
         public DebuggingViewModel(IDatabaseService databaseService, IConfigurationService configurationService)
         {

@@ -1,6 +1,6 @@
 namespace ACycleMaui.Views;
 
-public partial class SettingsView : ContentPage
+public partial class SettingsView : ContentPageBase
 {
     public SettingsView()
     {

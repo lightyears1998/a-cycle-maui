@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:templates="clr-namespace:ACycleMaui.Views.Templates"
-             xmlns:viewModels="clr-namespace:ACycleMaui.ViewModels"
-             x:Class="ACycleMaui.Views.DiaryView"
-             x:DataType="viewModels:DiaryViewModel"
-             Title="Diary">
-
+<views:ContentPageBase
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:templates="clr-namespace:ACycleMaui.Views.Templates"
+    xmlns:views="clr-namespace:ACycleMaui.Views"
+    xmlns:viewModels="clr-namespace:ACycleMaui.ViewModels"
+    x:Class="ACycleMaui.Views.DiaryView"
+    x:DataType="viewModels:DiaryViewModel"
+    Title="Diary">
     <VerticalStackLayout>
         <HorizontalStackLayout>
-            <Button Text="&lt;" />
-            <DatePicker VerticalOptions="Fill" />
-            <Button Text="&gt;" />
+            <Button Text="&lt;" Command="{Binding JumpToPreviousDateCommand}" />
+            <DatePicker VerticalOptions="Fill" Date="{Binding Date}" />
+            <Button Text="&gt;" Command="{Binding JumpToNextDateCommand}" />
         </HorizontalStackLayout>
 
         <CollectionView ItemsSource="{Binding Diaries}" SelectionMode="Single">
@@ -28,4 +29,4 @@
             <Button Text="Remove" />
         </HorizontalStackLayout>
     </VerticalStackLayout>
-</ContentPage>
+</views:ContentPageBase>
