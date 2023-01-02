@@ -1,7 +1,7 @@
 ﻿using ACycle.Services;
 using ACycle.Entities;
 
-namespace ACycle.EntityRepositories
+namespace ACycle.Repositories
 {
     public class MetadataRepository
     {
@@ -14,14 +14,14 @@ namespace ACycle.EntityRepositories
 
         public async Task<string?> GetMetadataAsync(string Key)
         {
-            var query = _databaseService.MainDatabase.Table<MetadataEntity>().Where(meta => meta.Key == Key);
+            var query = _databaseService.MainDatabase.Table<Metadata>().Where(meta => meta.Key == Key);
             var result = await query.FirstOrDefaultAsync();
             return result?.Value;
         }
 
         public async Task SaveMetadataAsync(string Key, string Value)
         {
-            await _databaseService.MainDatabase.InsertOrReplaceAsync(new MetadataEntity { Key = Key, Value = Value });
+            await _databaseService.MainDatabase.InsertOrReplaceAsync(new Metadata { Key = Key, Value = Value });
         }
     }
 }

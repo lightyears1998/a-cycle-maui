@@ -10,7 +10,7 @@ namespace ACycle.Services
 
         public DatabaseService(string? mainDatabasePath = null)
         {
-            MainDatabasePath = mainDatabasePath ?? Path.Join(FileSystem.AppDataDirectory, "EntryDatabase.sqlite3");
+            MainDatabasePath = mainDatabasePath ?? Path.Join(FileSystem.AppDataDirectory, "MainDatabase.sqlite3");
             MainDatabase = new SQLiteAsyncConnection(MainDatabasePath);
         }
 
@@ -21,10 +21,10 @@ namespace ACycle.Services
 
         private async Task CreateTablesAsync()
         {
-            await MainDatabase.CreateTableAsync<EntryEntity>();
-            await MainDatabase.CreateTableAsync<EntryHistoryEntity>();
-            await MainDatabase.CreateTableAsync<MetadataEntity>();
-            await MainDatabase.CreateTableAsync<PeerNodeEntity>();
+            await MainDatabase.CreateTableAsync<Entities.Entry>();
+            await MainDatabase.CreateTableAsync<EntryHistory>();
+            await MainDatabase.CreateTableAsync<Metadata>();
+            await MainDatabase.CreateTableAsync<PeerNode>();
         }
     }
 }

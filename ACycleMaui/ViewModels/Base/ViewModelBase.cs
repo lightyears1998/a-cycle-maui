@@ -5,7 +5,7 @@ namespace ACycleMaui.ViewModels
     public class ViewModelBase : ObservableObject, IViewModelBase, IDisposable
     {
         private bool _disposed = false;
-        private SemaphoreSlim _isBusyLock = new(1, 1);
+        private readonly SemaphoreSlim _isBusyLock = new(1, 1);
         private bool _isBusy = false;
         private bool _isInitialized = false;
 

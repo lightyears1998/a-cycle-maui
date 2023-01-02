@@ -8,8 +8,8 @@ namespace ACycle.UnitTests.Entities
         [TestMethod]
         public void Entry_Serialize()
         {
-            ACycle.Entities.Entry entryEntity = new();
-            _ = JsonConvert.SerializeObject(entryEntity);
+            ACycle.Entities.Entry entry = new();
+            _ = JsonConvert.SerializeObject(entry);
         }
     }
 }

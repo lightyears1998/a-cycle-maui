@@ -7,7 +7,7 @@ namespace ACycle.UnitTests.Models
     [TestClass]
     public class DiaryTests
     {
-        private static readonly string s_test_database_path = "TestDatabase.sqlite3";
+        private static readonly string s_test_database_path = "Test.MainDatabase.sqlite3";
 
         private static readonly DatabaseService s_db = new(s_test_database_path);
 
@@ -33,9 +33,20 @@ namespace ACycle.UnitTests.Models
         {
             Diary diary = new()
             {
-                Title = "Test Title",
-                Content = "The content of a diary for test."
+                Title = "Diary_Save Test Title",
+                Content = "Diary_Save test content. The content of a diary for test."
             };
+            await s_repo.InsertAsync(diary);
+        }
+
+        [TestMethod]
+        public async Task Diary_DoubleInsert()
+        {
+            Diary diary = new()
+            {
+                Title = "Diary_DoubleInsert Test Title",
+            };
+            await s_repo.InsertAsync(diary);
             await s_repo.InsertAsync(diary);
         }
 
@@ -44,11 +55,11 @@ namespace ACycle.UnitTests.Models
         {
             Diary diary = new()
             {
-                Title = "Title to be Updated"
+                Title = "Diary_Update Test Title"
             };
             await s_repo.InsertAsync(diary);
 
-            diary.Title = "Updated Title";
+            diary.Title = "Diary_Update Test Title (Updated)";
             await s_repo.UpdateAsync(diary);
         }
 
@@ -57,6 +68,21 @@ namespace ACycle.UnitTests.Models
         {
             var result = await s_repo.FindAllAsync();
             Assert.IsTrue(result.Count > 0, "Result size should be larger than zero.");
+        }
+
+        [TestMethod]
+        public async Task Diary_SaveAndDelete()
+        {
+            int diaryCount = (await s_repo.FindAllAsync()).Count;
+
+            Diary diary = new()
+            {
+                Title = "Diary_SaveAndDelete Test Title"
+            };
+            await s_repo.InsertAsync(diary);
+            await s_repo.RemoveAsync(diary);
+
+            Assert.AreEqual(diaryCount, (await s_repo.FindAllAsync()).Count);
         }
     }
 }

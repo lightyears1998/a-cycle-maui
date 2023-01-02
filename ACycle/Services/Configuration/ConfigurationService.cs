@@ -1,4 +1,4 @@
-﻿using ACycle.EntityRepositories;
+﻿using ACycle.Repositories;
 
 namespace ACycle.Services
 {

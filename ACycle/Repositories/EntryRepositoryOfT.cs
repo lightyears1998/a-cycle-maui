@@ -1,11 +1,12 @@
-﻿using ACycle.Entities;
-using ACycle.Models;
+﻿using ACycle.Models;
 using Newtonsoft.Json;
 
-namespace ACycle.EntityRepositories
+namespace ACycle.Repositories
 {
+    using Entry = Entities.Entry;
+
     public class EntryRepository<T>
-        where T : IEntryBasedModel, new()
+        where T : EntryBasedModel, new()
     {
         private readonly EntryRepository _rawRepository;
 
@@ -16,57 +17,55 @@ namespace ACycle.EntityRepositories
 
         public async Task<T> InsertAsync(T model)
         {
-            if (model.EntryEntity != null)
+            if (model.EntryMetadata != null)
             {
                 throw new ArgumentException("Entry is already in database. Use SaveAsync() or UpdateAsync() instead of InsertAsync().");
             }
 
-            var entryEntity = new EntryEntity()
-            {
-                ContentType = T.EntryContentType,
-                Content = JsonConvert.SerializeObject(model)
-            };
+            model.EntryMetadata = new EntryMetadata();
+            Entry entry = model.GetEntry();
 
-            await _rawRepository.InsertAsync(entryEntity);
-            model.EntryEntity = entryEntity;
+            await _rawRepository.InsertAsync(entry);
             return model;
         }
 
         public async Task<T> UpdateAsync(T model)
         {
-            if (model.EntryEntity == null)
+            if (model.EntryMetadata == null)
             {
-                throw new ArgumentException("Entry is not in database. Use SaveAsync() to save the entity into database first.");
+                throw new ArgumentException("Entry is not in database. Use SaveAsync() to save the entry into database first.");
             }
 
-            model.EntryEntity.Content = JsonConvert.SerializeObject(model);
-            await _rawRepository.UpdateAsync(model.EntryEntity);
+            await _rawRepository.UpdateAsync(model.GetEntry());
             return model;
         }
 
         public async Task RemoveAsync(T model)
         {
-            if (model.EntryEntity == null)
+            if (model.EntryMetadata == null)
             {
                 throw new ArgumentException("Entry is not in database, thus it is not able to delete it from database.");
             }
 
-            await _rawRepository.RemoveAsync(model.EntryEntity);
+            await _rawRepository.RemoveAsync(model.GetEntry());
         }
 
         public async Task<List<T>> FindAllAsync()
         {
-            var entities = await _rawRepository.FindAllAsync(T.EntryContentType);
+            var entryContentType = EntryBasedModelRegistry.Instance.GetEntryContentTypeFromModelType(typeof(T));
+            var entries = await _rawRepository.FindAllAsync(entryContentType);
+
             var objects = new List<T>();
-            foreach (var entity in entities)
+            foreach (var entry in entries)
             {
-                var obj = JsonConvert.DeserializeObject<T>(entity.Content);
+                var obj = JsonConvert.DeserializeObject<T>(entry.Content);
                 if (obj != null)
                 {
-                    obj.EntryEntity = entity;
+                    obj.EntryMetadata = entry.GetMetadata();
                     objects.Add(obj);
                 }
             }
+
             return objects;
         }
     }
