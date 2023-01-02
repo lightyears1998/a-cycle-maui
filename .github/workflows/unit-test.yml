@@ -3,7 +3,7 @@ name: Run .NET Unit Test
 on: [push]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -28,4 +28,4 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
       - name: Test
-        run: dotnet test --no-restore --nologo --verbosity minimal
+        run: dotnet test --no-restore --nologo --verbosity normal
