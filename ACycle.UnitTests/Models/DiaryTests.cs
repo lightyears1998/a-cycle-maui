@@ -1,6 +1,6 @@
-﻿using ACycle.Services;
+﻿using ACycle.Models;
 using ACycle.Repositories;
-using ACycle.Models;
+using ACycle.Services;
 
 namespace ACycle.UnitTests.Models
 {
@@ -13,7 +13,7 @@ namespace ACycle.UnitTests.Models
 
         private static readonly ConfigurationService s_config = new(new MetadataRepository(s_db));
 
-        private static readonly EntryRepository<Diary> s_repo = new(new EntryRepository(s_db, s_config));
+        private static readonly EntryBasedModelRepository<Diary> s_repo = new(s_config, new EntryRepository(s_db));
 
         [ClassInitialize]
         public static async Task Initialize(TestContext _)
@@ -40,6 +40,7 @@ namespace ACycle.UnitTests.Models
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
         public async Task Diary_DoubleInsert()
         {
             Diary diary = new()

@@ -66,7 +66,7 @@ public static class MauiProgram
     {
         builder.Services
             .AddTransient<EntryRepository>()
-            .AddTransient<EntryRepository<Diary>>()
+            .AddTransient<EntryBasedModelRepository<Diary>>()
             .AddTransient<MetadataRepository>();
 
         return builder;
