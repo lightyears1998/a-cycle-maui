@@ -1,13 +1,17 @@
-﻿using ACycle.Views;
+﻿using ACycle.Services;
+using ACycle.Views;
 
 namespace ACycle;
 
 public partial class App : Application
 {
-    public App(LandingView landingView)
+    private readonly IStaticConfigurationService _staticConfigurationService;
+
+    public App(LandingView landingView, IStaticConfigurationService staticConfigurationService)
     {
-        InitializeComponent();
+        _staticConfigurationService = staticConfigurationService;
         MainPage = landingView;
+        InitializeComponent();
     }
 
     protected override Window CreateWindow(IActivationState? activationState)
@@ -16,7 +20,7 @@ public partial class App : Application
 
         if (window != null)
         {
-            window.Title = "ACycle";
+            window.Title = _staticConfigurationService.AppWindowTitle;
         }
 
         return window!;

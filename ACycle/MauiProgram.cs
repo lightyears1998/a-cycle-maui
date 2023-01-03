@@ -31,7 +31,8 @@ public static class MauiProgram
         builder.Services
             .AddSingleton<IDatabaseService, DatabaseService>()
             .AddSingleton<IConfigurationService, ConfigurationService>()
-            .AddSingleton<INavigationService, NavigationService>();
+            .AddSingleton<INavigationService, NavigationService>()
+            .AddSingleton<IStaticConfigurationService, StaticConfigurationService>();
 
         return builder;
     }
