@@ -4,6 +4,7 @@ using ACycle.Models;
 using ACycleMaui.ViewModels;
 using ACycleMaui.Views;
 using ACycleMaui.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ACycleMaui;
 
@@ -40,8 +41,9 @@ public static class MauiProgram
     public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
     {
         builder.Services
-            .AddSingleton<DebuggingViewModel>()
-            .AddTransient<DiaryViewModel>();
+            .AddTransient<DebuggingViewModel>()
+            .AddTransient<DiaryViewModel>()
+            .AddTransient<DiaryEditorViewModel>();
 
         return builder;
     }

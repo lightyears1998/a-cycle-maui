@@ -4,7 +4,7 @@ namespace ACycleMaui.Views
 {
     public class ContentPageBase : ContentPage
     {
-        protected virtual async void OnApprearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 

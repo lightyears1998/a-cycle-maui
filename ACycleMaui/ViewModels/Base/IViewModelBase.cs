@@ -6,9 +6,6 @@
 
         public bool IsBusy { get; set; }
 
-        public virtual Task InitializeAsync()
-        {
-            return Task.CompletedTask;
-        }
+        public Task InitializeAsync();
     }
 }

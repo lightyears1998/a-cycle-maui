@@ -21,6 +21,11 @@ namespace ACycleMaui.ViewModels
             set => SetProperty(ref _isInitialized, value);
         }
 
+        public virtual Task InitializeAsync()
+        {
+            return Task.CompletedTask;
+        }
+
         public virtual void ApplyQueryAttributes(IDictionary<string, object> query)
         { }
 

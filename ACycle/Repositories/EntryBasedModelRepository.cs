@@ -53,6 +53,18 @@ namespace ACycle.Repositories
             return model;
         }
 
+        public async Task<T> SaveAsync(T model, bool updateTimestamp = true)
+        {
+            if (model.EntryMetadata == null)
+            {
+                return await InsertAsync(model, updateTimestamp);
+            }
+            else
+            {
+                return await UpdateAsync(model, updateTimestamp);
+            }
+        }
+
         public async Task RemoveAsync(T model, bool updateTimestamp = true)
         {
             if (model.EntryMetadata == null)

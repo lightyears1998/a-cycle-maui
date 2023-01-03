@@ -1,4 +1,5 @@
 ﻿using ACycle.Models;
+using ACycle.Repositories;
 using ACycleMaui.Services;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
@@ -8,8 +9,10 @@ namespace ACycleMaui.ViewModels
     public class DiaryViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
+        private readonly EntryBasedModelRepository<Diary> _diaryRepository;
 
         private DateTime _date = DateTime.Today;
+        private IEnumerable<Diary> _diaries = new List<Diary>();
 
         public DateTime Date
         {
@@ -17,7 +20,11 @@ namespace ACycleMaui.ViewModels
             set => SetProperty(ref _date, value);
         }
 
-        public List<Diary> Diaries { get; protected set; } = new();
+        public IEnumerable<Diary> Diaries
+        {
+            get => _diaries;
+            set => SetProperty(ref _diaries, value);
+        }
 
         public ICommand JumpToPreviousDateCommand { get; }
 
@@ -25,23 +32,40 @@ namespace ACycleMaui.ViewModels
 
         public ICommand OpenEditorCommand { get; }
 
-        public DiaryViewModel(INavigationService navigationService)
+        public DiaryViewModel(INavigationService navigationService, EntryBasedModelRepository<Diary> diaryRepository)
         {
             _navigationService = navigationService;
+            _diaryRepository = diaryRepository;
 
-            JumpToPreviousDateCommand = new Command(JumpToPreviousDate);
-            JumpToNextDateCommand = new Command(JumpToNextDate);
+            JumpToPreviousDateCommand = new AsyncRelayCommand(JumpToPreviousDate);
+            JumpToNextDateCommand = new AsyncRelayCommand(JumpToNextDate);
             OpenEditorCommand = new AsyncRelayCommand(OpenEditor);
         }
 
-        private void JumpToPreviousDate()
+        public override async Task InitializeAsync()
         {
-            Date = Date.AddDays(-1);
+            await IsBusyFor(async () =>
+            {
+                Diaries = await GetDiariesOfTheDate(Date);
+            });
         }
 
-        private void JumpToNextDate()
+        private async Task<IEnumerable<Diary>> GetDiariesOfTheDate(DateTime date)
+        {
+            var diaries = await _diaryRepository.FindAllAsync();
+            return diaries.Where(diary => DateOnly.FromDateTime(diary.Date) == DateOnly.FromDateTime(date));
+        }
+
+        private async Task JumpToPreviousDate()
+        {
+            Date = Date.AddDays(-1);
+            Diaries = await GetDiariesOfTheDate(Date);
+        }
+
+        private async Task JumpToNextDate()
         {
             Date = Date.AddDays(1);
+            Diaries = await GetDiariesOfTheDate(Date);
         }
 
         private async Task OpenEditor()
