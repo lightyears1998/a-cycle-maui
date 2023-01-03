@@ -13,6 +13,7 @@ namespace ACycle.ViewModels
 
         private DateTime _date = DateTime.Today;
         private IEnumerable<Diary> _diaries = new List<Diary>();
+        private Diary? _selectedDiary;
 
         public DateTime Date
         {
@@ -26,11 +27,21 @@ namespace ACycle.ViewModels
             set => SetProperty(ref _diaries, value);
         }
 
+        public Diary? SelectedDiary
+        {
+            get => _selectedDiary;
+            set => SetProperty(ref _selectedDiary, value);
+        }
+
         public ICommand JumpToPreviousDateCommand { get; }
 
         public ICommand JumpToNextDateCommand { get; }
 
-        public ICommand OpenEditorCommand { get; }
+        public ICommand OpenEditorForAddingCommand { get; }
+
+        public ICommand OpenEditorForEditingCommand { get; }
+
+        public ICommand RemoveDiaryCommand { get; }
 
         public DiaryViewModel(INavigationService navigationService, EntryBasedModelRepository<Diary> diaryRepository)
         {
@@ -39,7 +50,9 @@ namespace ACycle.ViewModels
 
             JumpToPreviousDateCommand = new AsyncRelayCommand(JumpToPreviousDate);
             JumpToNextDateCommand = new AsyncRelayCommand(JumpToNextDate);
-            OpenEditorCommand = new AsyncRelayCommand(OpenEditor);
+            OpenEditorForAddingCommand = new AsyncRelayCommand(OpenEditorForAdding);
+            OpenEditorForEditingCommand = new AsyncRelayCommand(OpenEditorForEditing);
+            RemoveDiaryCommand = new AsyncRelayCommand(RemoveDiary);
         }
 
         public override async Task InitializeAsync()
@@ -53,7 +66,7 @@ namespace ACycle.ViewModels
         private async Task<IEnumerable<Diary>> GetDiariesOfTheDate(DateTime date)
         {
             var diaries = await _diaryRepository.FindAllAsync();
-            return diaries.Where(diary => DateOnly.FromDateTime(diary.Date) == DateOnly.FromDateTime(date));
+            return diaries.Where(diary => DateOnly.FromDateTime(diary.DateTime) == DateOnly.FromDateTime(date));
         }
 
         private async Task JumpToPreviousDate()
@@ -68,9 +81,26 @@ namespace ACycle.ViewModels
             Diaries = await GetDiariesOfTheDate(Date);
         }
 
-        private async Task OpenEditor()
+        private async Task OpenEditorForAdding()
         {
             await _navigationService.NavigateToAsync("Editor");
+        }
+
+        private async Task OpenEditorForEditing()
+        {
+            if (SelectedDiary == null)
+                return;
+
+            await _navigationService.NavigateToAsync("Editor", new Dictionary<string, object> { { "diary", SelectedDiary } });
+        }
+
+        private async Task RemoveDiary()
+        {
+            if (SelectedDiary == null)
+                return;
+
+            await _diaryRepository.RemoveAsync(SelectedDiary);
+            await GetDiariesOfTheDate(Date);
         }
     }
 }

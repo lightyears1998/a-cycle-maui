@@ -15,7 +15,7 @@
             <Button Text="&gt;" Command="{Binding JumpToNextDateCommand}" />
         </HorizontalStackLayout>
 
-        <CollectionView ItemsSource="{Binding Diaries}" SelectionMode="Single">
+        <CollectionView ItemsSource="{Binding Diaries}" SelectedItem="{Binding SelectedDiary}" SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <templates:DiaryTemplate />
@@ -24,9 +24,9 @@
         </CollectionView>
 
         <HorizontalStackLayout>
-            <Button Text="Add" Command="{Binding OpenEditorCommand}" />
-            <Button Text="Edit" />
-            <Button Text="Remove" />
+            <Button Text="Add" Command="{Binding OpenEditorForAddingCommand}" />
+            <Button Text="Edit" Command="{Binding OpenEditorForEditingCommand}" />
+            <Button Text="Remove" Command="{Binding RemoveDiaryCommand}" />
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </views:ContentPageBase>

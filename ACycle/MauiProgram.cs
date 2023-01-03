@@ -51,6 +51,7 @@ public static class MauiProgram
         builder.Services
             .AddTransient<ActivityView>()
             .AddTransient<DebuggingView>()
+            .AddTransient<DiaryEditorView>()
             .AddTransient<DiaryView>()
             .AddTransient<FocusView>()
             .AddTransient<HealthView>()

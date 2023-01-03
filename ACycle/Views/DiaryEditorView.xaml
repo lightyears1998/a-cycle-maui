@@ -11,13 +11,13 @@
         <VerticalStackLayout>
             <Label Text="Title" />
             <Entry Text="{Binding Diary.Title}" />
-            <DatePicker />
-            <TimePicker />
+            <DatePicker Date="{Binding DiaryDate}" />
+            <TimePicker Time="{Binding DiaryTime}" />
             <Label Text="Content" />
             <Editor HeightRequest="200" Text="{Binding Diary.Content}" />
             <HorizontalStackLayout>
-                <Button Text="Save" />
-                <Button Text="Discard" />
+                <Button Text="Save" Command="{Binding SaveCommand}" />
+                <Button Text="Discard" Command="{Binding DiscardCommand}" />
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
