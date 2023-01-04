@@ -12,7 +12,7 @@ namespace ACycle.ViewModels
         private readonly EntryBasedModelRepository<Diary> _diaryRepository;
 
         private DateTime _date = DateTime.Today;
-        private IEnumerable<Diary> _diaries = new List<Diary>();
+        private ObservableCollectionEx<Diary> _diaries = new();
         private Diary? _selectedDiary;
 
         public DateTime Date
@@ -21,7 +21,7 @@ namespace ACycle.ViewModels
             set => SetProperty(ref _date, value);
         }
 
-        public IEnumerable<Diary> Diaries
+        public ObservableCollectionEx<Diary> Diaries
         {
             get => _diaries;
             set => SetProperty(ref _diaries, value);
@@ -47,6 +47,9 @@ namespace ACycle.ViewModels
         {
             _navigationService = navigationService;
             _diaryRepository = diaryRepository;
+            _diaryRepository.ModelCreated += OnDiaryCreated;
+            _diaryRepository.ModelUpdated += OnDiaryUpdated;
+            _diaryRepository.ModelRemoved += OnDiaryRemoved;
 
             JumpToPreviousDateCommand = new AsyncRelayCommand(JumpToPreviousDate);
             JumpToNextDateCommand = new AsyncRelayCommand(JumpToNextDate);
@@ -55,30 +58,58 @@ namespace ACycle.ViewModels
             RemoveDiaryCommand = new AsyncRelayCommand(RemoveDiary);
         }
 
+        private void OnDiaryCreated(object sender, RepositoryEventArgs<Diary> e)
+        {
+            if (e.Model.DateTime.Date == Date)
+            {
+                Diaries.InsertSorted(e.Model, Comparer<Diary>.Create((a, b) => a.DateTime.CompareTo(b.DateTime)));
+            }
+        }
+
+        private void OnDiaryUpdated(object sender, RepositoryEventArgs<Diary> e)
+        {
+            if (Diaries.Contains(e.Model))
+            {
+                Diaries.NotifyItemChangedAt(Diaries.IndexOf(e.Model));
+            }
+        }
+
+        private void OnDiaryRemoved(object sender, RepositoryEventArgs<Diary> e)
+        {
+            if (Diaries.Contains(e.Model))
+            {
+                Diaries.Remove(e.Model);
+            }
+        }
+
         public override async Task InitializeAsync()
         {
-            await IsBusyFor(async () =>
-            {
-                Diaries = await GetDiariesOfTheDate(Date);
-            });
+            await IsBusyFor(LoadDiaries);
         }
 
         private async Task<IEnumerable<Diary>> GetDiariesOfTheDate(DateTime date)
         {
             var diaries = await _diaryRepository.FindAllAsync();
-            return diaries.Where(diary => DateOnly.FromDateTime(diary.DateTime) == DateOnly.FromDateTime(date));
+            return diaries
+                .Where(diary => DateOnly.FromDateTime(diary.DateTime) == DateOnly.FromDateTime(date))
+                .OrderBy(diary => diary.DateTime);
+        }
+
+        private async Task LoadDiaries()
+        {
+            Diaries.Reload(await GetDiariesOfTheDate(Date));
         }
 
         private async Task JumpToPreviousDate()
         {
             Date = Date.AddDays(-1);
-            Diaries = await GetDiariesOfTheDate(Date);
+            await LoadDiaries();
         }
 
         private async Task JumpToNextDate()
         {
             Date = Date.AddDays(1);
-            Diaries = await GetDiariesOfTheDate(Date);
+            await LoadDiaries();
         }
 
         private async Task OpenEditorForAdding()
@@ -100,7 +131,7 @@ namespace ACycle.ViewModels
                 return;
 
             await _diaryRepository.RemoveAsync(SelectedDiary);
-            await GetDiariesOfTheDate(Date);
+            Diaries.Remove(SelectedDiary);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace ACycle.Repositories
 {
     using Entry = Entities.Entry;
 
-    public class EntryBasedModelRepository<T>
+    public class EntryBasedModelRepository<T> : Repository<T>
         where T : EntryBasedModel, new()
     {
         private readonly IConfigurationService _configurationService;
@@ -36,6 +36,7 @@ namespace ACycle.Repositories
 
             Entry entry = model.GetEntry();
             await _entryRepository.InsertAsync(entry);
+            OnModelCreated(model);
 
             return model;
         }
@@ -50,6 +51,8 @@ namespace ACycle.Repositories
             if (updateTimestamp) UpdateTimestamp(model);
 
             await _entryRepository.UpdateAsync(model.GetEntry());
+            OnModelUpdated(model);
+
             return model;
         }
 
@@ -76,6 +79,7 @@ namespace ACycle.Repositories
             if (updateTimestamp) UpdateTimestamp(model);
 
             await _entryRepository.UpdateAsync(model.GetEntry());
+            OnModelRemoved(model);
         }
 
         public async Task<List<T>> FindAllAsync()

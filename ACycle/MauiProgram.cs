@@ -18,12 +18,22 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             })
-            .RegisterEntityRepository()
+            .RegisterRepositories()
             .RegisterServices()
             .RegisterViewModels()
             .RegisterViews();
 
         return builder.Build();
+    }
+
+    public static MauiAppBuilder RegisterRepositories(this MauiAppBuilder builder)
+    {
+        builder.Services
+            .AddSingleton<EntryRepository>()
+            .AddSingleton<EntryBasedModelRepository<Diary>>()
+            .AddSingleton<MetadataRepository>();
+
+        return builder;
     }
 
     public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
@@ -60,16 +70,6 @@ public static class MauiProgram
             .AddTransient<LedgerView>()
             .AddTransient<SettingsView>()
             .AddTransient<TodoListView>();
-
-        return builder;
-    }
-
-    public static MauiAppBuilder RegisterEntityRepository(this MauiAppBuilder builder)
-    {
-        builder.Services
-            .AddTransient<EntryRepository>()
-            .AddTransient<EntryBasedModelRepository<Diary>>()
-            .AddTransient<MetadataRepository>();
 
         return builder;
     }
