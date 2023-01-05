@@ -11,8 +11,10 @@
         <VerticalStackLayout>
             <Label Text="Title" />
             <Entry Text="{Binding Diary.Title}" />
-            <DatePicker Date="{Binding DiaryDate}" />
-            <TimePicker Time="{Binding DiaryTime}" />
+            <HorizontalStackLayout>
+                <DatePicker Date="{Binding DiaryDate}" />
+                <TimePicker Time="{Binding DiaryTime}" />
+            </HorizontalStackLayout>
             <Label Text="Content" />
             <Editor HeightRequest="200" Text="{Binding Diary.Content}" />
             <HorizontalStackLayout>
