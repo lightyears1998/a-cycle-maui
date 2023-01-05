@@ -52,7 +52,9 @@ public static class MauiProgram
         builder.Services
             .AddTransient<DebuggingViewModel>()
             .AddTransient<DiaryViewModel>()
-            .AddTransient<DiaryEditorViewModel>();
+            .AddTransient<DiaryEditorViewModel>()
+            .AddTransient<FocusViewModel>()
+            .AddTransient<LandingViewModel>();
 
         return builder;
     }

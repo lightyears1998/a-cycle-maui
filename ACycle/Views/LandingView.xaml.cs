@@ -1,38 +1,13 @@
-using ACycle.Services;
+using ACycle.ViewModels;
+using System.Diagnostics;
 
 namespace ACycle.Views;
 
 public partial class LandingView : ContentPageBase
 {
-    private readonly IDatabaseService _databaseService;
-    private readonly IConfigurationService _configurationService;
-
-    public LandingView(
-        IDatabaseService databaseService,
-        IConfigurationService configurationService
-    )
+    public LandingView(LandingViewModel model)
     {
-        _databaseService = databaseService;
-        _configurationService = configurationService;
-
+        BindingContext = model;
         InitializeComponent();
-        InitializeAndThenNavigateToAppShell();
-    }
-
-    private async void InitializeAndThenNavigateToAppShell()
-    {
-        await InitializeAppServices();
-        NavigateToAppShell();
-    }
-
-    private async Task InitializeAppServices()
-    {
-        await _databaseService.InitializeAsync();
-        await _configurationService.InitializeAsync();
-    }
-
-    private static void NavigateToAppShell()
-    {
-        Application.Current!.MainPage = new AppShell();
     }
 }
