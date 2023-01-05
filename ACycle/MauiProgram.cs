@@ -40,6 +40,7 @@ public static class MauiProgram
     {
         builder.Services
             .AddSingleton<IDatabaseService, DatabaseService>()
+            .AddSingleton<IDialogService, DialogService>()
             .AddSingleton<IConfigurationService, ConfigurationService>()
             .AddSingleton<INavigationService, NavigationService>()
             .AddSingleton<IStaticConfigurationService, StaticConfigurationService>();
