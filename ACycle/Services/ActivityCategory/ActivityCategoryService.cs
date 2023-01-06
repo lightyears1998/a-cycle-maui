@@ -50,7 +50,7 @@ namespace ACycle.Services
             return _graph.GetDescendants(category);
         }
 
-        private class Graph
+        public class Graph
         {
             public static readonly GraphNode Root = new(null);
             private readonly Dictionary<Guid, GraphNode> _mappings = new();
@@ -66,16 +66,13 @@ namespace ACycle.Services
             {
                 GraphNode node = _mappings[category.Uuid];
                 GraphNode oldParent = node.Parent;
+                GraphNode newParent = category.ParentUuid.HasValue ? (GetNodeByUuid(category.ParentUuid.Value) ?? Root) : Root;
 
-                if (oldParent.Uuid != category.ParentUuid)
+                if (oldParent != newParent)
                 {
                     oldParent.Descendants.Remove(node);
-                    var realParent = Root;
-                    if (_mappings.ContainsKey(category.Uuid))
-                    {
-                        realParent = _mappings[category.Uuid];
-                    }
-                    realParent.Descendants.Add(node);
+                    newParent.Descendants.Add(node);
+                    node.Parent = newParent;
                 }
 
                 return node;
@@ -100,6 +97,16 @@ namespace ACycle.Services
                 return _mappings[category.Uuid];
             }
 
+            public GraphNode? GetNodeByUuid(Guid uuid)
+            {
+                if (_mappings.ContainsKey(uuid))
+                    return _mappings[uuid];
+                return null;
+            }
+
+            public List<GraphNode> GetNodes()
+            { return _mappings.Values.ToList(); }
+
             public List<ActivityCategory> GetDescendants(ActivityCategory category)
             {
                 var node = _mappings[category.Uuid];
@@ -107,7 +114,7 @@ namespace ACycle.Services
             }
         }
 
-        private class GraphNode
+        public class GraphNode
         {
             public GraphNode Parent = Graph.Root;
 
@@ -135,10 +142,11 @@ namespace ACycle.Services
                 StringBuilder str = new();
                 while (stack.Count > 0)
                 {
+                    str.Append(' ');
                     str.Append(stack.Pop().Category!.Name);
                 }
 
-                return str.ToString();
+                return str.ToString().Trim();
             }
         }
     }

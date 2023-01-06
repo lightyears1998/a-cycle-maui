@@ -11,8 +11,10 @@ namespace ACycle.Models
         [JsonIgnore]
         public EntryMetadata EntryMetadata = new();
 
+        [JsonIgnore]
         public bool IsCreated => EntryMetadata.IsCreated;
 
+        [JsonIgnore]
         public bool IsRemoved => EntryMetadata.IsRemoved;
     }
 }
