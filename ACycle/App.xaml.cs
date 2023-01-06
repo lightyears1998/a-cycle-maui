@@ -7,9 +7,13 @@ public partial class App : Application
 {
     private readonly IStaticConfigurationService _staticConfigurationService;
 
-    public App(LandingView landingView, IStaticConfigurationService staticConfigurationService)
+    public readonly IServiceProvider ServiceProvider;
+
+    public App(IServiceProvider provider, IStaticConfigurationService staticConfigurationService, LandingView landingView)
     {
         _staticConfigurationService = staticConfigurationService;
+        ServiceProvider = provider;
+
         MainPage = landingView;
         InitializeComponent();
     }
