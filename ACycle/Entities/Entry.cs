@@ -7,7 +7,7 @@ namespace ACycle.Entities
     {
         [PrimaryKey]
         [Column("uuid")]
-        public Guid Uuid { set; get; } = Guid.NewGuid();
+        public Guid Uuid { set; get; } = Guid.Empty;
 
         [Column("content_type")]
         public string ContentType { set; get; } = string.Empty;
@@ -17,6 +17,9 @@ namespace ACycle.Entities
 
         [Column("created_at")]
         public DateTime CreatedAt { set; get; } = DateTime.UtcNow;
+
+        [Column("created_by")]
+        public Guid CreatedBy { set; get; } = Guid.Empty;
 
         [Column("updated_at")]
         public DateTime UpdatedAt { set; get; } = DateTime.UtcNow;

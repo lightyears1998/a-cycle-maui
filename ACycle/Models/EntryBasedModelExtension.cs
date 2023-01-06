@@ -3,7 +3,6 @@
 namespace ACycle.Models
 {
     using Entry = Entities.Entry;
-    using EntryMetadata = Repositories.EntryMetadata;
 
     public static class EntryBasedModelExtension
     {
@@ -14,14 +13,13 @@ namespace ACycle.Models
 
         public static Entry GetEntry(this EntryBasedModel model)
         {
-            model.EntryMetadata ??= new EntryMetadata();
-
             return new Entry
             {
-                Uuid = model.EntryMetadata.Uuid,
+                Uuid = model.Uuid,
                 ContentType = model.GetEntryContentType(),
                 Content = JsonConvert.SerializeObject(model),
-                CreatedAt = model.EntryMetadata.CreatedAt,
+                CreatedAt = (DateTime)model.EntryMetadata.CreatedAt!,
+                CreatedBy = (Guid)model.EntryMetadata.CreatedBy!,
                 UpdatedAt = model.EntryMetadata.UpdatedAt,
                 UpdatedBy = model.EntryMetadata.UpdatedBy,
                 RemovedAt = model.EntryMetadata.RemovedAt

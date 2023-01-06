@@ -20,18 +20,22 @@ namespace ACycle.Repositories
 
         private void UpdateTimestamp(T model)
         {
-            model.EntryMetadata!.UpdatedAt = DateTime.UtcNow;
-            model.EntryMetadata!.UpdatedBy = _configurationService.NodeUuid;
+            if (!model.IsCreated)
+            {
+                model.EntryMetadata.CreatedAt = DateTime.UtcNow;
+                model.EntryMetadata.CreatedBy = _configurationService.NodeUuid;
+            }
+            model.EntryMetadata.UpdatedAt = DateTime.UtcNow;
+            model.EntryMetadata.UpdatedBy = _configurationService.NodeUuid;
         }
 
         public async Task<T> InsertAsync(T model, bool updateTimestamp = true)
         {
-            if (model.EntryMetadata != null)
+            if (model.IsCreated)
             {
                 throw new ArgumentException("Entry is already in database. Use SaveAsync() or UpdateAsync() instead of InsertAsync().");
             }
 
-            model.EntryMetadata = new EntryMetadata();
             if (updateTimestamp) UpdateTimestamp(model);
 
             Entry entry = model.GetEntry();
@@ -43,7 +47,7 @@ namespace ACycle.Repositories
 
         public async Task<T> UpdateAsync(T model, bool updateTimestamp = true)
         {
-            if (model.EntryMetadata == null)
+            if (!model.IsCreated)
             {
                 throw new ArgumentException("Entry is not in database. Use SaveAsync() to save the entry into database first.");
             }
@@ -58,7 +62,7 @@ namespace ACycle.Repositories
 
         public async Task<T> SaveAsync(T model, bool updateTimestamp = true)
         {
-            if (model.EntryMetadata == null)
+            if (!model.IsCreated)
             {
                 return await InsertAsync(model, updateTimestamp);
             }
@@ -70,7 +74,7 @@ namespace ACycle.Repositories
 
         public async Task RemoveAsync(T model, bool updateTimestamp = true)
         {
-            if (model.EntryMetadata == null)
+            if (!model.IsCreated)
             {
                 throw new ArgumentException("Entry is not in database, thus it is not able to delete it from database.");
             }

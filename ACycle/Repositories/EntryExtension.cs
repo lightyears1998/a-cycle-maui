@@ -6,8 +6,8 @@
         {
             return new EntryMetadata
             {
-                Uuid = entry.Uuid,
                 CreatedAt = entry.CreatedAt,
+                CreatedBy = entry.CreatedBy,
                 UpdatedAt = entry.UpdatedAt,
                 UpdatedBy = entry.UpdatedBy,
                 RemovedAt = entry.RemovedAt,

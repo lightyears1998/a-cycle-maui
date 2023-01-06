@@ -13,7 +13,7 @@
         private void RegisterEntryBasedModels()
         {
             RegisterEntryBasedModel(typeof(Activity), "activity");
-            RegisterEntryBasedModel(typeof(Category), "category");
+            RegisterEntryBasedModel(typeof(ActivityCategory), "activity_category");
             RegisterEntryBasedModel(typeof(Diary), "diary");
         }
 

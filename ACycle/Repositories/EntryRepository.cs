@@ -8,9 +8,7 @@ namespace ACycle.Repositories
     {
         private readonly IDatabaseService _databaseService;
 
-        public EntryRepository(
-            IDatabaseService databaseService
-        )
+        public EntryRepository(IDatabaseService databaseService)
         {
             _databaseService = databaseService;
         }
