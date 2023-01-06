@@ -30,6 +30,9 @@ public static class MauiProgram
     {
         builder.Services
             .AddSingleton<EntryRepository>()
+            .AddSingleton<EntryBasedModelRepository<ActionPlan>>()
+            .AddSingleton<EntryBasedModelRepository<Activity>>()
+            .AddSingleton<EntryBasedModelRepository<ActivityCategory>>()
             .AddSingleton<EntryBasedModelRepository<Diary>>()
             .AddSingleton<MetadataRepository>();
 
@@ -39,6 +42,7 @@ public static class MauiProgram
     public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
     {
         builder.Services
+            .AddSingleton<IActivityCategoryService, ActivityCategoryService>()
             .AddSingleton<IDatabaseService, DatabaseService>()
             .AddSingleton<IDialogService, DialogService>()
             .AddSingleton<IConfigurationService, ConfigurationService>()

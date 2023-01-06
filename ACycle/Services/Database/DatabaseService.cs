@@ -3,7 +3,7 @@ using SQLite;
 
 namespace ACycle.Services
 {
-    public class DatabaseService : IDatabaseService
+    public class DatabaseService : Service, IDatabaseService
     {
         public string MainDatabasePath { protected set; get; }
         public SQLiteAsyncConnection MainDatabase { protected set; get; }
@@ -14,7 +14,7 @@ namespace ACycle.Services
             MainDatabase = new SQLiteAsyncConnection(MainDatabasePath);
         }
 
-        public async Task InitializeAsync()
+        public override async Task InitializeAsync()
         {
             await CreateTablesAsync();
         }

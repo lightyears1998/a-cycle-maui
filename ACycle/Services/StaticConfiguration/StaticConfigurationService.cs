@@ -1,6 +1,6 @@
 ﻿namespace ACycle.Services
 {
-    public class StaticConfigurationService : IStaticConfigurationService
+    public class StaticConfigurationService : Service, IStaticConfigurationService
     {
         public string AppWindowTitle
         {

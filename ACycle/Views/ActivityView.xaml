@@ -6,11 +6,7 @@
     x:Class="ACycle.Views.ActivityView"
     Title="Activity">
     <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
-            <Label>Welcome to Activity Page.</Label>
+        <VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </views:ContentPageBase>

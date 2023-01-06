@@ -2,7 +2,7 @@
 
 namespace ACycle.Services
 {
-    public class ConfigurationService : IConfigurationService
+    public class ConfigurationService : Service, IConfigurationService
     {
         public Guid NodeUuid { set; get; }
 
@@ -13,7 +13,7 @@ namespace ACycle.Services
             _metadataRepository = metadataRepository;
         }
 
-        public async Task InitializeAsync()
+        public override async Task InitializeAsync()
         {
             NodeUuid = Guid.Parse(await GetOrSetMetadata("NODE_UUID", Guid.NewGuid().ToString()));
         }

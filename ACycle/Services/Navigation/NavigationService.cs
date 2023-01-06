@@ -1,6 +1,6 @@
 ﻿namespace ACycle.Services
 {
-    public class NavigationService : INavigationService
+    public class NavigationService : Service, INavigationService
     {
         public Task NavigateToAsync(string route, IDictionary<string, object>? parameters)
         {

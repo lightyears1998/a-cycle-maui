@@ -1,6 +1,6 @@
 ﻿namespace ACycle.Services
 {
-    public class DialogService : IDialogService
+    public class DialogService : Service, IDialogService
     {
         public Task Prompt(string title, string message, string confirm)
         {

@@ -2,9 +2,6 @@
 {
     public interface IService
     {
-        virtual Task InitializeAsync()
-        {
-            return Task.CompletedTask;
-        }
+        Task InitializeAsync();
     }
 }
