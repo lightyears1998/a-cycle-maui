@@ -6,6 +6,9 @@
     x:Class="ACycle.Views.FocusView"
     Title="Focus">
     <VerticalStackLayout>
-        <Label Text="FocusView"></Label>
+        <Label Text="Timing Label"></Label>
+        <Label Text="Category" />
+        <Button Text="Start" />
+        <Button Text="Finish" />
     </VerticalStackLayout>
 </views:ContentPageBase>

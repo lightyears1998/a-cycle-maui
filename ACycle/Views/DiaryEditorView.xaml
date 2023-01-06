@@ -6,7 +6,7 @@
     xmlns:viewModels="clr-namespace:ACycle.ViewModels"
     x:Class="ACycle.Views.DiaryEditorView"
     x:DataType="viewModels:DiaryEditorViewModel"
-    Title="DiaryEditor">
+    Title="Diary Editor">
     <ScrollView>
         <VerticalStackLayout>
             <Label Text="Title" />

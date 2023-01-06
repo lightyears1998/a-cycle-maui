@@ -7,6 +7,20 @@
     Title="Activity">
     <ScrollView>
         <VerticalStackLayout>
+            <HorizontalStackLayout>
+                <Button Text="&lt;"></Button>
+                <DatePicker></DatePicker>
+                <Button Text="&gt;"></Button>
+            </HorizontalStackLayout>
+            <CollectionView></CollectionView>
+            <HorizontalStackLayout>
+                <Button Text="Add" />
+                <Button Text="Edit" />
+                <Button Text="Remove" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Button Text="Analysis" />
+            </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </views:ContentPageBase>

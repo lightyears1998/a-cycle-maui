@@ -5,13 +5,17 @@
     xmlns:views="clr-namespace:ACycle.Views"
     xmlns:viewModels="clr-namespace:ACycle.ViewModels"
     x:Class="ACycle.Views.DebuggingView"
-    Title="DebuggingPage"
-    x:DataType="viewModels:DebuggingViewModel">
+    x:DataType="viewModels:DebuggingViewModel"
+    Title="Debugging">
     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-        <Label Text="{x:Binding NodeUuidLabelText}" />
+        <VerticalStackLayout>
+            <Label Text="{x:Binding NodeUuidLabelText}" />
+        </VerticalStackLayout>
 
-        <Button
+        <VerticalStackLayout>
+            <Button
             Text="Open App Data Directory in Explorer"
             Command="{x:Binding OpenDataDirectoryCommand}" />
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </views:ContentPageBase>

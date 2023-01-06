@@ -12,35 +12,35 @@
         </OnPlatform>
     </Shell.FlyoutBehavior>
 
-    <FlyoutItem Title="Focus" Route="Focus">
+    <FlyoutItem Title="Focus" Icon="appshell_focus.png" Route="Focus">
         <ShellContent ContentTemplate="{DataTemplate views:FocusView}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Activity" Route="Activity">
+    <FlyoutItem Title="Activity" Icon="appshell_activity.png" Route="Activity">
         <ShellContent ContentTemplate="{DataTemplate views:ActivityView}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Todo List" Route="TodoList">
+    <FlyoutItem Title="Todo List" Icon="appshell_todo_list.png" Route="TodoList">
         <ShellContent ContentTemplate="{DataTemplate views:TodoListView}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Ledger" Route="Ledger">
+    <FlyoutItem Title="Ledger" Icon="appshell_ledger.png" Route="Ledger">
         <ShellContent ContentTemplate="{DataTemplate views:LedgerView}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Health" Route="Health">
+    <FlyoutItem Title="Health" Icon="appshell_health.png" Route="Health">
         <ShellContent ContentTemplate="{DataTemplate views:HealthView}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Diary" Route="Diary">
+    <FlyoutItem Title="Diary" Icon="appshell_diary.png" Route="Diary">
         <ShellContent ContentTemplate="{DataTemplate views:DiaryView}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Settings" Route="Settings">
+    <FlyoutItem Title="Settings" Icon="appshell_settings.png" Route="Settings">
         <ShellContent ContentTemplate="{DataTemplate views:SettingsView}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Debugging" Route="Debugging">
+    <FlyoutItem Title="Debugging" Icon="appshell_wrench.png" Route="Debugging">
         <ShellContent ContentTemplate="{DataTemplate views:DebuggingView}" />
     </FlyoutItem>
 </Shell>
