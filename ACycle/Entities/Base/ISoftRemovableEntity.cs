@@ -1,6 +1,6 @@
 ﻿namespace ACycle.Entities
 {
-    public interface ISoftRemovableEntity : IEntity
+    public interface ISoftRemovableEntity 
     {
         public DateTime? RemovedAt { get; set; }
     }

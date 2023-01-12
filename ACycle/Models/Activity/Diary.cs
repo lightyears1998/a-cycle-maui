@@ -1,6 +1,4 @@
-﻿using ACycle.Entities;
-using ACycle.Repositories;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace ACycle.Models
 {

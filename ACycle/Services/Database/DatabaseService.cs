@@ -22,9 +22,9 @@ namespace ACycle.Services
         private async Task CreateTablesAsync()
         {
             await MainDatabase.CreateTableAsync<Entities.Entry>();
-            await MainDatabase.CreateTableAsync<EntryHistory>();
-            await MainDatabase.CreateTableAsync<Metadata>();
-            await MainDatabase.CreateTableAsync<PeerNode>();
+            await MainDatabase.CreateTableAsync<NodeHistoryV1>();
+            await MainDatabase.CreateTableAsync<NodeMetadataV1>();
+            await MainDatabase.CreateTableAsync<NodePeerV1>();
         }
     }
 }

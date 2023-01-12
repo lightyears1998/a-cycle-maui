@@ -2,8 +2,8 @@
 
 namespace ACycle.Entities
 {
-    [Table("metadata")]
-    public class Metadata : IEntity
+    [Table("node_metadata")]
+    public class NodeMetadataV1
     {
         [PrimaryKey]
         [Column("key")]
