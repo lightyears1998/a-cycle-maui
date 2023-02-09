@@ -18,6 +18,11 @@ public partial class App : Application
         InitializeComponent();
     }
 
+    public new static App? Current()
+    {
+        return Application.Current as App;
+    }
+
     protected override Window CreateWindow(IActivationState? activationState)
     {
         var window = base.CreateWindow(activationState);

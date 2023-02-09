@@ -42,6 +42,7 @@ public static class MauiProgram
     public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
     {
         builder.Services
+            .AddLocalization()
             .AddSingleton<IActivityCategoryService, ActivityCategoryService>()
             .AddSingleton<IDatabaseService, DatabaseService>()
             .AddSingleton<IDialogService, DialogService>()

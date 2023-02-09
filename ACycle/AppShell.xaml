@@ -3,6 +3,7 @@
     x:Class="ACycle.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ext="clr-namespace:ACycle.Extensions"
     xmlns:views="clr-namespace:ACycle.Views">
 
     <Shell.FlyoutBehavior>
@@ -12,35 +13,35 @@
         </OnPlatform>
     </Shell.FlyoutBehavior>
 
-    <FlyoutItem Title="Focus" Icon="appshell_focus.png" Route="Focus">
+    <FlyoutItem Title="{ext:LocaleString Key=appshell_focus}" Icon="appshell_focus.png" Route="Focus">
         <ShellContent ContentTemplate="{DataTemplate views:FocusView}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Activity" Icon="appshell_activity.png" Route="Activity">
+    <FlyoutItem Title="{ext:LocaleString Key=appshell_activity}" Icon="appshell_activity.png" Route="Activity">
         <ShellContent ContentTemplate="{DataTemplate views:ActivityView}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Todo List" Icon="appshell_todo_list.png" Route="TodoList">
+    <FlyoutItem Title="{ext:LocaleString Key=appshell_todo_list}" Icon="appshell_todo_list.png" Route="TodoList">
         <ShellContent ContentTemplate="{DataTemplate views:TodoListView}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Ledger" Icon="appshell_ledger.png" Route="Ledger">
+    <FlyoutItem Title="{ext:LocaleString Key=appshell_ledger}" Icon="appshell_ledger.png" Route="Ledger">
         <ShellContent ContentTemplate="{DataTemplate views:LedgerView}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Health" Icon="appshell_health.png" Route="Health">
+    <FlyoutItem Title="{ext:LocaleString Key=appshell_health}" Icon="appshell_health.png" Route="Health">
         <ShellContent ContentTemplate="{DataTemplate views:HealthView}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Diary" Icon="appshell_diary.png" Route="Diary">
+    <FlyoutItem Title="{ext:LocaleString Key=appshell_diary}" Icon="appshell_diary.png" Route="Diary">
         <ShellContent ContentTemplate="{DataTemplate views:DiaryView}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Settings" Icon="appshell_settings.png" Route="Settings">
+    <FlyoutItem Title="{ext:LocaleString Key=appshell_settings}" Icon="appshell_settings.png" Route="Settings">
         <ShellContent ContentTemplate="{DataTemplate views:SettingsView}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Debugging" Icon="appshell_debugging.png" Route="Debugging">
+    <FlyoutItem Title="{ext:LocaleString Key=appshell_debugging}" Icon="appshell_debugging.png" Route="Debugging">
         <ShellContent ContentTemplate="{DataTemplate views:DebuggingView}" />
     </FlyoutItem>
 </Shell>
