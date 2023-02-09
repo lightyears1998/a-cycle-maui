@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ACycle.Models
 {
-    public class EntryBasedModel : IModel
+    public class EntryBasedModel
     {
         [JsonIgnore]
         public Guid Uuid = Guid.NewGuid();

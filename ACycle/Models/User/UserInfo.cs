@@ -1,6 +1,6 @@
 ﻿namespace ACycle.Models
 {
-    public interface IModel
+    public class UserInfo
     {
     }
 }
