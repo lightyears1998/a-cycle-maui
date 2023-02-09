@@ -77,7 +77,7 @@ public static class MauiProgram
             .AddTransient<LandingView>()
             .AddTransient<LedgerView>()
             .AddTransient<SettingsView>()
-            .AddTransient<TodoListView>();
+            .AddTransient<PlanningView>();
 
         return builder;
     }

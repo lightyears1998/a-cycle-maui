@@ -135,11 +135,11 @@
   <data name="appshell_ledger" xml:space="preserve">
     <value>经济</value>
   </data>
+  <data name="appshell_planning" xml:space="preserve">
+    <value>计划</value>
+  </data>
   <data name="appshell_settings" xml:space="preserve">
     <value>设置</value>
-  </data>
-  <data name="appshell_todo_list" xml:space="preserve">
-    <value>计划</value>
   </data>
   <data name="settings_language" xml:space="preserve">
     <value>语言</value>
