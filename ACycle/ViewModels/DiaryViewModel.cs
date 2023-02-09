@@ -2,11 +2,10 @@
 using ACycle.Repositories;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.Input;
-using System.Windows.Input;
 
 namespace ACycle.ViewModels
 {
-    public class DiaryViewModel : ViewModelBase
+    public partial class DiaryViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
         private readonly EntryBasedModelRepository<Diary> _diaryRepository;
@@ -18,7 +17,13 @@ namespace ACycle.ViewModels
         public DateTime Date
         {
             get => _date;
-            set => SetProperty(ref _date, value);
+            set
+            {
+                if (SetProperty(ref _date, value))
+                {
+                    Task.Run(LoadDiaries);
+                }
+            }
         }
 
         public ObservableCollectionEx<Diary> Diaries
@@ -33,16 +38,6 @@ namespace ACycle.ViewModels
             set => SetProperty(ref _selectedDiary, value);
         }
 
-        public ICommand JumpToPreviousDateCommand { get; }
-
-        public ICommand JumpToNextDateCommand { get; }
-
-        public ICommand OpenEditorForAddingCommand { get; }
-
-        public ICommand OpenEditorForEditingCommand { get; }
-
-        public ICommand RemoveDiaryCommand { get; }
-
         public DiaryViewModel(INavigationService navigationService, EntryBasedModelRepository<Diary> diaryRepository)
         {
             _navigationService = navigationService;
@@ -50,12 +45,6 @@ namespace ACycle.ViewModels
             _diaryRepository.ModelCreated += OnDiaryCreated;
             _diaryRepository.ModelUpdated += OnDiaryUpdated;
             _diaryRepository.ModelRemoved += OnDiaryRemoved;
-
-            JumpToPreviousDateCommand = new AsyncRelayCommand(JumpToPreviousDate);
-            JumpToNextDateCommand = new AsyncRelayCommand(JumpToNextDate);
-            OpenEditorForAddingCommand = new AsyncRelayCommand(OpenEditorForAdding);
-            OpenEditorForEditingCommand = new AsyncRelayCommand(OpenEditorForEditing);
-            RemoveDiaryCommand = new AsyncRelayCommand(RemoveDiary);
         }
 
         private void OnDiaryCreated(object sender, RepositoryEventArgs<Diary> e)
@@ -100,23 +89,25 @@ namespace ACycle.ViewModels
             Diaries.Reload(await GetDiariesOfTheDate(Date));
         }
 
-        private async Task JumpToPreviousDate()
+        [RelayCommand]
+        private void JumpToPreviousDate()
         {
             Date = Date.AddDays(-1);
-            await LoadDiaries();
         }
 
-        private async Task JumpToNextDate()
+        [RelayCommand]
+        private void JumpToNextDate()
         {
             Date = Date.AddDays(1);
-            await LoadDiaries();
         }
 
+        [RelayCommand]
         private async Task OpenEditorForAdding()
         {
             await _navigationService.NavigateToAsync("Editor");
         }
 
+        [RelayCommand]
         private async Task OpenEditorForEditing()
         {
             if (SelectedDiary == null)
@@ -125,6 +116,7 @@ namespace ACycle.ViewModels
             await _navigationService.NavigateToAsync("Editor", new Dictionary<string, object> { { "diary", SelectedDiary } });
         }
 
+        [RelayCommand]
         private async Task RemoveDiary()
         {
             if (SelectedDiary == null)
