@@ -40,7 +40,7 @@
         <ShellContent ContentTemplate="{DataTemplate views:SettingsView}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Debugging" Icon="appshell_wrench.png" Route="Debugging">
+    <FlyoutItem Title="Debugging" Icon="appshell_debugging.png" Route="Debugging">
         <ShellContent ContentTemplate="{DataTemplate views:DebuggingView}" />
     </FlyoutItem>
 </Shell>
