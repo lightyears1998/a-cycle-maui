@@ -23,8 +23,12 @@ jobs:
             ${{ runner.os }}-nuget-
       - name: Install workloads
         run: dotnet workload restore
+      - name: List workloads
+        run: dotnet workload list
       - name: Install dependencies
         run: dotnet restore
+      - name: List packages
+        run: dotnet list package
       - name: Build
         run: dotnet build --configuration Release --no-restore --nologo
       - name: Test
