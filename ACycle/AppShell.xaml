@@ -16,6 +16,7 @@
     <FlyoutItem
         Title="{ext:LocaleString Key=appshell_focus}"
         Icon="appshell_focus.png"
+        IsVisible="False"
         Route="Focus">
         <ShellContent ContentTemplate="{DataTemplate views:FocusView}" />
     </FlyoutItem>
@@ -23,6 +24,7 @@
     <FlyoutItem
         Title="{ext:LocaleString Key=appshell_activity}"
         Icon="appshell_activity.png"
+        IsVisible="False"
         Route="Activity">
         <ShellContent ContentTemplate="{DataTemplate views:ActivityView}" />
     </FlyoutItem>
@@ -30,6 +32,7 @@
     <FlyoutItem
         Title="{ext:LocaleString Key=appshell_planning}"
         Icon="appshell_planning.png"
+        IsVisible="False"
         Route="Planning">
         <ShellContent ContentTemplate="{DataTemplate views:PlanningView}" />
     </FlyoutItem>
@@ -37,6 +40,7 @@
     <FlyoutItem
         Title="{ext:LocaleString Key=appshell_ledger}"
         Icon="appshell_ledger.png"
+        IsVisible="False"
         Route="Ledger">
         <ShellContent ContentTemplate="{DataTemplate views:LedgerView}" />
     </FlyoutItem>
@@ -44,6 +48,7 @@
     <FlyoutItem
         Title="{ext:LocaleString Key=appshell_health}"
         Icon="appshell_health.png"
+        IsVisible="False"
         Route="Health">
         <ShellContent ContentTemplate="{DataTemplate views:HealthView}" />
     </FlyoutItem>
@@ -58,6 +63,7 @@
     <FlyoutItem
         Title="{ext:LocaleString Key=appshell_settings}"
         Icon="appshell_settings.png"
+        IsVisible="False"
         Route="Settings">
         <ShellContent ContentTemplate="{DataTemplate views:SettingsView}" />
     </FlyoutItem>
@@ -65,6 +71,7 @@
     <FlyoutItem
         Title="{ext:LocaleString Key=appshell_debugging}"
         Icon="appshell_debugging.png"
+        IsVisible="False"
         Route="Debugging">
         <ShellContent ContentTemplate="{DataTemplate views:DebuggingView}" />
     </FlyoutItem>
