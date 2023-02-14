@@ -8,7 +8,6 @@ namespace ACycle.Extensions
     {
         private readonly IStringLocalizer<AppStrings> _stringLocalizer;
 
-        [NotNull]
         public string Key { get; set; } = "";
 
         public LocaleStringExtension()
