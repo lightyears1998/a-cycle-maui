@@ -2,11 +2,11 @@
 {
     public class RepositoryEventArgs<T> : EventArgs
     {
-        public T Model { get; }
+        public T Entity { get; }
 
-        public RepositoryEventArgs(T model)
+        public RepositoryEventArgs(T entity)
         {
-            Model = model;
+            Entity = entity;
         }
     }
 }
