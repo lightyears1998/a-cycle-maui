@@ -9,7 +9,7 @@ namespace ACycle.Entities
         public string Title { get; set; } = string.Empty;
 
         [Column("date_time")]
-        public DateTime DateTime { get; set; } = DateTime.UtcNow;
+        public DateTime DateTime { get; set; } = DateTime.Now;
 
         [Column("content")]
         public string Content { get; set; } = string.Empty;

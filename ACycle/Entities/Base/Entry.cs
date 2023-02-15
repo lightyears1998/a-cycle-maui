@@ -17,7 +17,7 @@ namespace ACycle.Entities
         public Guid? CreatedBy { set; get; }
 
         [Column("updated_at")]
-        public DateTime UpdatedAt { set; get; } = DateTime.UtcNow;
+        public DateTime UpdatedAt { set; get; } = DateTime.Now;
 
         [Column("updated_by")]
         public Guid UpdatedBy { set; get; } = Guid.Empty;

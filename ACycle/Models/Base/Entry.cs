@@ -8,7 +8,7 @@
 
         public Guid? CreatedBy { set; get; }
 
-        public DateTime UpdatedAt { set; get; } = DateTime.UtcNow;
+        public DateTime UpdatedAt { set; get; } = DateTime.Now;
 
         public Guid UpdatedBy { set; get; } = Guid.Empty;
 

@@ -13,7 +13,7 @@ namespace ACycle.Entities
         public Guid ModelUuid { get; set; } = Guid.NewGuid();
 
         [Column("model_updated_at")]
-        public DateTime ModelUpdatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime ModelUpdatedAt { get; set; } = DateTime.Now;
 
         [Column("model_updated_by")]
         public Guid ModelUpdatedBy { get; set; } = Guid.Empty;
