@@ -93,25 +93,25 @@ namespace ACycle.ViewModels
         }
 
         [RelayCommand]
-        private void JumpToPreviousDate()
+        public void JumpToPreviousDate()
         {
             Date = Date.AddDays(-1);
         }
 
         [RelayCommand]
-        private void JumpToNextDate()
+        public void JumpToNextDate()
         {
             Date = Date.AddDays(1);
         }
 
         [RelayCommand]
-        private async Task OpenEditorForAdding()
+        public async Task OpenEditorForAdding()
         {
             await _navigationService.NavigateToAsync("Editor");
         }
 
         [RelayCommand]
-        private async Task OpenEditorForEditing()
+        public async Task OpenEditorForEditing()
         {
             if (SelectedDiary == null)
                 return;
@@ -120,7 +120,7 @@ namespace ACycle.ViewModels
         }
 
         [RelayCommand]
-        private async Task RemoveDiary()
+        public async Task RemoveDiary()
         {
             if (SelectedDiary == null)
                 return;

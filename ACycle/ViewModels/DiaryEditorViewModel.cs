@@ -2,12 +2,11 @@
 using ACycle.Models;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.Input;
-using System.Windows.Input;
 
 namespace ACycle.ViewModels
 {
     [QueryProperty(nameof(Diary), "diary")]
-    public class DiaryEditorViewModel : ViewModelBase
+    public partial class DiaryEditorViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
         private readonly IEntryService<DiaryV1, Diary> _diaryService;
@@ -46,26 +45,21 @@ namespace ACycle.ViewModels
             }
         }
 
-        public ICommand SaveCommand { get; }
-
-        public ICommand DiscardCommand { get; }
-
         public DiaryEditorViewModel(INavigationService navigationService, IEntryService<DiaryV1, Diary> diaryService)
         {
             _navigationService = navigationService;
             _diaryService = diaryService;
-
-            SaveCommand = new AsyncRelayCommand(SaveAsync);
-            DiscardCommand = new AsyncRelayCommand(DiscardAsync);
         }
 
-        private async Task SaveAsync()
+        [RelayCommand]
+        public async Task SaveAsync()
         {
             await _diaryService.SaveAsync(Diary);
             await _navigationService.PopAsync();
         }
 
-        private async Task DiscardAsync()
+        [RelayCommand]
+        public async Task DiscardAsync()
         {
             await _navigationService.PopAsync();
         }

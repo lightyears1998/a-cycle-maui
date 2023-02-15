@@ -2,7 +2,6 @@
 using ACycle.Services;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Localization;
-using System.Windows.Input;
 
 #if WINDOWS
 using System.Diagnostics;
@@ -10,13 +9,11 @@ using System.Diagnostics;
 
 namespace ACycle.ViewModels
 {
-    public class DebuggingViewModel : ViewModelBase
+    public partial class DebuggingViewModel : ViewModelBase
     {
         private readonly IDatabaseService _databseService;
         private readonly IConfigurationService _configurationService;
         private readonly IStringLocalizer _stringLocalizer;
-
-        public ICommand OpenDataDirectoryCommand { get; }
 
         public string NodeUuidLabelText
         {
@@ -32,11 +29,10 @@ namespace ACycle.ViewModels
             _databseService = databaseService;
             _configurationService = configurationService;
             _stringLocalizer = stringLocalizer;
-
-            OpenDataDirectoryCommand = new AsyncRelayCommand(OpenDataDirectoryAsync);
         }
 
-        private async Task OpenDataDirectoryAsync()
+        [RelayCommand]
+        public static async Task OpenDataDirectoryAsync()
         {
 #if WINDOWS
             var startInfo = new ProcessStartInfo()
