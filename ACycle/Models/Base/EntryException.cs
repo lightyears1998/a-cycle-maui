@@ -1,13 +1,13 @@
 ﻿namespace ACycle.Models
 {
-    public abstract class EntryBasedModelException : Exception
+    public abstract class EntryException : Exception
     {
-        public EntryBasedModelException(string message) : base(message)
+        public EntryException(string message) : base(message)
         {
         }
     }
 
-    public class EntryContentTypeUnknownException : EntryBasedModelException
+    public class EntryContentTypeUnknownException : EntryException
     {
         public string ContentTypeString { get; set; }
 
@@ -17,11 +17,11 @@
         }
     }
 
-    public class ModelTypeUnknownException : EntryBasedModelException
+    public class ModelTypeUnknownException : EntryException
     {
         public Type ModelType { get; set; }
 
-        public ModelTypeUnknownException(Type modelType) : base($"Model type '{modelType.FullName}' is unknown.")
+        public ModelTypeUnknownException(Type modelType) : base($"Entity type '{modelType.FullName}' is unknown.")
         {
             ModelType = modelType;
         }

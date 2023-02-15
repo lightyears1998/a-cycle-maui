@@ -1,6 +1,6 @@
 ﻿namespace ACycle.Models
 {
-    public class Activity : EntryBasedModel
+    public class Activity : Entry
     {
     }
 }
