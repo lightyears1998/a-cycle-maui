@@ -117,31 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="appshell_activity" xml:space="preserve">
+  <data name="AppShell_Activity" xml:space="preserve">
     <value>Activity</value>
   </data>
-  <data name="appshell_debugging" xml:space="preserve">
+  <data name="AppShell_Debugging" xml:space="preserve">
     <value>Debugging</value>
   </data>
-  <data name="appshell_diary" xml:space="preserve">
+  <data name="AppShell_Diary" xml:space="preserve">
     <value>Diary</value>
   </data>
-  <data name="appshell_focus" xml:space="preserve">
+  <data name="AppShell_Focus" xml:space="preserve">
     <value>Focus</value>
   </data>
-  <data name="appshell_health" xml:space="preserve">
+  <data name="AppShell_Health" xml:space="preserve">
     <value>Health</value>
   </data>
-  <data name="appshell_ledger" xml:space="preserve">
+  <data name="AppShell_Ledger" xml:space="preserve">
     <value>Ledger</value>
   </data>
-  <data name="appshell_planning" xml:space="preserve">
+  <data name="AppShell_Planning" xml:space="preserve">
     <value>Planning</value>
   </data>
-  <data name="appshell_settings" xml:space="preserve">
+  <data name="AppShell_Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="settings_language" xml:space="preserve">
+  <data name="DebuggingView_OpenAppDirectory" xml:space="preserve">
+    <value>Open App Data Directory in File Explorer</value>
+  </data>
+  <data name="DebuggingView_Title" xml:space="preserve">
+    <value>Debugging Options</value>
+  </data>
+  <data name="DiaryView_Title" xml:space="preserve">
+    <value>Diary</value>
+  </data>
+  <data name="SettingsView_Language" xml:space="preserve">
     <value>Language</value>
   </data>
 </root>

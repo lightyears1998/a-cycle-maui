@@ -4,10 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:templates="clr-namespace:ACycle.Views.Templates"
     xmlns:views="clr-namespace:ACycle.Views"
+    xmlns:ext="clr-namespace:ACycle.Extensions"
     xmlns:viewModels="clr-namespace:ACycle.ViewModels"
     x:Class="ACycle.Views.DiaryView"
     x:DataType="viewModels:DiaryViewModel"
-    Title="Diary">
+    Title="{ext:LocaleString Key=DiaryView_Title}"
+>
     <VerticalStackLayout>
         <HorizontalStackLayout>
             <Button Text="&lt;" Command="{Binding JumpToPreviousDateCommand}" />

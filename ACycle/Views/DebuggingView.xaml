@@ -3,10 +3,12 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:ACycle.Views"
+    xmlns:ext="clr-namespace:ACycle.Extensions"
     xmlns:viewModels="clr-namespace:ACycle.ViewModels"
     x:Class="ACycle.Views.DebuggingView"
     x:DataType="viewModels:DebuggingViewModel"
-    Title="Debugging">
+    Title="{ext:LocaleString Key=DebuggingView_Title}"
+>
     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
         <VerticalStackLayout>
             <Label Text="{x:Binding NodeUuidLabelText}" />
@@ -14,7 +16,7 @@
 
         <VerticalStackLayout>
             <Button
-            Text="Open App Data Directory in Explorer"
+            Text="{ext:LocaleString Key=DebuggingView_OpenAppDirectory}"
             Command="{x:Binding OpenDataDirectoryCommand}" />
         </VerticalStackLayout>
     </VerticalStackLayout>

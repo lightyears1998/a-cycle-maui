@@ -63,81 +63,108 @@ namespace ACycle.Resources.Strings {
         /// <summary>
         ///   Looks up a localized string similar to Activity.
         /// </summary>
-        public static string appshell_activity {
+        public static string AppShell_Activity {
             get {
-                return ResourceManager.GetString("appshell_activity", resourceCulture);
+                return ResourceManager.GetString("AppShell_Activity", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Debugging.
         /// </summary>
-        public static string appshell_debugging {
+        public static string AppShell_Debugging {
             get {
-                return ResourceManager.GetString("appshell_debugging", resourceCulture);
+                return ResourceManager.GetString("AppShell_Debugging", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Diary.
         /// </summary>
-        public static string appshell_diary {
+        public static string AppShell_Diary {
             get {
-                return ResourceManager.GetString("appshell_diary", resourceCulture);
+                return ResourceManager.GetString("AppShell_Diary", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Focus.
         /// </summary>
-        public static string appshell_focus {
+        public static string AppShell_Focus {
             get {
-                return ResourceManager.GetString("appshell_focus", resourceCulture);
+                return ResourceManager.GetString("AppShell_Focus", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Health.
         /// </summary>
-        public static string appshell_health {
+        public static string AppShell_Health {
             get {
-                return ResourceManager.GetString("appshell_health", resourceCulture);
+                return ResourceManager.GetString("AppShell_Health", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ledger.
         /// </summary>
-        public static string appshell_ledger {
+        public static string AppShell_Ledger {
             get {
-                return ResourceManager.GetString("appshell_ledger", resourceCulture);
+                return ResourceManager.GetString("AppShell_Ledger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Planning.
+        /// </summary>
+        public static string AppShell_Planning {
+            get {
+                return ResourceManager.GetString("AppShell_Planning", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
-        public static string appshell_settings {
+        public static string AppShell_Settings {
             get {
-                return ResourceManager.GetString("appshell_settings", resourceCulture);
+                return ResourceManager.GetString("AppShell_Settings", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Todo List.
+        ///   Looks up a localized string similar to Open App Data Directory in File Explorer.
         /// </summary>
-        public static string appshell_todo_list {
+        public static string DebuggingView_OpenAppDirectory {
             get {
-                return ResourceManager.GetString("appshell_todo_list", resourceCulture);
+                return ResourceManager.GetString("DebuggingView_OpenAppDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debugging Options.
+        /// </summary>
+        public static string DebuggingView_Title {
+            get {
+                return ResourceManager.GetString("DebuggingView_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diary.
+        /// </summary>
+        public static string DiaryView_Title {
+            get {
+                return ResourceManager.GetString("DiaryView_Title", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
-        public static string settings_language {
+        public static string SettingsView_Language {
             get {
-                return ResourceManager.GetString("settings_language", resourceCulture);
+                return ResourceManager.GetString("SettingsView_Language", resourceCulture);
             }
         }
     }
