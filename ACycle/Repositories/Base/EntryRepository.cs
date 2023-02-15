@@ -2,7 +2,7 @@
 
 namespace ACycle.Repositories
 {
-    public abstract class EntryRepository<T> : Repository<T>
+    public class EntryRepository<T> : Repository<T>, IEntryRepository<T>
         where T : Entities.Entry, new()
     {
         private readonly IDatabaseService _databaseService;
@@ -15,16 +15,25 @@ namespace ACycle.Repositories
         public async Task InsertAsync(T entry)
         {
             await _databaseService.MainDatabase.InsertAsync(entry);
+            OnEntityCreated(entry);
         }
 
         public async Task UpdateAsync(T entry)
         {
             await _databaseService.MainDatabase.UpdateAsync(entry);
+            OnEntityUpdated(entry);
+        }
+
+        public async Task RemoveAsync(T entry)
+        {
+            await _databaseService.MainDatabase.UpdateAsync(entry);
+            OnEntityRemoved(entry);
         }
 
         public async Task HardDeleteAsync(T entry)
         {
             await _databaseService.MainDatabase.DeleteAsync(entry);
+            OnEntityRemoved(entry);
         }
 
         public async Task<List<T>> FindAllAsync()

@@ -1,13 +1,12 @@
-﻿using ACycle.Models;
+﻿using ACycle.Entities;
+using ACycle.Models;
 
 namespace ACycle.Services
 {
-    public interface IActivityCategoryService : IService
+    public interface IActivityCategoryService : IEntryService<ActivityCategoryV1, ActivityCategory>
     {
         List<ActivityCategory> GetDescendentCategories(ActivityCategory category);
 
         ActivityCategory? GetParentCategory(ActivityCategory category);
-
-        Task SaveCategory(ActivityCategory category);
     }
 }

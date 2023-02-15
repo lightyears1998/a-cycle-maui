@@ -1,5 +1,5 @@
-﻿using ACycle.Models;
-using ACycle.Repositories;
+﻿using ACycle.Entities;
+using ACycle.Models;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.Input;
 
@@ -8,7 +8,7 @@ namespace ACycle.ViewModels
     public partial class DiaryViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
-        private readonly EntryBasedModelRepository<Diary> _diaryRepository;
+        private readonly IEntryService<DiaryV1, Diary> _diaryService;
 
         private DateTime _date = DateTime.Today;
         private ObservableCollectionEx<Diary> _diaries = new();
@@ -38,36 +38,36 @@ namespace ACycle.ViewModels
             set => SetProperty(ref _selectedDiary, value);
         }
 
-        public DiaryViewModel(INavigationService navigationService, EntryBasedModelRepository<Diary> diaryRepository)
+        public DiaryViewModel(INavigationService navigationService, IEntryService<DiaryV1, Diary> diaryService)
         {
             _navigationService = navigationService;
-            _diaryRepository = diaryRepository;
-            _diaryRepository.ModelCreated += OnDiaryCreated;
-            _diaryRepository.ModelUpdated += OnDiaryUpdated;
-            _diaryRepository.ModelRemoved += OnDiaryRemoved;
+            _diaryService = diaryService;
+            _diaryService.ModelCreated += OnDiaryCreated;
+            _diaryService.ModelUpdated += OnDiaryUpdated;
+            _diaryService.ModelRemoved += OnDiaryRemoved;
         }
 
-        private void OnDiaryCreated(object sender, RepositoryEventArgs<Diary> e)
+        private void OnDiaryCreated(object? sender, EntryServiceEventArgs<Diary> args)
         {
-            if (e.Model.DateTime.Date == Date)
+            if (args.Model.DateTime.Date == Date)
             {
-                Diaries.InsertSorted(e.Model, Comparer<Diary>.Create((a, b) => a.DateTime.CompareTo(b.DateTime)));
+                Diaries.InsertSorted(args.Model, Comparer<Diary>.Create((a, b) => a.DateTime.CompareTo(b.DateTime)));
             }
         }
 
-        private void OnDiaryUpdated(object sender, RepositoryEventArgs<Diary> e)
+        private void OnDiaryUpdated(object? sender, EntryServiceEventArgs<Diary> args)
         {
-            if (Diaries.Contains(e.Model))
+            if (Diaries.Contains(args.Model))
             {
-                Diaries.NotifyItemChangedAt(Diaries.IndexOf(e.Model));
+                Diaries.NotifyItemChangedAt(Diaries.IndexOf(args.Model));
             }
         }
 
-        private void OnDiaryRemoved(object sender, RepositoryEventArgs<Diary> e)
+        private void OnDiaryRemoved(object? sender, EntryServiceEventArgs<Diary> args)
         {
-            if (Diaries.Contains(e.Model))
+            if (Diaries.Contains(args.Model))
             {
-                Diaries.Remove(e.Model);
+                Diaries.Remove(args.Model);
             }
         }
 
@@ -78,7 +78,7 @@ namespace ACycle.ViewModels
 
         private async Task<IEnumerable<Diary>> GetDiariesOfTheDate(DateTime date)
         {
-            var diaries = await _diaryRepository.FindAllAsync();
+            var diaries = await _diaryService.FindAllAsync();
             return diaries
                 .Where(diary => DateOnly.FromDateTime(diary.DateTime) == DateOnly.FromDateTime(date))
                 .OrderBy(diary => diary.DateTime);
@@ -122,7 +122,7 @@ namespace ACycle.ViewModels
             if (SelectedDiary == null)
                 return;
 
-            await _diaryRepository.RemoveAsync(SelectedDiary);
+            await _diaryService.RemoveAsync(SelectedDiary);
             Diaries.Remove(SelectedDiary);
         }
     }

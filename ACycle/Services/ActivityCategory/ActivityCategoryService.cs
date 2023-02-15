@@ -1,15 +1,19 @@
-﻿using ACycle.Models;
+﻿using ACycle.Entities;
+using ACycle.Models;
 using ACycle.Repositories;
 using System.Text;
 
 namespace ACycle.Services
 {
-    public class ActivityCategoryService : Service, IActivityCategoryService
+    public class ActivityCategoryService : EntryService<ActivityCategoryV1, ActivityCategory>, IActivityCategoryService
     {
-        private readonly EntryBasedModelRepository<ActivityCategory> _categoryRepository;
+        private readonly IEntryRepository<ActivityCategoryV1> _categoryRepository;
         private readonly Graph _graph = new();
 
-        public ActivityCategoryService(EntryBasedModelRepository<ActivityCategory> categoryRepository)
+        public ActivityCategoryService(
+            IConfigurationService configurationService,
+            IEntryRepository<ActivityCategoryV1> categoryRepository)
+            : base(configurationService, categoryRepository)
         {
             _categoryRepository = categoryRepository;
         }
@@ -23,7 +27,7 @@ namespace ACycle.Services
         {
             _graph.Clear();
 
-            var categories = await _categoryRepository.FindAllAsync();
+            var categories = ConvertToModel(await _categoryRepository.FindAllAsync());
             foreach (var category in categories)
             {
                 _graph.Insert(category);
@@ -34,10 +38,11 @@ namespace ACycle.Services
             }
         }
 
-        public async Task SaveCategory(ActivityCategory category)
+        public async Task<ActivityCategory> SaveAsync(ActivityCategory category)
         {
-            await _categoryRepository.SaveAsync(category);
+            await base.SaveAsync(category);
             _graph.Patch(category);
+            return category;
         }
 
         public ActivityCategory? GetParentCategory(ActivityCategory category)

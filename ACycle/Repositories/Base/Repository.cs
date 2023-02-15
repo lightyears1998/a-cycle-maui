@@ -1,14 +1,12 @@
 ﻿namespace ACycle.Repositories
 {
-    public abstract class Repository<T>
+    public abstract class Repository<T> : IRepository<T>
     {
-        public delegate void RepositoryEventHandler(object sender, RepositoryEventArgs<T> e);
+        public event EventHandler<RepositoryEventArgs<T>>? EntityCreated;
 
-        public event RepositoryEventHandler? EntityCreated;
+        public event EventHandler<RepositoryEventArgs<T>>? EntityUpdated;
 
-        public event RepositoryEventHandler? EntityUpdated;
-
-        public event RepositoryEventHandler? EntityRemoved;
+        public event EventHandler<RepositoryEventArgs<T>>? EntityRemoved;
 
         protected virtual void OnEntityCreated(T entityCreated)
         {
@@ -23,6 +21,16 @@
         protected virtual void OnEntityRemoved(T entityRemoved)
         {
             EntityRemoved?.Invoke(this, new(entityRemoved));
+        }
+    }
+
+    public class RepositoryEventArgs<T> : EventArgs
+    {
+        public T Entity { get; }
+
+        public RepositoryEventArgs(T entity)
+        {
+            Entity = entity;
         }
     }
 }

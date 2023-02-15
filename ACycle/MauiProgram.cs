@@ -1,5 +1,4 @@
-﻿using ACycle.Models;
-using ACycle.Repositories;
+﻿using ACycle.Repositories;
 using ACycle.Services;
 using ACycle.ViewModels;
 using ACycle.Views;
@@ -21,7 +20,8 @@ public static class MauiProgram
             .RegisterRepositories()
             .RegisterServices()
             .RegisterViewModels()
-            .RegisterViews();
+            .RegisterViews()
+            ;
 
         return builder.Build();
     }
@@ -29,12 +29,9 @@ public static class MauiProgram
     public static MauiAppBuilder RegisterRepositories(this MauiAppBuilder builder)
     {
         builder.Services
-            .AddSingleton<EntryRepository>()
-            .AddSingleton<EntryBasedModelRepository<ActionPlan>>()
-            .AddSingleton<EntryBasedModelRepository<Activity>>()
-            .AddSingleton<EntryBasedModelRepository<ActivityCategory>>()
-            .AddSingleton<EntryBasedModelRepository<Diary>>()
-            .AddSingleton<MetadataRepository>();
+            .AddSingleton<MetadataRepository>()
+            .AddSingleton(typeof(IEntryRepository<>), typeof(EntryRepository<>))
+            ;
 
         return builder;
     }
@@ -44,11 +41,14 @@ public static class MauiProgram
         builder.Services
             .AddLocalization()
             .AddSingleton<IActivityCategoryService, ActivityCategoryService>()
-            .AddSingleton<IDatabaseService, DatabaseService>()
-            .AddSingleton<IDialogService, DialogService>()
             .AddSingleton<IConfigurationService, ConfigurationService>()
+            .AddSingleton<IDatabaseService>(new DatabaseService(Path.Join(FileSystem.AppDataDirectory, "MainDatabase.sqlite3")))
+            .AddSingleton<IDialogService, DialogService>()
+            .AddSingleton<IMetadataService, MetadataService>()
             .AddSingleton<INavigationService, NavigationService>()
-            .AddSingleton<IStaticConfigurationService, StaticConfigurationService>();
+            .AddSingleton<IStaticConfigurationService, StaticConfigurationService>()
+            .AddSingleton(typeof(IEntryService<,>), typeof(EntryService<,>))
+            ;
 
         return builder;
     }
@@ -60,7 +60,8 @@ public static class MauiProgram
             .AddTransient<DiaryViewModel>()
             .AddTransient<DiaryEditorViewModel>()
             .AddTransient<FocusViewModel>()
-            .AddTransient<LandingViewModel>();
+            .AddTransient<LandingViewModel>()
+            ;
 
         return builder;
     }
@@ -77,7 +78,8 @@ public static class MauiProgram
             .AddTransient<LandingView>()
             .AddTransient<LedgerView>()
             .AddTransient<SettingsView>()
-            .AddTransient<PlanningView>();
+            .AddTransient<PlanningView>()
+            ;
 
         return builder;
     }

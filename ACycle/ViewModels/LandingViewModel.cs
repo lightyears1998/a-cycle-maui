@@ -1,6 +1,4 @@
-﻿using ACycle.Repositories;
-using ACycle.Services;
-using Microsoft.Maui.Platform;
+﻿using ACycle.Services;
 
 namespace ACycle.ViewModels
 {

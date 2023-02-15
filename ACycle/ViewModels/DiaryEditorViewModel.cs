@@ -1,4 +1,5 @@
-﻿using ACycle.Models;
+﻿using ACycle.Entities;
+using ACycle.Models;
 using ACycle.Repositories;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.Input;
@@ -10,7 +11,7 @@ namespace ACycle.ViewModels
     public class DiaryEditorViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
-        private readonly EntryBasedModelRepository<Diary> _diaryRepository;
+        private readonly EntryService<DiaryV1, Diary> _diaryService;
 
         private Diary _diary = new();
 
@@ -50,10 +51,10 @@ namespace ACycle.ViewModels
 
         public ICommand DiscardCommand { get; }
 
-        public DiaryEditorViewModel(INavigationService navigationService, EntryBasedModelRepository<Diary> diaryRepository)
+        public DiaryEditorViewModel(INavigationService navigationService, EntryService<DiaryV1, Diary> diaryService)
         {
             _navigationService = navigationService;
-            _diaryRepository = diaryRepository;
+            _diaryService = diaryService;
 
             SaveCommand = new AsyncRelayCommand(SaveAsync);
             DiscardCommand = new AsyncRelayCommand(DiscardAsync);
@@ -61,7 +62,7 @@ namespace ACycle.ViewModels
 
         private async Task SaveAsync()
         {
-            await _diaryRepository.SaveAsync(Diary);
+            await _diaryService.SaveAsync(Diary);
             await _navigationService.PopAsync();
         }
 

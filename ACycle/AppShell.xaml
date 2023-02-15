@@ -4,7 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ext="clr-namespace:ACycle.Extensions"
-    xmlns:views="clr-namespace:ACycle.Views">
+    xmlns:views="clr-namespace:ACycle.Views"
+>
 
     <Shell.FlyoutBehavior>
         <OnPlatform x:TypeArguments="FlyoutBehavior">
@@ -14,7 +15,7 @@
     </Shell.FlyoutBehavior>
 
     <FlyoutItem
-        Title="{ext:LocaleString Key=appshell_focus}"
+        Title="{ext:LocaleString Key=AppShell_Focus}"
         Icon="appshell_focus.png"
         IsVisible="False"
         Route="Focus">
@@ -22,7 +23,7 @@
     </FlyoutItem>
 
     <FlyoutItem
-        Title="{ext:LocaleString Key=appshell_activity}"
+        Title="{ext:LocaleString Key=AppShell_Activity}"
         Icon="appshell_activity.png"
         IsVisible="False"
         Route="Activity">
@@ -30,7 +31,7 @@
     </FlyoutItem>
 
     <FlyoutItem
-        Title="{ext:LocaleString Key=appshell_planning}"
+        Title="{ext:LocaleString Key=AppShell_Planning}"
         Icon="appshell_planning.png"
         IsVisible="False"
         Route="Planning">
@@ -38,7 +39,7 @@
     </FlyoutItem>
 
     <FlyoutItem
-        Title="{ext:LocaleString Key=appshell_ledger}"
+        Title="{ext:LocaleString Key=AppShell_Ledger}"
         Icon="appshell_ledger.png"
         IsVisible="False"
         Route="Ledger">
@@ -46,7 +47,7 @@
     </FlyoutItem>
 
     <FlyoutItem
-        Title="{ext:LocaleString Key=appshell_health}"
+        Title="{ext:LocaleString Key=AppShell_Health}"
         Icon="appshell_health.png"
         IsVisible="False"
         Route="Health">
@@ -54,14 +55,14 @@
     </FlyoutItem>
 
     <FlyoutItem
-        Title="{ext:LocaleString Key=appshell_diary}"
+        Title="{ext:LocaleString Key=AppShell_Diary}"
         Icon="appshell_diary.png"
         Route="Diary">
         <ShellContent ContentTemplate="{DataTemplate views:DiaryView}" />
     </FlyoutItem>
 
     <FlyoutItem
-        Title="{ext:LocaleString Key=appshell_settings}"
+        Title="{ext:LocaleString Key=AppShell_Settings}"
         Icon="appshell_settings.png"
         IsVisible="False"
         Route="Settings">
@@ -69,9 +70,9 @@
     </FlyoutItem>
 
     <FlyoutItem
-        Title="{ext:LocaleString Key=appshell_debugging}"
+        Title="{ext:LocaleString Key=AppShell_Debugging}"
         Icon="appshell_debugging.png"
-        IsVisible="False"
+        IsVisible="True"
         Route="Debugging">
         <ShellContent ContentTemplate="{DataTemplate views:DebuggingView}" />
     </FlyoutItem>
