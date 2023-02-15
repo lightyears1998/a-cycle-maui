@@ -10,13 +10,17 @@ namespace ACycle.Services
 
         public readonly long CURRENT_SCHEMA_VERSION = 1;
 
+        public string DatabaseDirectory { protected set; get; }
+
         public string MainDatabasePath { protected set; get; }
 
         public SQLiteAsyncConnection MainDatabase { protected set; get; }
 
-        public DatabaseService(string mainDatabasePath)
+        public DatabaseService(string databaseDirectory)
         {
-            MainDatabasePath = mainDatabasePath;
+            DatabaseDirectory = databaseDirectory;
+            MainDatabasePath = Path.Join(DatabaseDirectory, "MainDatabase.sqlite3");
+
             MainDatabase = new SQLiteAsyncConnection(MainDatabasePath);
             _metadataService = new MetadataService(new MetadataRepository(this));
         }

@@ -27,6 +27,11 @@ namespace ACycle.Services
             return value;
         }
 
+        public async Task SetMetadataAsync(string key, string value)
+        {
+            await _metadataRepository.SaveMetadataAsync(key, value);
+        }
+
         public async Task<Guid> GetNodeUuidAsync()
         {
             return Guid.Parse(await GetMetadataAsync("NODE_UUID", defaultValue: Guid.NewGuid().ToString()));

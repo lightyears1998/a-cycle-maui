@@ -1,4 +1,5 @@
-﻿using ACycle.Services;
+﻿using ACycle.Helpers;
+using ACycle.Services;
 
 namespace ACycle.ViewModels
 {
@@ -7,20 +8,24 @@ namespace ACycle.ViewModels
         private readonly IDatabaseService _databaseService;
         private readonly IConfigurationService _configurationService;
         private readonly IActivityCategoryService _activityCategoryService;
+        private readonly IUserService _userService;
 
         public LandingViewModel(
             IDatabaseService databaseService,
             IConfigurationService configurationService,
-            IActivityCategoryService activityCategoryService)
+            IActivityCategoryService activityCategoryService,
+            IUserService userService)
         {
             _databaseService = databaseService;
             _configurationService = configurationService;
             _activityCategoryService = activityCategoryService;
+            _userService = userService;
         }
 
         public override async Task InitializeAsync()
         {
             await InitializeServices();
+            await SetupAppLanguage();
             NavigateToAppShell();
         }
 
@@ -29,6 +34,15 @@ namespace ACycle.ViewModels
             await _databaseService.InitializeAsync();
             await _configurationService.InitializeAsync();
             await _activityCategoryService.InitializeAsync();
+        }
+
+        private async Task SetupAppLanguage()
+        {
+            var userInfo = await _userService.GetUserInfoAsync();
+            if (userInfo.PreferredLanguage != null)
+            {
+                LanguageHelper.SwitchLanguage(userInfo.PreferredLanguage);
+            }
         }
 
         private static void NavigateToAppShell()

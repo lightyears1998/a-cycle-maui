@@ -216,9 +216,45 @@ namespace ACycle.Resources.Strings {
         /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
-        public static string SettingsView_Language {
+        public static string SettingsView_LanguagePickerTitle {
             get {
-                return ResourceManager.GetString("SettingsView_Language", resourceCulture);
+                return ResourceManager.GetString("SettingsView_LanguagePickerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Debugging Menu.
+        /// </summary>
+        public static string SettingsView_OpenDebuggingMenu {
+            get {
+                return ResourceManager.GetString("SettingsView_OpenDebuggingMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please restart the application for the language changes to take effects..
+        /// </summary>
+        public static string SettingsView_RestartDueToLanguageChangeHint {
+            get {
+                return ResourceManager.GetString("SettingsView_RestartDueToLanguageChangeHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string SettingsView_Title {
+            get {
+                return ResourceManager.GetString("SettingsView_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System Language.
+        /// </summary>
+        public static string SettingsView_UseSystemLanguage {
+            get {
+                return ResourceManager.GetString("SettingsView_UseSystemLanguage", resourceCulture);
             }
         }
         
@@ -237,6 +273,15 @@ namespace ACycle.Resources.Strings {
         public static string Text_Discard {
             get {
                 return ResourceManager.GetString("Text_Discard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Node.
+        /// </summary>
+        public static string Text_Node {
+            get {
+                return ResourceManager.GetString("Text_Node", resourceCulture);
             }
         }
         

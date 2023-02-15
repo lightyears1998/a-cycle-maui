@@ -1,5 +1,7 @@
-﻿using ACycle.Services;
+﻿using ACycle.Resources.Strings;
+using ACycle.Services;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Localization;
 using System.Windows.Input;
 
 #if WINDOWS
@@ -12,18 +14,24 @@ namespace ACycle.ViewModels
     {
         private readonly IDatabaseService _databseService;
         private readonly IConfigurationService _configurationService;
+        private readonly IStringLocalizer _stringLocalizer;
 
         public ICommand OpenDataDirectoryCommand { get; }
 
         public string NodeUuidLabelText
         {
-            get => $"Node UUID: {_configurationService.NodeUuid}";
+            get => $"{_stringLocalizer["Text_Node"]} UUID: {_configurationService.NodeUuid}";
         }
 
-        public DebuggingViewModel(IDatabaseService databaseService, IConfigurationService configurationService)
+        public DebuggingViewModel(
+            IDatabaseService databaseService,
+            IConfigurationService configurationService,
+            IStringLocalizer<AppStrings> stringLocalizer
+        )
         {
             _databseService = databaseService;
             _configurationService = configurationService;
+            _stringLocalizer = stringLocalizer;
 
             OpenDataDirectoryCommand = new AsyncRelayCommand(OpenDataDirectoryAsync);
         }
