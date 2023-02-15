@@ -3,7 +3,7 @@
 namespace ACycle.Entities
 {
     [Table("entry_diary")]
-    internal class DiaryV1
+    public class DiaryV1 : Entry
     {
     }
 }

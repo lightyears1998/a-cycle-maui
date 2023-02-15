@@ -1,6 +1,5 @@
 ﻿using ACycle.Resources.Strings;
 using Microsoft.Extensions.Localization;
-using System.Diagnostics.CodeAnalysis;
 
 namespace ACycle.Extensions
 {
