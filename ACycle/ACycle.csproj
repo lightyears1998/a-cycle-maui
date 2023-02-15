@@ -39,6 +39,7 @@
 		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
 		<AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
 		<DefaultLanguage>en</DefaultLanguage>
+		<GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
 	</PropertyGroup>
 
   <!-- App Icon -->
