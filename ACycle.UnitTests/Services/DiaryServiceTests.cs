@@ -1,19 +1,26 @@
-﻿using ACycle.Models;
+﻿using ACycle.Entities;
+using ACycle.Models;
 using ACycle.Repositories;
 using ACycle.Services;
 
 namespace ACycle.UnitTests.Models
 {
     [TestClass]
-    public class DiaryTests
+    public class DiaryServiceTests
     {
         private static readonly string s_test_database_path = "Test.MainDatabase.sqlite3";
 
         private static readonly DatabaseService s_db = new(s_test_database_path);
 
-        private static readonly ConfigurationService s_config = new(new MetadataRepository(s_db));
+        private static readonly MetadataRepository s_metadataRepositoryV1 = new(s_db);
 
-        private static readonly EntryBasedModelRepository<Diary> s_repo = new(s_config, new EntryRepository(s_db));
+        private static readonly MetadataService s_metadataService = new(s_metadataRepositoryV1);
+
+        private static readonly ConfigurationService s_config = new(s_metadataService);
+
+        private static readonly EntryRepository<DiaryV1> s_repo = new(s_db);
+
+        private static readonly EntryService<DiaryV1, Diary> s_service = new(s_config, s_repo);
 
         [ClassInitialize]
         public static async Task Initialize(TestContext _)
@@ -36,7 +43,7 @@ namespace ACycle.UnitTests.Models
                 Title = "Diary_Save Test Title",
                 Content = "Diary_Save test content. The content of a diary for test."
             };
-            await s_repo.InsertAsync(diary);
+            await s_service.SaveAsync(diary);
         }
 
         [TestMethod]
@@ -47,8 +54,8 @@ namespace ACycle.UnitTests.Models
             {
                 Title = "Diary_DoubleInsert Test Title",
             };
-            await s_repo.InsertAsync(diary);
-            await s_repo.InsertAsync(diary);
+            await s_service.SaveAsync(diary);
+            await s_service.SaveAsync(diary);
         }
 
         [TestMethod]
@@ -58,10 +65,10 @@ namespace ACycle.UnitTests.Models
             {
                 Title = "Diary_Update Test Title"
             };
-            await s_repo.InsertAsync(diary);
+            await s_service.SaveAsync(diary);
 
             diary.Title = "Diary_Update Test Title (Updated)";
-            await s_repo.UpdateAsync(diary);
+            await s_service.SaveAsync(diary);
         }
 
         [TestMethod]
@@ -80,8 +87,8 @@ namespace ACycle.UnitTests.Models
             {
                 Title = "Diary_SaveAndDelete Test Title"
             };
-            await s_repo.InsertAsync(diary);
-            await s_repo.RemoveAsync(diary);
+            await s_service.SaveAsync(diary);
+            await s_service.RemoveAsync(diary);
 
             Assert.AreEqual(diaryCount, (await s_repo.FindAllAsync()).Count);
         }

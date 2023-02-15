@@ -11,6 +11,8 @@ namespace ACycle.Entities
         [Column("created_at")]
         public DateTime? CreatedAt { set; get; }
 
+        public bool IsCreated => CreatedAt.HasValue;
+
         [Column("created_by")]
         public Guid? CreatedBy { set; get; }
 
@@ -22,5 +24,7 @@ namespace ACycle.Entities
 
         [Column("removed_at")]
         public DateTime? RemovedAt { get; set; }
+
+        public bool IsRemoved => RemovedAt.HasValue;
     }
 }
