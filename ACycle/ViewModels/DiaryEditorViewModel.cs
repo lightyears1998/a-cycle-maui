@@ -1,6 +1,5 @@
 ﻿using ACycle.Entities;
 using ACycle.Models;
-using ACycle.Repositories;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
@@ -11,7 +10,7 @@ namespace ACycle.ViewModels
     public class DiaryEditorViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
-        private readonly EntryService<DiaryV1, Diary> _diaryService;
+        private readonly IEntryService<DiaryV1, Diary> _diaryService;
 
         private Diary _diary = new();
 
@@ -51,7 +50,7 @@ namespace ACycle.ViewModels
 
         public ICommand DiscardCommand { get; }
 
-        public DiaryEditorViewModel(INavigationService navigationService, EntryService<DiaryV1, Diary> diaryService)
+        public DiaryEditorViewModel(INavigationService navigationService, IEntryService<DiaryV1, Diary> diaryService)
         {
             _navigationService = navigationService;
             _diaryService = diaryService;

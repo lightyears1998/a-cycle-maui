@@ -50,7 +50,7 @@ namespace ACycle.Services
             _entityRepository.EntityRemoved += (_, args) => OnModelRemoved(ConvertToModel(args.Entity));
 
             InitializePropertyDictionaries();
-            CheckIfShadowConvertionIsPossible();
+            CheckIfShadowConversionIsPossible();
         }
 
         private void InitializePropertyDictionaries()
@@ -66,12 +66,14 @@ namespace ACycle.Services
             }
         }
 
-        private void CheckIfShadowConvertionIsPossible()
+        private void CheckIfShadowConversionIsPossible()
         {
             _shadowConversionPossible = true;
 
             foreach (var pi in _modelPropertyInfos)
             {
+                if (!pi.CanWrite) { continue; }
+
                 if (!_entityPropertyDictionary.ContainsKey(pi.Name) || _entityPropertyDictionary[pi.Name].PropertyType != pi.PropertyType)
                 {
                     _shadowConversionPossible = false;
@@ -89,7 +91,10 @@ namespace ACycle.Services
                 {
                     var value = modelPropertyInfo.GetValue(model);
                     var entityPropertyInfo = _entityPropertyDictionary[modelPropertyInfo.Name];
-                    entityPropertyInfo.SetValue(entity, value);
+                    if (entityPropertyInfo.CanWrite)
+                    {
+                        entityPropertyInfo.SetValue(entity, value);
+                    }
                 }
                 return entity;
             }
@@ -111,7 +116,10 @@ namespace ACycle.Services
                 {
                     var value = entityPropertyInfo.GetValue(entity);
                     var modelPropertyInfo = _modelPropertyDictionary[entityPropertyInfo.Name];
-                    modelPropertyInfo.SetValue(model, value);
+                    if (modelPropertyInfo.CanWrite)
+                    {
+                        modelPropertyInfo.SetValue(model, value);
+                    }
                 }
                 return model;
             }

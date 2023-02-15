@@ -61,6 +61,33 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string Action_Add {
+            get {
+                return ResourceManager.GetString("Action_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Action_Edit {
+            get {
+                return ResourceManager.GetString("Action_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string Action_Remove {
+            get {
+                return ResourceManager.GetString("Action_Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Activity.
         /// </summary>
         public static string AppShell_Activity {
@@ -151,6 +178,15 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Diary Editor.
+        /// </summary>
+        public static string DiaryEditorView_Title {
+            get {
+                return ResourceManager.GetString("DiaryEditorView_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Diary.
         /// </summary>
         public static string DiaryView_Title {
@@ -160,11 +196,65 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Initialization is under going. Please wait for a moment..
+        /// </summary>
+        public static string LandingView_Description {
+            get {
+                return ResourceManager.GetString("LandingView_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to ACycle!.
+        /// </summary>
+        public static string LandingView_Heading {
+            get {
+                return ResourceManager.GetString("LandingView_Heading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string SettingsView_Language {
             get {
                 return ResourceManager.GetString("SettingsView_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content.
+        /// </summary>
+        public static string Text_Content {
+            get {
+                return ResourceManager.GetString("Text_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discard.
+        /// </summary>
+        public static string Text_Discard {
+            get {
+                return ResourceManager.GetString("Text_Discard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Text_Save {
+            get {
+                return ResourceManager.GetString("Text_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string Text_Title {
+            get {
+                return ResourceManager.GetString("Text_Title", resourceCulture);
             }
         }
     }

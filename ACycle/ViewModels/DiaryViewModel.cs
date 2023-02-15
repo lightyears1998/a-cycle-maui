@@ -57,9 +57,12 @@ namespace ACycle.ViewModels
 
         private void OnDiaryUpdated(object? sender, EntryServiceEventArgs<Diary> args)
         {
-            if (Diaries.Contains(args.Model))
+            for (int i = 0; i < Diaries.Count; ++i)
             {
-                Diaries.NotifyItemChangedAt(Diaries.IndexOf(args.Model));
+                if (Diaries[i].Uuid == args.Model.Uuid)
+                {
+                    Diaries.NotifyItemChangedAt(i);
+                }
             }
         }
 

@@ -4,22 +4,23 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:ACycle.Views"
     xmlns:viewModels="clr-namespace:ACycle.ViewModels"
+    xmlns:ext="clr-namespace:ACycle.Extensions"
     x:Class="ACycle.Views.DiaryEditorView"
     x:DataType="viewModels:DiaryEditorViewModel"
-    Title="Diary Editor">
+    Title="{ext:LocaleString Key=DiaryEditorView_Title}">
     <ScrollView>
         <VerticalStackLayout>
-            <Label Text="Title" />
+            <Label Text="{ext:LocaleString Key=Text_Title}" />
             <Entry Text="{Binding Diary.Title}" />
             <HorizontalStackLayout>
                 <DatePicker Date="{Binding DiaryDate}" />
                 <TimePicker Time="{Binding DiaryTime}" />
             </HorizontalStackLayout>
-            <Label Text="Content" />
+            <Label Text="{ext:LocaleString Key=Text_Content}" />
             <Editor HeightRequest="200" Text="{Binding Diary.Content}" />
             <HorizontalStackLayout>
-                <Button Text="Save" Command="{Binding SaveCommand}" />
-                <Button Text="Discard" Command="{Binding DiscardCommand}" />
+                <Button Text="{ext:LocaleString Key=Text_Save}" Command="{Binding SaveCommand}" />
+                <Button Text="{ext:LocaleString Key=Text_Discard}" Command="{Binding DiscardCommand}" />
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>

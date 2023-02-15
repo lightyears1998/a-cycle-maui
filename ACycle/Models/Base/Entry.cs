@@ -2,7 +2,7 @@
 {
     public class Entry
     {
-        public Guid Uuid = Guid.NewGuid();
+        public Guid Uuid { set; get; } = Guid.NewGuid();
 
         public DateTime? CreatedAt { set; get; }
 
@@ -14,14 +14,8 @@
 
         public DateTime? RemovedAt { set; get; }
 
-        public bool IsCreated
-        {
-            get => CreatedAt.HasValue;
-        }
+        public bool IsCreated => CreatedAt.HasValue;
 
-        public bool IsRemoved
-        {
-            get => RemovedAt.HasValue;
-        }
+        public bool IsRemoved => RemovedAt.HasValue;
     }
 }

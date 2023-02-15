@@ -10,7 +10,7 @@
     x:DataType="viewModels:DiaryViewModel"
     Title="{ext:LocaleString Key=DiaryView_Title}"
 >
-    <VerticalStackLayout>
+    <VerticalStackLayout HorizontalOptions="Center">
         <HorizontalStackLayout>
             <Button Text="&lt;" Command="{Binding JumpToPreviousDateCommand}" />
             <DatePicker VerticalOptions="Fill" Date="{Binding Date}" />
@@ -26,9 +26,9 @@
         </CollectionView>
 
         <HorizontalStackLayout>
-            <Button Text="Add" Command="{Binding OpenEditorForAddingCommand}" />
-            <Button Text="Edit" Command="{Binding OpenEditorForEditingCommand}" />
-            <Button Text="Remove" Command="{Binding RemoveDiaryCommand}" />
+            <Button Text="{ext:LocaleString Key=Action_Add}" Command="{Binding OpenEditorForAddingCommand}" />
+            <Button Text="{ext:LocaleString Key=Action_Edit}" Command="{Binding OpenEditorForEditingCommand}" />
+            <Button Text="{ext:LocaleString Key=Action_Remove}" Command="{Binding RemoveDiaryCommand}" />
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </views:ContentPageBase>
