@@ -2,7 +2,7 @@
 {
     public class FeaturePreference
     {
-        public bool ActivityEnabled;
-        public bool DiaryEnabled;
+        public bool ActivityEnabled = true;
+        public bool DiaryEnabled = true;
     }
 }
