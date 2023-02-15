@@ -2,15 +2,16 @@
 using ACycle.Models;
 using ACycle.Repositories;
 using ACycle.Services;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SQLite;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ACycle.UnitTests.Models
 {
     [TestClass]
     public class DiaryServiceTests
     {
-        private static readonly string s_test_database_path = "Test.MainDatabase.sqlite3";
-
-        private static readonly DatabaseService s_db = new(s_test_database_path);
+        private static readonly DatabaseService s_db = new("./");
 
         private static readonly MetadataRepository s_metadataRepositoryV1 = new(s_db);
 
@@ -47,15 +48,15 @@ namespace ACycle.UnitTests.Models
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(SQLiteException))]
         public async Task Diary_DoubleInsert()
         {
             Diary diary = new()
             {
                 Title = "Diary_DoubleInsert Test Title",
             };
-            await s_service.SaveAsync(diary);
-            await s_service.SaveAsync(diary);
+            await s_service.InsertAsync(diary);
+            await s_service.InsertAsync(diary);
         }
 
         [TestMethod]
