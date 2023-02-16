@@ -16,7 +16,14 @@ namespace ACycle.ViewModels
         public Diary Diary
         {
             get => _diary;
-            set => SetProperty(ref _diary, value);
+            set
+            {
+                if (SetProperty(ref _diary, value))
+                {
+                    OnPropertyChanged(nameof(DiaryDate));
+                    OnPropertyChanged(nameof(DiaryTime));
+                }
+            }
         }
 
         public DateTime DiaryDate
