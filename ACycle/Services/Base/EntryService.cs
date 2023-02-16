@@ -1,4 +1,5 @@
 ﻿using ACycle.Repositories;
+using SQLite;
 using System.Reflection;
 
 namespace ACycle.Services
@@ -144,28 +145,47 @@ namespace ACycle.Services
 
             if (model.IsCreated)
             {
-                return await UpdateAsync(model);
+                return await UpdateAsync(model, updateTimestamp: false);
             }
             else
             {
-                return await InsertAsync(model);
+                return await InsertAsync(model, updateTimestamp: false);
             }
         }
 
         public virtual async Task<TModel> UpdateAsync(TModel model, bool updateTimestamp = true)
         {
-            if (updateTimestamp) UpdateTimestamp(model);
+            if (updateTimestamp)
+                UpdateTimestamp(model);
+
             await _entityRepository.UpdateAsync(ConvertToEntity(model));
             return model;
         }
 
         public virtual async Task<TModel> InsertAsync(TModel model, bool updateTimestamp = true)
         {
-            if (updateTimestamp) UpdateTimestamp(model);
+            if (updateTimestamp)
+                UpdateTimestamp(model);
+
             model.CreatedAt = DateTime.Now;
             model.CreatedBy = _configurationService.NodeUuid;
             await _entityRepository.InsertAsync(ConvertToEntity(model));
             return model;
+        }
+
+        public virtual async Task UpsertAsync(TModel model, bool updateTimestamp = true)
+        {
+            if (updateTimestamp)
+                UpdateTimestamp(model);
+
+            try
+            {
+                await InsertAsync(model, updateTimestamp: false);
+            }
+            catch (SQLiteException)
+            {
+                await UpdateAsync(model, updateTimestamp: false);
+            }
         }
 
         public virtual async Task<TModel> RemoveAsync(TModel model)
