@@ -66,30 +66,44 @@ public static class MauiProgram
 
     public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
     {
-        builder.Services
-            .AddTransient<DebuggingViewModel>()
-            .AddTransient<DiaryViewModel>()
-            .AddTransient<DiaryEditorViewModel>()
-            .AddTransient<FocusViewModel>()
-            .AddTransient<LandingViewModel>()
-            .AddTransient<SettingsViewModel>();
+        builder.RegisterTransients(new Type[]
+        {
+            typeof(DebuggingViewModel),
+            typeof(DiaryViewModel),
+            typeof(DiaryEditorViewModel),
+            typeof(FocusViewModel),
+            typeof(LandingViewModel),
+            typeof(SettingsViewModel),
+        });
 
         return builder;
     }
 
     public static MauiAppBuilder RegisterViews(this MauiAppBuilder builder)
     {
-        builder.Services
-            .AddTransient<ActivityView>()
-            .AddTransient<DebuggingView>()
-            .AddTransient<DiaryEditorView>()
-            .AddTransient<DiaryView>()
-            .AddTransient<FocusView>()
-            .AddTransient<HealthView>()
-            .AddTransient<LandingView>()
-            .AddTransient<LedgerView>()
-            .AddTransient<SettingsView>()
-            .AddTransient<PlanningView>();
+        builder.RegisterTransients(new Type[]
+        {
+            typeof(ActivityView),
+            typeof(DebuggingView),
+            typeof(DiaryEditorView),
+            typeof(DiaryView),
+            typeof(FocusView),
+            typeof(HealthView),
+            typeof(LandingView),
+            typeof(LedgerView),
+            typeof(SettingsView),
+            typeof(PlanningView)
+        });
+
+        return builder;
+    }
+
+    public static MauiAppBuilder RegisterTransients(this MauiAppBuilder builder, IList<Type> types)
+    {
+        foreach (var type in types)
+        {
+            builder.Services.AddTransient(type);
+        }
 
         return builder;
     }
