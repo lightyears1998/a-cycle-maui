@@ -51,7 +51,7 @@ namespace ACycle.Services
             _entityRepository.EntityRemoved += (_, args) => OnModelRemoved(ConvertToModel(args.Entity));
 
             InitializePropertyDictionaries();
-            CheckIfShadowConversionIsPossible();
+            CheckIfImplicitConversionIsPossible();
         }
 
         private void InitializePropertyDictionaries()
@@ -67,40 +67,61 @@ namespace ACycle.Services
             }
         }
 
-        private void CheckIfShadowConversionIsPossible()
+        private static bool CheckIfImplicitConversionIsPossible<TSource, TDest>(
+            IList<PropertyInfo> sourcePropertyInfos,
+            IDictionary<string, PropertyInfo> destPropertyDictionary)
+            where TSource : new()
+            where TDest : new()
         {
-            _shadowConversionPossible = true;
-
-            foreach (var pi in _modelPropertyInfos)
+            foreach (var pi in sourcePropertyInfos)
             {
-                if (!pi.CanWrite) { continue; }
+                if (!pi.CanWrite) continue;
 
-                if (!_entityPropertyDictionary.ContainsKey(pi.Name) || _entityPropertyDictionary[pi.Name].PropertyType != pi.PropertyType)
+                if (!destPropertyDictionary.ContainsKey(pi.Name) || destPropertyDictionary[pi.Name].PropertyType != pi.PropertyType)
                 {
-                    _shadowConversionPossible = false;
-                    break;
+                    return false;
                 }
             }
+
+            return true;
+        }
+
+        private void CheckIfImplicitConversionIsPossible()
+        {
+            _shadowConversionPossible =
+                CheckIfImplicitConversionIsPossible<TEntity, TModel>(_entityPropertyInfos, _modelPropertyDictionary)
+                &&
+                CheckIfImplicitConversionIsPossible<TModel, TEntity>(_modelPropertyInfos, _entityPropertyDictionary);
+        }
+
+        protected virtual TDest ConvertToType<TSource, TDest>(
+            TSource source,
+            IList<PropertyInfo> sourcePropertyInfos,
+            IDictionary<string, PropertyInfo> destPropertyDictionary)
+            where TDest : new()
+            where TSource : new()
+        {
+            if (_shadowConversionPossible)
+            {
+                var dest = new TDest();
+                foreach (var sourcePropertyInfo in sourcePropertyInfos)
+                {
+                    var sourceValue = sourcePropertyInfo.GetValue(source);
+                    var destPropertyInfo = destPropertyDictionary[sourcePropertyInfo.Name];
+                    if (destPropertyInfo.CanWrite)
+                    {
+                        destPropertyInfo.SetValue(dest, sourceValue);
+                    }
+                }
+                return dest;
+            }
+
+            throw new NotImplementedException($"Shadow conversion from {typeof(TSource).FullName} to {typeof(TDest).FullName} is not possible.");
         }
 
         public virtual TEntity ConvertToEntity(TModel model)
         {
-            if (_shadowConversionPossible)
-            {
-                var entity = new TEntity();
-                foreach (var modelPropertyInfo in _modelPropertyInfos)
-                {
-                    var value = modelPropertyInfo.GetValue(model);
-                    var entityPropertyInfo = _entityPropertyDictionary[modelPropertyInfo.Name];
-                    if (entityPropertyInfo.CanWrite)
-                    {
-                        entityPropertyInfo.SetValue(entity, value);
-                    }
-                }
-                return entity;
-            }
-
-            throw new NotImplementedException("Shadow conversion is not possible.");
+            return ConvertToType<TModel, TEntity>(model, _modelPropertyInfos, _entityPropertyDictionary);
         }
 
         public virtual IEnumerable<TEntity> ConvertToEntity(IEnumerable<TModel> models)
@@ -110,22 +131,7 @@ namespace ACycle.Services
 
         public virtual TModel ConvertToModel(TEntity entity)
         {
-            if (_shadowConversionPossible)
-            {
-                var model = new TModel();
-                foreach (var entityPropertyInfo in _entityPropertyInfos)
-                {
-                    var value = entityPropertyInfo.GetValue(entity);
-                    var modelPropertyInfo = _modelPropertyDictionary[entityPropertyInfo.Name];
-                    if (modelPropertyInfo.CanWrite)
-                    {
-                        modelPropertyInfo.SetValue(model, value);
-                    }
-                }
-                return model;
-            }
-
-            throw new NotImplementedException("Shadow conversion is not possible.");
+            return ConvertToType<TEntity, TModel>(entity, _entityPropertyInfos, _modelPropertyDictionary);
         }
 
         public virtual IEnumerable<TModel> ConvertToModel(IEnumerable<TEntity> entities)
