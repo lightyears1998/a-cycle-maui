@@ -10,14 +10,12 @@
     Title="{ext:LocaleString Key=DebuggingView_Title}"
 >
     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-        <VerticalStackLayout>
-            <Label Text="{x:Binding NodeUuidLabelText}" />
-        </VerticalStackLayout>
+        <Label Text="{x:Binding NodeUuidLabelText}" />
+        <Label Text="{x:Binding ApplicationNameString}" />
+        <Label Text="{x:Binding ApplicationVersionString}" />
 
-        <VerticalStackLayout>
-            <Button
+        <Button
             Text="{ext:LocaleString Key=DebuggingView_OpenAppDirectory}"
             Command="{x:Binding OpenDataDirectoryCommand}" />
-        </VerticalStackLayout>
     </VerticalStackLayout>
 </views:ContentPageBase>

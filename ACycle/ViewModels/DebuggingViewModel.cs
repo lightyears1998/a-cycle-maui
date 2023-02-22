@@ -11,7 +11,7 @@ namespace ACycle.ViewModels
 {
     public partial class DebuggingViewModel : ViewModelBase
     {
-        private readonly IDatabaseService _databseService;
+        private readonly IDatabaseService _databaseService;
         private readonly IConfigurationService _configurationService;
         private readonly IStringLocalizer _stringLocalizer;
 
@@ -20,13 +20,23 @@ namespace ACycle.ViewModels
             get => $"{_stringLocalizer["Text_Node"]} UUID: {_configurationService.NodeUuid}";
         }
 
+        public string ApplicationNameString
+        {
+            get => $"{AppInfo.Current.Name} ({AppInfo.Current.PackageName})";
+        }
+
+        public string ApplicationVersionString
+        {
+            get => $"{AppInfo.VersionString} ({AppInfo.BuildString})";
+        }
+
         public DebuggingViewModel(
             IDatabaseService databaseService,
             IConfigurationService configurationService,
             IStringLocalizer<AppStrings> stringLocalizer
         )
         {
-            _databseService = databaseService;
+            _databaseService = databaseService;
             _configurationService = configurationService;
             _stringLocalizer = stringLocalizer;
         }
