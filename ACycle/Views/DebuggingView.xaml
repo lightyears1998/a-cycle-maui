@@ -20,6 +20,12 @@
 
         <Button
             Text="手动数据库迁移工具"
-            Command="{x:Binding NavigateToDatabaseMigrationViewCommand}" />
+            Command="{x:Binding NavigateToDatabaseMigrationViewCommand}">
+            <Button.IsVisible>
+                <OnPlatform>
+                    <On Platform="Default">{False}</On>
+                </OnPlatform>
+            </Button.IsVisible>
+        </Button>
     </VerticalStackLayout>
 </views:ContentPageBase>
