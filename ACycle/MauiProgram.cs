@@ -55,6 +55,7 @@ public static class MauiProgram
             .AddSingleton<IActivityCategoryService, ActivityCategoryService>()
             .AddSingleton<IConfigurationService, ConfigurationService>()
             .AddSingleton<IDatabaseService>(new DatabaseService(FileSystem.AppDataDirectory))
+            .AddSingleton<IDatabaseMigrationService, DatabaseMigrationService>()
             .AddSingleton<IDialogService, DialogService>()
             .AddSingleton<IMetadataService, MetadataService>()
             .AddSingleton<INavigationService, NavigationService>()
@@ -68,6 +69,7 @@ public static class MauiProgram
     {
         builder.RegisterTransients(new Type[]
         {
+            typeof(DatabaseMigrationViewModel),
             typeof(DebuggingViewModel),
             typeof(DiaryViewModel),
             typeof(DiaryEditorViewModel),
@@ -84,6 +86,7 @@ public static class MauiProgram
         builder.RegisterTransients(new Type[]
         {
             typeof(ActivityView),
+            typeof(DatabaseMigrationView),
             typeof(DebuggingView),
             typeof(DiaryEditorView),
             typeof(DiaryView),

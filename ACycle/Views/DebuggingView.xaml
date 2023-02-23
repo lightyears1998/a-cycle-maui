@@ -17,5 +17,9 @@
         <Button
             Text="{ext:LocaleString Key=DebuggingView_OpenAppDirectory}"
             Command="{x:Binding OpenDataDirectoryCommand}" />
+
+        <Button
+            Text="手动数据库迁移工具"
+            Command="{x:Binding NavigateToDatabaseMigrationViewCommand}" />
     </VerticalStackLayout>
 </views:ContentPageBase>

@@ -13,6 +13,7 @@ namespace ACycle.ViewModels
     {
         private readonly IDatabaseService _databaseService;
         private readonly IConfigurationService _configurationService;
+        private readonly INavigationService _navigationService;
         private readonly IStringLocalizer _stringLocalizer;
 
         public string NodeUuidLabelText
@@ -33,11 +34,13 @@ namespace ACycle.ViewModels
         public DebuggingViewModel(
             IDatabaseService databaseService,
             IConfigurationService configurationService,
+            INavigationService NavigationService,
             IStringLocalizer<AppStrings> stringLocalizer
         )
         {
             _databaseService = databaseService;
             _configurationService = configurationService;
+            _navigationService = NavigationService;
             _stringLocalizer = stringLocalizer;
         }
 
@@ -56,6 +59,15 @@ namespace ACycle.ViewModels
 #else
             await Task.CompletedTask;
 #endif
+        }
+
+        [RelayCommand]
+        public async Task NavigateToDatabaseMigrationView()
+        {
+#if WINDOWS
+            await _navigationService.NavigateToAsync("DatabaseMigration");
+#endif
+            await Task.CompletedTask;
         }
     }
 }
