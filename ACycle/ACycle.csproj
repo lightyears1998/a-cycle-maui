@@ -88,7 +88,7 @@
 
 	<ItemGroup>
 	  <EmbeddedResource Update="Resources\Strings\AppChangelogs.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>AppChangelogs.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Resources\Strings\AppStrings.resx">
@@ -99,7 +99,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Properties\PublishProfiles\" />
-	  <Folder Include="Services\DatabaseMigration\Base\" />
 	</ItemGroup>
 
 </Project>

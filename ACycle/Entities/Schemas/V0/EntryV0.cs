@@ -3,7 +3,7 @@
 namespace ACycle.Entities.Schemas.V0
 {
     [Table("entry")]
-    internal class EntryV0
+    public class EntryV0
     {
         [PrimaryKey]
         [Column("uuid")]

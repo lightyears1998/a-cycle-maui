@@ -22,7 +22,7 @@ namespace ACycle.Resources.Strings {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AppChangelogs {
+    public class AppChangelogs {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ACycle.Resources.Strings {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ACycle.Resources.Strings.AppChangelogs", typeof(AppChangelogs).Assembly);
@@ -51,7 +51,7 @@ namespace ACycle.Resources.Strings {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace ACycle.Resources.Strings {
         /// <summary>
         ///   Looks up a localized string similar to Initial version of ACycle..
         /// </summary>
-        internal static string v1_0_0_1 {
+        public static string v1_0_0_1 {
             get {
                 return ResourceManager.GetString("v1.0.0.1", resourceCulture);
             }
