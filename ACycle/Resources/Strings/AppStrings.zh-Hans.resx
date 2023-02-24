@@ -150,6 +150,15 @@
   <data name="AppShell_Settings" xml:space="preserve">
     <value>设置</value>
   </data>
+  <data name="DatabaseMigrationView_MigrationDatabasePath" xml:space="preserve">
+    <value>待迁移数据库路径</value>
+  </data>
+  <data name="DatabaseMigrationView_PerformMigration" xml:space="preserve">
+    <value>执行迁移</value>
+  </data>
+  <data name="DatabaseMigrationView_Title" xml:space="preserve">
+    <value>数据库手动迁移工具</value>
+  </data>
   <data name="DebuggingView_BackupDatabaseToExternalStorage" xml:space="preserve">
     <value>将数据库备份至外部储存</value>
   </data>
@@ -227,6 +236,9 @@
   </data>
   <data name="Text_Node" xml:space="preserve">
     <value>节点</value>
+  </data>
+  <data name="Text_PickFile" xml:space="preserve">
+    <value>选择文件</value>
   </data>
   <data name="Text_Restart_Accept" xml:space="preserve">
     <value>现在重启</value>

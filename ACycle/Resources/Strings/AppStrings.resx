@@ -150,6 +150,15 @@
   <data name="AppShell_Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="DatabaseMigrationView_MigrationDatabasePath" xml:space="preserve">
+    <value>Migration Database Path</value>
+  </data>
+  <data name="DatabaseMigrationView_PerformMigration" xml:space="preserve">
+    <value>Perform Migration</value>
+  </data>
+  <data name="DatabaseMigrationView_Title" xml:space="preserve">
+    <value>Database Manual Migration Tool</value>
+  </data>
   <data name="DebuggingView_BackupDatabaseToExternalStorage" xml:space="preserve">
     <value>Backup Database to External Storage</value>
   </data>
@@ -227,6 +236,9 @@
   </data>
   <data name="Text_Node" xml:space="preserve">
     <value>Node</value>
+  </data>
+  <data name="Text_PickFile" xml:space="preserve">
+    <value>Pick File</value>
   </data>
   <data name="Text_Restart_Accept" xml:space="preserve">
     <value>Restart Now</value>

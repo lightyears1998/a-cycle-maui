@@ -13,8 +13,16 @@ namespace ACycle.ViewModels
         public string MigrationDatabasePath
         {
             get => _migrationDatabasePath;
-            set => SetProperty(ref _migrationDatabasePath, value);
+            set
+            {
+                if (SetProperty(ref _migrationDatabasePath, value))
+                {
+                    OnPropertyChanged(nameof(MigrationDatabasePathIsNotEmpty));
+                }
+            }
         }
+
+        public bool MigrationDatabasePathIsNotEmpty => _migrationDatabasePath != string.Empty;
 
         public string MigrationPreview
         {
@@ -27,10 +35,20 @@ namespace ACycle.ViewModels
             _databaseMigrationService = databaseMigrationService;
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(MigrationDatabasePathIsNotEmpty))]
         public async Task PerformMigration()
         {
             MigrationPreview = await _databaseMigrationService.MigrateFromDatabaseVersionGodot(_migrationDatabasePath.Trim().Trim('"'));
+        }
+
+        [RelayCommand]
+        public async Task PickDatabaseFile()
+        {
+            var fileResult = await FilePicker.Default.PickAsync();
+            if (fileResult != null)
+            {
+                MigrationDatabasePath = fileResult.FullPath;
+            }
         }
     }
 }

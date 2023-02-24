@@ -160,6 +160,33 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Migration Database Path.
+        /// </summary>
+        public static string DatabaseMigrationView_MigrationDatabasePath {
+            get {
+                return ResourceManager.GetString("DatabaseMigrationView_MigrationDatabasePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perform Migration.
+        /// </summary>
+        public static string DatabaseMigrationView_PerformMigration {
+            get {
+                return ResourceManager.GetString("DatabaseMigrationView_PerformMigration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database Manual Migration Tool.
+        /// </summary>
+        public static string DatabaseMigrationView_Title {
+            get {
+                return ResourceManager.GetString("DatabaseMigrationView_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Backup Database to External Storage.
         /// </summary>
         public static string DebuggingView_BackupDatabaseToExternalStorage {
@@ -390,6 +417,15 @@ namespace ACycle.Resources.Strings {
         public static string Text_Node {
             get {
                 return ResourceManager.GetString("Text_Node", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick File.
+        /// </summary>
+        public static string Text_PickFile {
+            get {
+                return ResourceManager.GetString("Text_PickFile", resourceCulture);
             }
         }
         

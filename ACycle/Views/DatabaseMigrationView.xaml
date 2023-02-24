@@ -7,15 +7,27 @@
     xmlns:viewModels="clr-namespace:ACycle.ViewModels"
     xmlns:ext="clr-namespace:ACycle.Extensions"
     x:DataType="viewModels:DatabaseMigrationViewModel"
-    Title="数据库迁移工具">
+    Title="{ext:LocaleString Key=DatabaseMigrationView_Title}">
 
     <VerticalStackLayout>
-        <Label Text="待迁移数据库路径" />
-        <Entry Text="{x:Binding MigrationDatabasePath}" />
-        <Button Text="迁移" Command="{x:Binding PerformMigrationCommand}" />
+        <Label Text="{ext:LocaleString Key=DatabaseMigrationView_MigrationDatabasePath}" />
+
+        <Entry
+            Text="{x:Binding MigrationDatabasePath}" />
+
+        <HorizontalStackLayout>
+            <Button
+                Text="{ext:LocaleString Key=Text_PickFile}"
+                Command="{x:Binding PickDatabaseFileCommand}" />
+
+            <Button
+                Text="{ext:LocaleString Key=DatabaseMigrationView_PerformMigration}"
+                IsEnabled="{x:Binding MigrationDatabasePathIsNotEmpty}" />
+        </HorizontalStackLayout>
 
         <Editor
             HeightRequest="400"
+            IsReadOnly="True"
             Text="{x:Binding MigrationPreview}" />
     </VerticalStackLayout>
 </views:ContentPageBase>
