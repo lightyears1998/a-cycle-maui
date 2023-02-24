@@ -2,12 +2,13 @@
 <views:ContentPageBase
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:ext="clr-namespace:ACycle.Extensions"
     xmlns:views="clr-namespace:ACycle.Views"
+    xmlns:viewModels="clr-namespace:ACycle.ViewModels"
     x:Class="ACycle.Views.LandingView"
->
+    x:DataType="viewModels:LandingViewModel">
+
     <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
-        <Label Text="{ext:LocaleString Key=DebuggingView_Heading}" />
-        <Label Text="{ext:LocaleString Key=DebuggingView_Description}" />
+        <Label Text="{x:Binding Heading}" />
+        <Label Text="{x:Binding Description}" />
     </VerticalStackLayout>
 </views:ContentPageBase>

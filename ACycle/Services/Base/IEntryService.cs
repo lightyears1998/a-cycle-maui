@@ -1,8 +1,8 @@
 ﻿namespace ACycle.Services
 {
     public interface IEntryService<TEntity, TModel> : IService
-        where TEntity : Entities.Entry
-        where TModel : Models.Entry
+        where TEntity : Entities.Entry, new()
+        where TModel : Models.Entry, new()
     {
         public event EventHandler<EntryServiceEventArgs<TModel>>? ModelCreated;
 

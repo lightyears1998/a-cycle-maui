@@ -16,14 +16,44 @@
 
         <Button
             Text="{ext:LocaleString Key=DebuggingView_OpenAppDirectory}"
-            Command="{x:Binding OpenDataDirectoryCommand}" />
+            Command="{x:Binding OpenDataDirectoryCommand}">
+            <Button.IsVisible>
+                <OnPlatform x:TypeArguments="x:Boolean">
+                    <On Platform="WinUI">True</On>
+                    <On Platform="Default">False</On>
+                </OnPlatform>
+            </Button.IsVisible>
+        </Button>
 
         <Button
-            Text="手动数据库迁移工具"
+            Text="{ext:LocaleString Key=DebuggingView_BackupDatabaseToExternalStorage}"
+            Command="{x:Binding BackupDatabaseToExternalStorageCommand}">
+            <Button.IsVisible>
+                <OnPlatform x:TypeArguments="x:Boolean">
+                    <On Platform="Android">True</On>
+                    <On Platform="Default">False</On>
+                </OnPlatform>
+            </Button.IsVisible>
+        </Button>
+
+        <Button
+            Text="{ext:LocaleString Key=DebuggingView_RestoreDatabaseFromExternalStorage}"
+            Command="{x:Binding RestoreDatabaseFromExternalStorageCommand}">
+            <Button.IsVisible>
+                <OnPlatform x:TypeArguments="x:Boolean">
+                    <On Platform="Android">True</On>
+                    <On Platform="Default">False</On>
+                </OnPlatform>
+            </Button.IsVisible>
+        </Button>
+
+        <Button
+            Text="{ext:LocaleString Key=DebuggingView_DatabaseManualMigrationTool}"
             Command="{x:Binding NavigateToDatabaseMigrationViewCommand}">
             <Button.IsVisible>
-                <OnPlatform>
-                    <On Platform="Default">{False}</On>
+                <OnPlatform x:TypeArguments="x:Boolean">
+                    <On Platform="WinUI">True</On>
+                    <On Platform="Default">False</On>
                 </OnPlatform>
             </Button.IsVisible>
         </Button>

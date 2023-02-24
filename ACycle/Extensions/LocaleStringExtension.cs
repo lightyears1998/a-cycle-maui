@@ -12,13 +12,30 @@ namespace ACycle.Extensions
 
         public LocaleStringExtension()
         {
-            s_stringLocalizer ??= App.Current()?.ServiceProvider.GetService<IStringLocalizer<AppStrings>>();
+            TryGetStringLocalizer();
+        }
+
+        private void TryGetStringLocalizer()
+        {
+            try
+            {
+                s_stringLocalizer ??= App.Current()?.ServiceProvider.GetService<IStringLocalizer<AppStrings>>();
+            }
+            catch (Exception) { }
         }
 
         public string ProvideValue(IServiceProvider serviceProvider)
         {
             Guard.IsNotNullOrEmpty(Key);
-            return s_stringLocalizer != null ? s_stringLocalizer[Key] : "";
+
+            string localizedString = Key;
+            try
+            {
+                localizedString = s_stringLocalizer != null ? s_stringLocalizer[Key] : Key;
+            }
+            catch (Exception) { }
+
+            return localizedString;
         }
 
         object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)

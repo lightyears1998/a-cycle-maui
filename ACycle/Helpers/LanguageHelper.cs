@@ -2,7 +2,7 @@ using System.Globalization;
 
 namespace ACycle.Helpers
 {
-    public class LanguageHelper
+    public static class LanguageHelper
     {
         public static void SwitchLanguage(CultureInfo culture)
         {

@@ -1,5 +1,4 @@
 using ACycle.ViewModels;
-using System.Diagnostics;
 
 namespace ACycle.Views;
 

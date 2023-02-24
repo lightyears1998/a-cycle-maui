@@ -160,11 +160,38 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Backup Database to External Storage.
+        /// </summary>
+        public static string DebuggingView_BackupDatabaseToExternalStorage {
+            get {
+                return ResourceManager.GetString("DebuggingView_BackupDatabaseToExternalStorage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Datebase Manual Migration Tool.
+        /// </summary>
+        public static string DebuggingView_DatabaseManualMigrationTool {
+            get {
+                return ResourceManager.GetString("DebuggingView_DatabaseManualMigrationTool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open App Data Directory in File Explorer.
         /// </summary>
         public static string DebuggingView_OpenAppDirectory {
             get {
                 return ResourceManager.GetString("DebuggingView_OpenAppDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore Database from External Storage.
+        /// </summary>
+        public static string DebuggingView_RestoreDatabaseFromExternalStorage {
+            get {
+                return ResourceManager.GetString("DebuggingView_RestoreDatabaseFromExternalStorage", resourceCulture);
             }
         }
         
@@ -264,6 +291,33 @@ namespace ACycle.Resources.Strings {
         public static string Text_Content {
             get {
                 return ResourceManager.GetString("Text_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accept.
+        /// </summary>
+        public static string Text_Dialog_Accept {
+            get {
+                return ResourceManager.GetString("Text_Dialog_Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Text_Dialog_Cancel {
+            get {
+                return ResourceManager.GetString("Text_Dialog_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        public static string Text_Dialog_Confirm {
+            get {
+                return ResourceManager.GetString("Text_Dialog_Confirm", resourceCulture);
             }
         }
         

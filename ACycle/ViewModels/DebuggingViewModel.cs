@@ -1,4 +1,5 @@
-﻿using ACycle.Resources.Strings;
+﻿using ACycle.Helpers;
+using ACycle.Resources.Strings;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Localization;
@@ -11,8 +12,9 @@ namespace ACycle.ViewModels
 {
     public partial class DebuggingViewModel : ViewModelBase
     {
-        private readonly IDatabaseService _databaseService;
         private readonly IConfigurationService _configurationService;
+        private readonly IDatabaseService _databaseService;
+        private readonly IDialogService _dialogService;
         private readonly INavigationService _navigationService;
         private readonly IStringLocalizer _stringLocalizer;
 
@@ -32,14 +34,16 @@ namespace ACycle.ViewModels
         }
 
         public DebuggingViewModel(
-            IDatabaseService databaseService,
             IConfigurationService configurationService,
+            IDatabaseService databaseService,
+            IDialogService dialogService,
             INavigationService NavigationService,
             IStringLocalizer<AppStrings> stringLocalizer
         )
         {
-            _databaseService = databaseService;
             _configurationService = configurationService;
+            _databaseService = databaseService;
+            _dialogService = dialogService;
             _navigationService = NavigationService;
             _stringLocalizer = stringLocalizer;
         }
@@ -66,6 +70,27 @@ namespace ACycle.ViewModels
         {
 #if WINDOWS
             await _navigationService.NavigateToAsync("DatabaseMigration");
+#endif
+            await Task.CompletedTask;
+        }
+
+        [RelayCommand]
+        public async Task BackupDatabaseToExternalStorage()
+        {
+#if ANDROID
+            var status = await PermissionHelper.CheckAndRequestPermission<Permissions.StorageWrite>();
+            if (status == PermissionStatus.Granted)
+            {
+                await _dialogService.Prompt("哇", "好");
+            }
+#endif
+            await Task.CompletedTask;
+        }
+
+        [RelayCommand]
+        public async Task RestoreDatabaseFromExternalStorage()
+        {
+#if ANDROID
 #endif
             await Task.CompletedTask;
         }

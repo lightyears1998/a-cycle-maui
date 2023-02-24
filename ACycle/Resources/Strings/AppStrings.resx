@@ -150,8 +150,17 @@
   <data name="AppShell_Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="DebuggingView_BackupDatabaseToExternalStorage" xml:space="preserve">
+    <value>Backup Database to External Storage</value>
+  </data>
+  <data name="DebuggingView_DatabaseManualMigrationTool" xml:space="preserve">
+    <value>Datebase Manual Migration Tool</value>
+  </data>
   <data name="DebuggingView_OpenAppDirectory" xml:space="preserve">
     <value>Open App Data Directory in File Explorer</value>
+  </data>
+  <data name="DebuggingView_RestoreDatabaseFromExternalStorage" xml:space="preserve">
+    <value>Restore Database from External Storage</value>
   </data>
   <data name="DebuggingView_Title" xml:space="preserve">
     <value>Debugging Options</value>
@@ -185,6 +194,15 @@
   </data>
   <data name="Text_Content" xml:space="preserve">
     <value>Content</value>
+  </data>
+  <data name="Text_Dialog_Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="Text_Dialog_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Text_Dialog_Confirm" xml:space="preserve">
+    <value>Confirm</value>
   </data>
   <data name="Text_Discard" xml:space="preserve">
     <value>Discard</value>

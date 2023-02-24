@@ -150,8 +150,17 @@
   <data name="AppShell_Settings" xml:space="preserve">
     <value>设置</value>
   </data>
+  <data name="DebuggingView_BackupDatabaseToExternalStorage" xml:space="preserve">
+    <value>将数据库备份至外部储存</value>
+  </data>
+  <data name="DebuggingView_DatabaseManualMigrationTool" xml:space="preserve">
+    <value>手动数据库迁移工具</value>
+  </data>
   <data name="DebuggingView_OpenAppDirectory" xml:space="preserve">
     <value>在文件资源管理器中打开 App 数据目录</value>
+  </data>
+  <data name="DebuggingView_RestoreDatabaseFromExternalStorage" xml:space="preserve">
+    <value>从外部储存中恢复数据库</value>
   </data>
   <data name="DebuggingView_Title" xml:space="preserve">
     <value>调试选项</value>
@@ -185,6 +194,15 @@
   </data>
   <data name="Text_Content" xml:space="preserve">
     <value>内容</value>
+  </data>
+  <data name="Text_Dialog_Accept" xml:space="preserve">
+    <value>接受</value>
+  </data>
+  <data name="Text_Dialog_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Text_Dialog_Confirm" xml:space="preserve">
+    <value>确认</value>
   </data>
   <data name="Text_Discard" xml:space="preserve">
     <value>取消</value>

@@ -2,8 +2,8 @@
 {
     public interface IDialogService : IService
     {
-        Task<bool> Confirm(string title, string message, string accept, string cancel);
+        Task Prompt(string title, string message, string? confirm = null);
 
-        Task Prompt(string title, string message, string confirm);
+        Task<bool> Confirm(string title, string message, string? accept = null, string? cancel = null);
     }
 }
