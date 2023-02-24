@@ -83,6 +83,10 @@ namespace ACycle.ViewModels
             {
                 await _dialogService.Prompt("哇", "好");
             }
+            else
+            {
+                await _dialogService.Prompt("Application Permission", "Please grant this app permission to write external storage.");
+            }
 #endif
             await Task.CompletedTask;
         }
