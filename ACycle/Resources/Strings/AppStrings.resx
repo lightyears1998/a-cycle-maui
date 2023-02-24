@@ -159,6 +159,9 @@
   <data name="DebuggingView_OpenAppDirectory" xml:space="preserve">
     <value>Open App Data Directory in File Explorer</value>
   </data>
+  <data name="DebuggingView_RestartApp" xml:space="preserve">
+    <value>Restart App</value>
+  </data>
   <data name="DebuggingView_RestoreDatabaseFromExternalStorage" xml:space="preserve">
     <value>Restore Database from External Storage</value>
   </data>
@@ -192,6 +195,12 @@
   <data name="SettingsView_UseSystemLanguage" xml:space="preserve">
     <value>System Language</value>
   </data>
+  <data name="Text_AppRestartReason_LanguageChanges" xml:space="preserve">
+    <value>The language preference has been changed recently. In order to apply this change, the application needs to restart.</value>
+  </data>
+  <data name="Text_AppRestartReason_UserRequest" xml:space="preserve">
+    <value>The app is restarting due to user request.</value>
+  </data>
   <data name="Text_Content" xml:space="preserve">
     <value>Content</value>
   </data>
@@ -204,11 +213,26 @@
   <data name="Text_Dialog_Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
+  <data name="Text_Dialog_ConfirmAppRestartAccept" xml:space="preserve">
+    <value>Confirm Restart</value>
+  </data>
+  <data name="Text_Dialog_ConfirmAppRestartCancel" xml:space="preserve">
+    <value>Later</value>
+  </data>
+  <data name="Text_Dialog_ConfirmAppRestartTitle" xml:space="preserve">
+    <value>Restart App</value>
+  </data>
   <data name="Text_Discard" xml:space="preserve">
     <value>Discard</value>
   </data>
   <data name="Text_Node" xml:space="preserve">
     <value>Node</value>
+  </data>
+  <data name="Text_Restart_Accept" xml:space="preserve">
+    <value>Restart Now</value>
+  </data>
+  <data name="Text_Restart_Cancel" xml:space="preserve">
+    <value>Later</value>
   </data>
   <data name="Text_Save" xml:space="preserve">
     <value>Save</value>

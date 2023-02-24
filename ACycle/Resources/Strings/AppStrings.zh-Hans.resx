@@ -159,6 +159,9 @@
   <data name="DebuggingView_OpenAppDirectory" xml:space="preserve">
     <value>在文件资源管理器中打开 App 数据目录</value>
   </data>
+  <data name="DebuggingView_RestartApp" xml:space="preserve">
+    <value>重启 App</value>
+  </data>
   <data name="DebuggingView_RestoreDatabaseFromExternalStorage" xml:space="preserve">
     <value>从外部储存中恢复数据库</value>
   </data>
@@ -192,6 +195,12 @@
   <data name="SettingsView_UseSystemLanguage" xml:space="preserve">
     <value>使用系统语言</value>
   </data>
+  <data name="Text_AppRestartReason_LanguageChanges" xml:space="preserve">
+    <value>App 的语言偏好已经更改。为了应用这些更改，App 需要重启。</value>
+  </data>
+  <data name="Text_AppRestartReason_UserRequest" xml:space="preserve">
+    <value>由于用户请求，正在重启 App。</value>
+  </data>
   <data name="Text_Content" xml:space="preserve">
     <value>内容</value>
   </data>
@@ -204,11 +213,26 @@
   <data name="Text_Dialog_Confirm" xml:space="preserve">
     <value>确认</value>
   </data>
+  <data name="Text_Dialog_ConfirmAppRestartAccept" xml:space="preserve">
+    <value>确认重启</value>
+  </data>
+  <data name="Text_Dialog_ConfirmAppRestartCancel" xml:space="preserve">
+    <value>稍后</value>
+  </data>
+  <data name="Text_Dialog_ConfirmAppRestartTitle" xml:space="preserve">
+    <value>确认 App 重启</value>
+  </data>
   <data name="Text_Discard" xml:space="preserve">
     <value>取消</value>
   </data>
   <data name="Text_Node" xml:space="preserve">
     <value>节点</value>
+  </data>
+  <data name="Text_Restart_Accept" xml:space="preserve">
+    <value>现在重启</value>
+  </data>
+  <data name="Text_Restart_Cancel" xml:space="preserve">
+    <value>稍后</value>
   </data>
   <data name="Text_Save" xml:space="preserve">
     <value>保存</value>

@@ -187,6 +187,15 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restart App.
+        /// </summary>
+        public static string DebuggingView_RestartApp {
+            get {
+                return ResourceManager.GetString("DebuggingView_RestartApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Restore Database from External Storage.
         /// </summary>
         public static string DebuggingView_RestoreDatabaseFromExternalStorage {
@@ -286,6 +295,24 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The language preference has been changed recently. In order to apply this change, the application needs to restart..
+        /// </summary>
+        public static string Text_AppRestartReason_LanguageChanges {
+            get {
+                return ResourceManager.GetString("Text_AppRestartReason_LanguageChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The app is restarting due to user request..
+        /// </summary>
+        public static string Text_AppRestartReason_UserRequest {
+            get {
+                return ResourceManager.GetString("Text_AppRestartReason_UserRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Content.
         /// </summary>
         public static string Text_Content {
@@ -322,6 +349,33 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm Restart.
+        /// </summary>
+        public static string Text_Dialog_ConfirmAppRestartAccept {
+            get {
+                return ResourceManager.GetString("Text_Dialog_ConfirmAppRestartAccept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Later.
+        /// </summary>
+        public static string Text_Dialog_ConfirmAppRestartCancel {
+            get {
+                return ResourceManager.GetString("Text_Dialog_ConfirmAppRestartCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart App.
+        /// </summary>
+        public static string Text_Dialog_ConfirmAppRestartTitle {
+            get {
+                return ResourceManager.GetString("Text_Dialog_ConfirmAppRestartTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Discard.
         /// </summary>
         public static string Text_Discard {
@@ -336,6 +390,24 @@ namespace ACycle.Resources.Strings {
         public static string Text_Node {
             get {
                 return ResourceManager.GetString("Text_Node", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart Now.
+        /// </summary>
+        public static string Text_Restart_Accept {
+            get {
+                return ResourceManager.GetString("Text_Restart_Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Later.
+        /// </summary>
+        public static string Text_Restart_Cancel {
+            get {
+                return ResourceManager.GetString("Text_Restart_Cancel", resourceCulture);
             }
         }
         
