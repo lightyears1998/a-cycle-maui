@@ -70,6 +70,7 @@
 	  <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
 	  <PackageReference Include="SQLitePCLRaw.core" Version="2.1.4" />
 	  <PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.4" />
+	  <PackageReference Include="Websocket.Client" Version="4.6.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -98,6 +99,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Properties\PublishProfiles\" />
+	  <Folder Include="Services\DatabaseMigration\Base\" />
 	</ItemGroup>
 
 </Project>
