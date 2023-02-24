@@ -1,12 +1,13 @@
 ﻿using ACycle.Entities;
 using ACycle.Repositories;
 using SQLite;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ACycle.Services
 {
     public class DatabaseService : Service, IDatabaseService
     {
-        private readonly MetadataService _metadataService;
+        private MetadataService _metadataService;
 
         public readonly long CURRENT_SCHEMA_VERSION = 1;
 
@@ -21,8 +22,19 @@ namespace ACycle.Services
             DatabaseDirectory = databaseDirectory;
             MainDatabasePath = Path.Join(DatabaseDirectory, "MainDatabase.sqlite3");
 
+            ConnectToDatabase();
+        }
+
+        [MemberNotNull(new[] { nameof(_metadataService), nameof(MainDatabase) })]
+        public void ConnectToDatabase()
+        {
             MainDatabase = new SQLiteAsyncConnection(MainDatabasePath);
             _metadataService = new MetadataService(new MetadataRepository(this));
+        }
+
+        public async Task DisconnectFromDatabaseAsync()
+        {
+            await MainDatabase.CloseAsync();
         }
 
         public override async Task InitializeAsync()

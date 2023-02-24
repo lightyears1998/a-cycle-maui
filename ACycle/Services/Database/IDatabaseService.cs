@@ -4,8 +4,12 @@ namespace ACycle.Services
 {
     public interface IDatabaseService : IService
     {
-        public string MainDatabasePath { get; }
+        string MainDatabasePath { get; }
 
-        public SQLiteAsyncConnection MainDatabase { get; }
+        SQLiteAsyncConnection MainDatabase { get; }
+
+        void ConnectToDatabase();
+
+        Task DisconnectFromDatabaseAsync();
     }
 }

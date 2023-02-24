@@ -1,37 +1,57 @@
 ﻿using ACycle.Services;
 using ACycle.Views;
 
-namespace ACycle;
+#if WINDOWS
+using Microsoft.Windows.AppLifecycle;
+#endif
 
-public partial class App : Application
+namespace ACycle
 {
-    private readonly IStaticConfigurationService _staticConfigurationService;
-
-    public readonly IServiceProvider ServiceProvider;
-
-    public App(IServiceProvider provider, IStaticConfigurationService staticConfigurationService, LandingView landingView)
+    public partial class App : Application
     {
-        _staticConfigurationService = staticConfigurationService;
-        ServiceProvider = provider;
+        private readonly IStaticConfigurationService _staticConfigurationService;
+        private readonly IDialogService _dialogService;
 
-        MainPage = landingView;
-        InitializeComponent();
-    }
+        public readonly IServiceProvider ServiceProvider;
 
-    public new static App? Current()
-    {
-        return Application.Current as App;
-    }
-
-    protected override Window CreateWindow(IActivationState? activationState)
-    {
-        var window = base.CreateWindow(activationState);
-
-        if (window != null)
+        public App(
+            IServiceProvider provider,
+            IStaticConfigurationService staticConfigurationService,
+            IDialogService dialogService,
+            LandingView landingView)
         {
-            window.Title = _staticConfigurationService.AppWindowTitle;
+            _staticConfigurationService = staticConfigurationService;
+            _dialogService = dialogService;
+            ServiceProvider = provider;
+
+            MainPage = landingView;
+            InitializeComponent();
         }
 
-        return window!;
+        public new static App? Current()
+        {
+            return Application.Current as App;
+        }
+
+        protected override Window CreateWindow(IActivationState? activationState)
+        {
+            var window = base.CreateWindow(activationState);
+
+            if (window != null)
+            {
+                window.Title = _staticConfigurationService.AppWindowTitle;
+            }
+
+            return window!;
+        }
+
+        public void Restart()
+        {
+#if WINDOWS
+            AppInstance.Restart("");
+#endif
+
+            MainPage = new AppShell();
+        }
     }
 }
