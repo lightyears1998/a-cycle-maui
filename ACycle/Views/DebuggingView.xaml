@@ -53,6 +53,7 @@
             <Button.IsVisible>
                 <OnPlatform x:TypeArguments="x:Boolean">
                     <On Platform="WinUI">True</On>
+                    <On Platform="Android">True</On>
                     <On Platform="Default">False</On>
                 </OnPlatform>
             </Button.IsVisible>

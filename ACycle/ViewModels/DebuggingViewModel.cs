@@ -68,7 +68,7 @@ namespace ACycle.ViewModels
         [RelayCommand]
         public async Task NavigateToDatabaseMigrationView()
         {
-#if WINDOWS
+#if WINDOWS || ANDROID
             await _navigationService.NavigateToAsync("DatabaseMigration");
 #endif
             await Task.CompletedTask;
@@ -81,7 +81,20 @@ namespace ACycle.ViewModels
             var status = await PermissionHelper.CheckAndRequestPermission<Permissions.StorageWrite>();
             if (status == PermissionStatus.Granted)
             {
-                await _dialogService.Prompt("哇", "好");
+                var mainDbPath = _databaseService.MainDatabasePath;
+                var backupDbPath = Path.Combine(
+                    Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads)!.AbsolutePath,
+                    $"MainDatabase_{DateTime.Now:yyyy-MM-ddTHHmmss}.sqlite3");
+
+                try
+                {
+                    await FileHelper.CopyAsync(mainDbPath, backupDbPath);
+                    await _dialogService.Prompt("Backup", "Backup completed.");
+                }
+                catch (Exception ex)
+                {
+                    await _dialogService.Prompt("Oh...", ex.ToString());
+                }
             }
             else
             {
@@ -95,6 +108,15 @@ namespace ACycle.ViewModels
         public async Task RestoreDatabaseFromExternalStorage()
         {
 #if ANDROID
+            var status = await PermissionHelper.CheckAndRequestPermission<Permissions.StorageRead>();
+            var backupFile = await FilePicker.Default.PickAsync(new PickOptions { PickerTitle = "ACycle Database" });
+            if (backupFile != null)
+            {
+                var backupFilePath = backupFile.FullPath;
+                await _databaseService.DisconnectFromDatabaseAsync();
+                await FileHelper.CopyAsync(backupFilePath, _databaseService.MainDatabasePath, overWrite: true);
+                await _dialogService.Prompt("Database Restore", "Database is restored successfully.");
+            }
 #endif
             await Task.CompletedTask;
         }
