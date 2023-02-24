@@ -98,5 +98,14 @@ namespace ACycle.ViewModels
 #endif
             await Task.CompletedTask;
         }
+
+        [RelayCommand]
+        public async Task RestartApplication()
+        {
+            bool shouldRestart = await _dialogService.ConfirmAppRestart(_stringLocalizer["Text_AppRestartReason_UserRequest"]);
+
+            if (shouldRestart)
+                App.Current()!.Restart();
+        }
     }
 }

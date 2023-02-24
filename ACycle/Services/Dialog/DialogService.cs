@@ -26,5 +26,14 @@ namespace ACycle.Services
 
             return Application.Current!.MainPage!.DisplayAlert(title, message, accept, cancel);
         }
+
+        public Task<bool> ConfirmAppRestart(string message)
+        {
+            string title = _stringLocalizer["Text_Dialog_ConfirmAppRestartTitle"];
+            string accept = _stringLocalizer["Text_Dialog_ConfirmAppRestartAccept"];
+            string cancel = _stringLocalizer["Text_Dialog_ConfirmAppRestartCancel"];
+
+            return Confirm(title, message, accept, cancel);
+        }
     }
 }

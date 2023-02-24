@@ -57,5 +57,9 @@
                 </OnPlatform>
             </Button.IsVisible>
         </Button>
+
+        <Button
+            Text="{ext:LocaleString Key=DebuggingView_RestartApp}"
+            Command="{x:Binding RestartApplicationCommand}" />
     </VerticalStackLayout>
 </views:ContentPageBase>

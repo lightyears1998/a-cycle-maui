@@ -9,6 +9,7 @@ namespace ACycle.ViewModels
     public partial class SettingsViewModel : ViewModelBase
     {
         private readonly IStringLocalizer _stringLocalizer;
+        private readonly IDialogService _dialogService;
         private readonly INavigationService _navigationService;
         private readonly IConfigurationService _configurationService;
         private readonly IUserService _userService;
@@ -41,6 +42,7 @@ namespace ACycle.ViewModels
                     GetSupportedLanguageDisplayNames();
                     Task.Run(UpdateLanguageSettings);
                     ShowRestartDueToLanguageChangeHint();
+                    _ = ConfirmAppRestart();
                 }
             }
         }
@@ -60,13 +62,15 @@ namespace ACycle.ViewModels
         }
 
         public SettingsViewModel(
-            INavigationService navigationService,
             IStringLocalizer stringLocalizer,
+            IDialogService dialogService,
+            INavigationService navigationService,
             IConfigurationService configurationService,
             IUserService userService)
         {
-            _navigationService = navigationService;
             _stringLocalizer = stringLocalizer;
+            _dialogService = dialogService;
+            _navigationService = navigationService;
             _configurationService = configurationService;
             _userService = userService;
 
@@ -114,6 +118,15 @@ namespace ACycle.ViewModels
         public async Task OpenDebuggingMenuAsync()
         {
             await _navigationService.NavigateToAsync("/Debugging");
+        }
+
+        private async Task ConfirmAppRestart()
+        {
+            var shouldRestart = await _dialogService.ConfirmAppRestart(_stringLocalizer["Text_AppRestartReason_LanguageChanges"]);
+            if (shouldRestart)
+            {
+                App.Current()!.Restart();
+            }
         }
     }
 }
