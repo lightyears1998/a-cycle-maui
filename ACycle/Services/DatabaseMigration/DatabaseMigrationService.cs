@@ -1,6 +1,6 @@
 ﻿using ACycle.Entities;
+using ACycle.Entities.Schemas.V0;
 using ACycle.Repositories;
-using ACycle.Services.DatabaseMigration.Schemes.V0;
 using Newtonsoft.Json;
 using SQLite;
 using System.Text;

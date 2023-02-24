@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace ACycle.Services.DatabaseMigration.Schemes.V0
+namespace ACycle.Entities.Schemas.V0
 {
     [Table("entry")]
     internal class EntryV0
