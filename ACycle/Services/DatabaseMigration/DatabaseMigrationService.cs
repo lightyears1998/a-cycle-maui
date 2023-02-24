@@ -1,5 +1,6 @@
 ﻿using ACycle.Entities;
 using ACycle.Entities.Schemas.V0;
+using ACycle.Helpers;
 using ACycle.Repositories;
 using Newtonsoft.Json;
 using SQLite;
@@ -18,20 +19,10 @@ namespace ACycle.Services
             _diaryRepositoryV1 = diaryRepositoryV1;
         }
 
-        private static DateTime ParseISO8601DateTimeString(string dateTimeString)
+        public async Task<string> MigrateFromDatabase(string migrationDatabasePath)
         {
-            if (!dateTimeString.StartsWith('"'))
-                dateTimeString = '"' + dateTimeString;
-            if (!dateTimeString.EndsWith('"'))
-                dateTimeString += '"';
-
-            return JsonConvert.DeserializeObject<DateTime>(dateTimeString).ToLocalTime();
-        }
-
-        public async Task<string> MigrateFromDatabaseVersionGodot(string oldDatabasePath)
-        {
-            var oldDatabase = new SQLiteAsyncConnection(oldDatabasePath);
-            var oldDiaryEntries = await oldDatabase.Table<EntryV0>().Where(entry => entry.ContentType == "diary").ToListAsync();
+            var migrationDatabase = new SQLiteAsyncConnection(migrationDatabasePath);
+            var oldDiaryEntries = await migrationDatabase.Table<EntryV0>().Where(entry => entry.ContentType == "diary").ToListAsync();
 
             const string sectionSeparator = "\n===============================\n";
 
@@ -44,9 +35,9 @@ namespace ACycle.Services
 
                 Guid uuid = entry.Uuid;
 
-                DateTime createdAt = ParseISO8601DateTimeString(entry.CreatedAt);
-                DateTime? removedAt = entry.RemovedAt != null && entry.RemovedAt.Length > 0 ? ParseISO8601DateTimeString(entry.RemovedAt) : null;
-                DateTime updatedAt = ParseISO8601DateTimeString(entry.UpdatedAt);
+                DateTime createdAt = DateTimeHelper.ParseISO8601DateTimeString(entry.CreatedAt);
+                DateTime? removedAt = entry.RemovedAt != null && entry.RemovedAt.Length > 0 ? DateTimeHelper.ParseISO8601DateTimeString(entry.RemovedAt) : null;
+                DateTime updatedAt = DateTimeHelper.ParseISO8601DateTimeString(entry.UpdatedAt);
 
                 Guid updatedBy = entry.UpdatedBy;
 
@@ -84,7 +75,7 @@ namespace ACycle.Services
                 }
             }
 
-            _ = oldDatabase.CloseAsync();
+            _ = migrationDatabase.CloseAsync();
             return builder.ToString();
         }
     }

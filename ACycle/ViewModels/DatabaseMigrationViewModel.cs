@@ -24,7 +24,7 @@ namespace ACycle.ViewModels
 
         public bool MigrationDatabasePathIsNotEmpty => _migrationDatabasePath != string.Empty;
 
-        public string MigrationPreview
+        public string MigrationLog
         {
             get => _migrationPreview;
             set => SetProperty(ref _migrationPreview, value);
@@ -38,7 +38,7 @@ namespace ACycle.ViewModels
         [RelayCommand(CanExecute = nameof(MigrationDatabasePathIsNotEmpty))]
         public async Task PerformMigration()
         {
-            MigrationPreview = await _databaseMigrationService.MigrateFromDatabaseVersionGodot(_migrationDatabasePath.Trim().Trim('"'));
+            MigrationLog = await _databaseMigrationService.MigrateFromDatabase(_migrationDatabasePath.Trim().Trim('"'));
         }
 
         [RelayCommand]

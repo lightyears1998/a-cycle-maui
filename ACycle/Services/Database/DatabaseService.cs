@@ -9,7 +9,7 @@ namespace ACycle.Services
     {
         private MetadataService _metadataService;
 
-        public readonly long CURRENT_SCHEMA_VERSION = 1;
+        public long SchemaVersion => 1;
 
         public string DatabaseDirectory { protected set; get; }
 
@@ -41,7 +41,7 @@ namespace ACycle.Services
         {
             await MainDatabase.CreateTableAsync<Metadata>();
             long schemaVersion = await ReadSchemaVersionAsync();
-            if (schemaVersion != CURRENT_SCHEMA_VERSION)
+            if (schemaVersion != SchemaVersion)
             {
                 await BumpSchemaAsync();
             }

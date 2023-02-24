@@ -28,6 +28,6 @@
         <Editor
             HeightRequest="400"
             IsReadOnly="True"
-            Text="{x:Binding MigrationPreview}" />
+            Text="{x:Binding MigrationLog}" />
     </VerticalStackLayout>
 </views:ContentPageBase>

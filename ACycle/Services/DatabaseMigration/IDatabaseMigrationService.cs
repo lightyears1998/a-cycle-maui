@@ -2,6 +2,6 @@
 {
     public interface IDatabaseMigrationService
     {
-        Task<string> MigrateFromDatabaseVersionGodot(string oldDatabasePath);
+        Task<string> MigrateFromDatabase(string migrationDatabasePath);
     }
 }
