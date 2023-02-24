@@ -165,8 +165,11 @@
   <data name="DebuggingView_DatabaseManualMigrationTool" xml:space="preserve">
     <value>手动数据库迁移工具</value>
   </data>
-  <data name="DebuggingView_OpenAppDirectory" xml:space="preserve">
+  <data name="DebuggingView_OpenAppDataDirectory" xml:space="preserve">
     <value>在文件资源管理器中打开 App 数据目录</value>
+  </data>
+  <data name="DebuggingView_OpenCacheDirectory" xml:space="preserve">
+    <value>打开缓存目录</value>
   </data>
   <data name="DebuggingView_RestartApp" xml:space="preserve">
     <value>重启 App</value>

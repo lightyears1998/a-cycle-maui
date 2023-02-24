@@ -196,7 +196,7 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Datebase Manual Migration Tool.
+        ///   Looks up a localized string similar to Database Manual Migration Tool.
         /// </summary>
         public static string DebuggingView_DatabaseManualMigrationTool {
             get {
@@ -207,9 +207,18 @@ namespace ACycle.Resources.Strings {
         /// <summary>
         ///   Looks up a localized string similar to Open App Data Directory in File Explorer.
         /// </summary>
-        public static string DebuggingView_OpenAppDirectory {
+        public static string DebuggingView_OpenAppDataDirectory {
             get {
-                return ResourceManager.GetString("DebuggingView_OpenAppDirectory", resourceCulture);
+                return ResourceManager.GetString("DebuggingView_OpenAppDataDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Cache Directory.
+        /// </summary>
+        public static string DebuggingView_OpenCacheDirectory {
+            get {
+                return ResourceManager.GetString("DebuggingView_OpenCacheDirectory", resourceCulture);
             }
         }
         
