@@ -7,16 +7,33 @@
     xmlns:viewModels="clr-namespace:ACycle.ViewModels"
     x:Class="ACycle.Views.DebuggingView"
     x:DataType="viewModels:DebuggingViewModel"
-    Title="{ext:LocaleString Key=DebuggingView_Title}"
->
+    Title="{ext:LocaleString Key=DebuggingView_Title}">
+
     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-        <Label Text="{x:Binding NodeUuidLabelText}" />
-        <Label Text="{x:Binding ApplicationNameString}" />
-        <Label Text="{x:Binding ApplicationVersionString}" />
+        <TableView>
+            <TableRoot>
+                <TableSection>
+                    <TextCell Text="{x:Binding NodeUuidTextCellText}" Detail="{x:Binding NodeUuid}"></TextCell>
+                    <TextCell Text="Application Name" Detail="{x:Binding ApplicationNameString}"></TextCell>
+                    <TextCell Text="Application Version" Detail="{x:Binding ApplicationVersionString}"></TextCell>
+                </TableSection>
+            </TableRoot>
+        </TableView>
 
         <Button
-            Text="{ext:LocaleString Key=DebuggingView_OpenAppDirectory}"
-            Command="{x:Binding OpenDataDirectoryCommand}">
+            Text="{ext:LocaleString Key=DebuggingView_OpenAppDataDirectory}"
+            Command="{x:Binding OpenAppDataDirectoryCommand}">
+            <Button.IsVisible>
+                <OnPlatform x:TypeArguments="x:Boolean">
+                    <On Platform="WinUI">True</On>
+                    <On Platform="Default">False</On>
+                </OnPlatform>
+            </Button.IsVisible>
+        </Button>
+
+        <Button
+            Text="{ext:LocaleString Key=DebuggingView_OpenCacheDirectory}"
+            Command="{x:Binding OpenCacheDirectoryCommand}">
             <Button.IsVisible>
                 <OnPlatform x:TypeArguments="x:Boolean">
                     <On Platform="WinUI">True</On>

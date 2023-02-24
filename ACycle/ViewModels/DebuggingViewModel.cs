@@ -18,10 +18,12 @@ namespace ACycle.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IStringLocalizer _stringLocalizer;
 
-        public string NodeUuidLabelText
+        public string NodeUuidTextCellText
         {
-            get => $"{_stringLocalizer["Text_Node"]} UUID: {_configurationService.NodeUuid}";
+            get => $"{_stringLocalizer["Text_Node"]} UUID";
         }
+
+        public Guid NodeUuid => _configurationService.NodeUuid;
 
         public string ApplicationNameString
         {
@@ -48,18 +50,35 @@ namespace ACycle.ViewModels
             _stringLocalizer = stringLocalizer;
         }
 
-        [RelayCommand]
-        public static async Task OpenDataDirectoryAsync()
-        {
 #if WINDOWS
+        private static async Task OpenDirectoryAsync(string directory)
+        {
             var startInfo = new ProcessStartInfo()
             {
-                Arguments = FileSystem.AppDataDirectory,
+                Arguments = directory,
                 FileName = "explorer.exe"
             };
             Process.Start(startInfo);
 
             await Task.Delay(3000);
+        }
+#endif
+
+        [RelayCommand]
+        public static async Task OpenAppDataDirectoryAsync()
+        {
+#if WINDOWS
+            await OpenDirectoryAsync(FileSystem.AppDataDirectory);
+#else
+            await Task.CompletedTask;
+#endif
+        }
+
+        [RelayCommand]
+        public static async Task OpenCacheDirectoryAsync()
+        {
+#if WINDOWS
+            await OpenDirectoryAsync(FileSystem.CacheDirectory);
 #else
             await Task.CompletedTask;
 #endif
