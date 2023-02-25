@@ -126,6 +126,9 @@
   <data name="Action_Remove" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="AppName" xml:space="preserve">
+    <value>ACycle</value>
+  </data>
   <data name="AppShell_Activity" xml:space="preserve">
     <value>Activity</value>
   </data>

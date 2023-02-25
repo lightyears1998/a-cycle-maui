@@ -88,6 +88,15 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ACycle.
+        /// </summary>
+        public static string AppName {
+            get {
+                return ResourceManager.GetString("AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Activity.
         /// </summary>
         public static string AppShell_Activity {

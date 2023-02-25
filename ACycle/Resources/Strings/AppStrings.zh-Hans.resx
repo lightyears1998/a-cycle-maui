@@ -126,6 +126,9 @@
   <data name="Action_Remove" xml:space="preserve">
     <value>删除</value>
   </data>
+  <data name="AppName" xml:space="preserve">
+    <value>循迹</value>
+  </data>
   <data name="AppShell_Activity" xml:space="preserve">
     <value>活动</value>
   </data>
