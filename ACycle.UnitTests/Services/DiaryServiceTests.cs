@@ -11,7 +11,7 @@ namespace ACycle.UnitTests.Models
     [TestClass]
     public class DiaryServiceTests
     {
-        private static readonly DatabaseService s_db = new("./");
+        private static readonly DatabaseServiceV1 s_db = new("./MainDatabase.sqlite3");
 
         private static readonly MetadataRepository s_metadataRepositoryV1 = new(s_db);
 

@@ -9,6 +9,8 @@ namespace ACycle;
 
 public static class MauiProgram
 {
+    public static string MainDatabasePath => Path.Combine(FileSystem.AppDataDirectory, "MainDatabase.sqlite3");
+
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
@@ -53,8 +55,9 @@ public static class MauiProgram
 
         builder.Services
             .AddSingleton<IActivityCategoryService, ActivityCategoryService>()
+            .AddTransient<IBackupService, BackupService>()
             .AddSingleton<IConfigurationService, ConfigurationService>()
-            .AddSingleton<IDatabaseService>(new DatabaseService(FileSystem.AppDataDirectory))
+            .AddSingleton<IDatabaseService>(new DatabaseServiceV1(MainDatabasePath))
             .AddSingleton<IDatabaseMigrationService, DatabaseMigrationService>()
             .AddSingleton<IDialogService, DialogService>()
             .AddSingleton<IMetadataService, MetadataService>()

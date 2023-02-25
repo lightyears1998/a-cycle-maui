@@ -1,8 +1,7 @@
 ﻿using ACycle.Entities;
-using ACycle.Entities.Schemas.V0;
-using ACycle.Helpers;
+using ACycle.Extensions;
 using ACycle.Repositories;
-using Newtonsoft.Json;
+using ACycle.Services.DatabaseMigration;
 using SQLite;
 using System.Text;
 
@@ -10,73 +9,69 @@ namespace ACycle.Services
 {
     public class DatabaseMigrationService : IDatabaseMigrationService
     {
-        private readonly IDatabaseService _databaseService;
-        private readonly IEntryRepository<DiaryV1> _diaryRepositoryV1;
+        private readonly IDictionary<long, Lazy<IMigrator>> _schemaMigratorMap = new Dictionary<long, Lazy<IMigrator>>();
 
-        public DatabaseMigrationService(IDatabaseService databaseService, IEntryRepository<DiaryV1> diaryRepositoryV1)
+        public Task<string> MigrateFromDatabase(string migrationDatabasePath)
         {
-            _databaseService = databaseService;
-            _diaryRepositoryV1 = diaryRepositoryV1;
+            return MigrateFromDatabase(new SQLiteAsyncConnection(migrationDatabasePath));
         }
 
-        public async Task<string> MigrateFromDatabase(string migrationDatabasePath)
+        public async Task<string> MigrateFromDatabase(SQLiteAsyncConnection migrationDatabase)
         {
-            var migrationDatabase = new SQLiteAsyncConnection(migrationDatabasePath);
-            var oldDiaryEntries = await migrationDatabase.Table<EntryV0>().Where(entry => entry.ContentType == "diary").ToListAsync();
+            StringBuilder migrationResultBuilder = new();
+            long? lastSchemaVersion = null;
+            long? schemaVersion = await migrationDatabase.GetSchemaAsync();
 
-            const string sectionSeparator = "\n===============================\n";
-
-            StringBuilder builder = new();
-            builder.AppendLine($"Total: {oldDiaryEntries.Count}");
-
-            foreach (var entry in oldDiaryEntries)
+            if (!schemaVersion.HasValue)
             {
-                dynamic diaryObject = JsonConvert.DeserializeObject(entry.Content)!;
-
-                Guid uuid = entry.Uuid;
-
-                DateTime createdAt = DateTimeHelper.ParseISO8601DateTimeString(entry.CreatedAt);
-                DateTime? removedAt = entry.RemovedAt != null && entry.RemovedAt.Length > 0 ? DateTimeHelper.ParseISO8601DateTimeString(entry.RemovedAt) : null;
-                DateTime updatedAt = DateTimeHelper.ParseISO8601DateTimeString(entry.UpdatedAt);
-
-                Guid updatedBy = entry.UpdatedBy;
-
-                string content = (string)diaryObject["content"];
-
-                string dateString = (string)diaryObject["date"];
-                DateTime date = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(dateString)).LocalDateTime;
-
-                string title = (string)diaryObject["title"];
-
-                builder.AppendLine(sectionSeparator);
-                builder.AppendLine($"Uuid: {uuid}\n" +
-                    $"CreatedAt: {createdAt} ({entry.CreatedAt})\n" +
-                    $"RemovedAt: {removedAt}\n" +
-                    $"UpdatedAt: {updatedAt}\nUpdatedBy: {updatedBy}\n" +
-                    $"Title: {title}\n" +
-                    $"Date: {date} ({dateString})\n" +
-                    $"Content:\n{content}");
-
-                {
-                    var diary = new DiaryV1()
-                    {
-                        Uuid = entry.Uuid,
-                        CreatedAt = createdAt,
-                        CreatedBy = updatedBy,
-                        UpdatedAt = updatedAt,
-                        UpdatedBy = updatedBy,
-                        RemovedAt = removedAt,
-                        Title = title,
-                        DateTime = date,
-                        Content = content,
-                    };
-
-                    await _diaryRepositoryV1.InsertAsync(diary);
-                }
+                var migrationResult = await MigrateFromUnknownSchema(migrationDatabase);
+                migrationResultBuilder.AppendLine(migrationResult);
+                schemaVersion = await migrationDatabase.GetSchemaAsync();
             }
 
-            _ = migrationDatabase.CloseAsync();
-            return builder.ToString();
+            while (schemaVersion.HasValue && schemaVersion != lastSchemaVersion)
+            {
+                lastSchemaVersion = schemaVersion;
+
+                Lazy<IMigrator>? migrator;
+                _schemaMigratorMap.TryGetValue(schemaVersion.Value, out migrator);
+
+                if (migrator == null)
+                {
+                    break;
+                }
+                var migrationResult = await migrator.Value.MigrateAsync(migrationDatabase, migrationDatabase);
+                migrationResultBuilder.AppendLine(migrationResult);
+
+                schemaVersion = await migrationDatabase.GetSchemaAsync();
+            }
+
+            return migrationResultBuilder.ToString();
+        }
+
+        public async Task<string> MigrateFromUnknownSchema(SQLiteAsyncConnection migrationDatabase)
+        {
+            var migratorV0 = new MigratorV0ToV1();
+            var isGodotVersionDatabase = await MigratorV0ToV1.CheckIfGodotVersionDatabaseAsync(migrationDatabase);
+
+            if (!isGodotVersionDatabase)
+            {
+                return "Source database is not a valid database, because its schema is unknown, and it is not a ACycle Godot version database.";
+            }
+
+            return await migratorV0.MigrateAsync(migrationDatabase, migrationDatabase);
+        }
+
+        /// <summary>
+        /// Merge the merging database into the base database.
+        /// </summary>
+        /// <param name="baseDatabase">The base database</param>
+        /// <param name="mergingDatabase">The database that is being merged into the base database</param>
+        public async Task<string> MergeDatabase(SQLiteAsyncConnection baseDatabase, SQLiteAsyncConnection mergingDatabase)
+        {
+            StringBuilder mergeResultBuilder = new();
+
+            return mergeResultBuilder.ToString();
         }
     }
 }

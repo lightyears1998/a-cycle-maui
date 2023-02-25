@@ -1,13 +1,13 @@
 ﻿using SQLite;
 
-namespace ACycle.Services.DatabaseMigration.Base
+namespace ACycle.Services.DatabaseMigration
 {
     public interface IMigrator
     {
-        long FromSchemaVersion { get; }
+        long SourceSchemaVersion { get; }
 
-        long ToSchemaVersion { get; }
+        long DestinationSchemaVersion { get; }
 
-        Task<string> Migrate(SQLiteAsyncConnection sourceConnection, SQLiteAsyncConnection destinationConnection);
+        Task<string> MigrateAsync(SQLiteAsyncConnection sourceConnection, SQLiteAsyncConnection destinationConnection);
     }
 }

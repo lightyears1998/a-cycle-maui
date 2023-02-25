@@ -8,10 +8,18 @@ namespace ACycle.Services
 
         string MainDatabasePath { get; }
 
+        bool IsConnected { get; }
+
         SQLiteAsyncConnection MainDatabase { get; }
 
-        void ConnectToDatabase();
+        void ConnectToDatabase(string databasePath);
+
+        void ConnectToDatabase(SQLiteAsyncConnection connection);
+
+        void DisconnectFromDatabase();
 
         Task DisconnectFromDatabaseAsync();
+
+        Task CreateTablesAsync();
     }
 }
