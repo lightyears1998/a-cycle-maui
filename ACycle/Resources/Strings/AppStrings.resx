@@ -207,6 +207,9 @@
   <data name="SettingsView_UseSystemLanguage" xml:space="preserve">
     <value>System Language</value>
   </data>
+  <data name="Text_AppRestartReason_DatabaseRestore" xml:space="preserve">
+    <value />
+  </data>
   <data name="Text_AppRestartReason_LanguageChanges" xml:space="preserve">
     <value>The language preference has been changed recently. In order to apply this change, the application needs to restart.</value>
   </data>
@@ -215,6 +218,18 @@
   </data>
   <data name="Text_Content" xml:space="preserve">
     <value>Content</value>
+  </data>
+  <data name="Text_DatabaseBackupCompleteMessage" xml:space="preserve">
+    <value>Databse backup is compeleted.</value>
+  </data>
+  <data name="Text_DatabaseBackupCompleteTitle" xml:space="preserve">
+    <value>Database Backup</value>
+  </data>
+  <data name="Text_DatabaseRestoreCompleteMessage" xml:space="preserve">
+    <value>Database is restored successfully.</value>
+  </data>
+  <data name="Text_DatabaseRestoreCompleteTitle" xml:space="preserve">
+    <value>Databse Restore</value>
   </data>
   <data name="Text_Dialog_Accept" xml:space="preserve">
     <value>Accept</value>
@@ -237,11 +252,20 @@
   <data name="Text_Discard" xml:space="preserve">
     <value>Discard</value>
   </data>
+  <data name="Text_ExcpetionThrownTitle" xml:space="preserve">
+    <value>Oh... Something Unexpected Happened</value>
+  </data>
+  <data name="Text_InsufficientApplicationPermission" xml:space="preserve">
+    <value>Insufficient Application Permission</value>
+  </data>
   <data name="Text_Node" xml:space="preserve">
     <value>Node</value>
   </data>
   <data name="Text_PickFile" xml:space="preserve">
     <value>Pick File</value>
+  </data>
+  <data name="Text_RequestPermission_WriteStorage" xml:space="preserve">
+    <value>Please grant this app permission to write external storage.</value>
   </data>
   <data name="Text_Restart_Accept" xml:space="preserve">
     <value>Restart Now</value>

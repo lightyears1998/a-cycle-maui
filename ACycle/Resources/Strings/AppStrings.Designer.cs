@@ -331,6 +331,15 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Text_AppRestartReason_DatabaseRestore {
+            get {
+                return ResourceManager.GetString("Text_AppRestartReason_DatabaseRestore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The language preference has been changed recently. In order to apply this change, the application needs to restart..
         /// </summary>
         public static string Text_AppRestartReason_LanguageChanges {
@@ -354,6 +363,42 @@ namespace ACycle.Resources.Strings {
         public static string Text_Content {
             get {
                 return ResourceManager.GetString("Text_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Databse backup is compeleted..
+        /// </summary>
+        public static string Text_DatabaseBackupCompleteMessage {
+            get {
+                return ResourceManager.GetString("Text_DatabaseBackupCompleteMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database Backup.
+        /// </summary>
+        public static string Text_DatabaseBackupCompleteTitle {
+            get {
+                return ResourceManager.GetString("Text_DatabaseBackupCompleteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database is restored successfully..
+        /// </summary>
+        public static string Text_DatabaseRestoreCompleteMessage {
+            get {
+                return ResourceManager.GetString("Text_DatabaseRestoreCompleteMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Databse Restore.
+        /// </summary>
+        public static string Text_DatabaseRestoreCompleteTitle {
+            get {
+                return ResourceManager.GetString("Text_DatabaseRestoreCompleteTitle", resourceCulture);
             }
         }
         
@@ -421,6 +466,24 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Oh... Something Unexpected Happened.
+        /// </summary>
+        public static string Text_ExcpetionThrownTitle {
+            get {
+                return ResourceManager.GetString("Text_ExcpetionThrownTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insufficient Application Permission.
+        /// </summary>
+        public static string Text_InsufficientApplicationPermission {
+            get {
+                return ResourceManager.GetString("Text_InsufficientApplicationPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Node.
         /// </summary>
         public static string Text_Node {
@@ -435,6 +498,15 @@ namespace ACycle.Resources.Strings {
         public static string Text_PickFile {
             get {
                 return ResourceManager.GetString("Text_PickFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please grant this app permission to write external storage..
+        /// </summary>
+        public static string Text_RequestPermission_WriteStorage {
+            get {
+                return ResourceManager.GetString("Text_RequestPermission_WriteStorage", resourceCulture);
             }
         }
         

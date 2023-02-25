@@ -12,6 +12,7 @@ namespace ACycle.ViewModels
 {
     public partial class DebuggingViewModel : ViewModelBase
     {
+        private readonly IBackupService _backupService;
         private readonly IConfigurationService _configurationService;
         private readonly IDatabaseService _databaseService;
         private readonly IDialogService _dialogService;
@@ -36,6 +37,7 @@ namespace ACycle.ViewModels
         }
 
         public DebuggingViewModel(
+            IBackupService backupService,
             IConfigurationService configurationService,
             IDatabaseService databaseService,
             IDialogService dialogService,
@@ -43,6 +45,7 @@ namespace ACycle.ViewModels
             IStringLocalizer<AppStrings> stringLocalizer
         )
         {
+            _backupService = backupService;
             _configurationService = configurationService;
             _databaseService = databaseService;
             _dialogService = dialogService;
@@ -100,24 +103,23 @@ namespace ACycle.ViewModels
             var status = await PermissionHelper.CheckAndRequestPermission<Permissions.StorageWrite>();
             if (status == PermissionStatus.Granted)
             {
-                var mainDbPath = _databaseService.MainDatabasePath;
-                var backupDbPath = Path.Combine(
+                var backupFilePath = Path.Combine(
                     Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads)!.AbsolutePath,
-                    $"MainDatabase_{DateTime.Now:yyyy-MM-ddTHHmmss}.sqlite3");
+                    _backupService.GetDatabseBackupFileName());
 
                 try
                 {
-                    await FileHelper.CopyAsync(mainDbPath, backupDbPath);
-                    await _dialogService.Prompt("Backup", "Backup completed.");
+                    await _backupService.CreateDatabaseBackup(backupFilePath);
+                    await _dialogService.Prompt(_stringLocalizer["Text_DatabaseBackupCompleteTitle"], _stringLocalizer["Text_DatabaseBackupCompleteMessage"]);
                 }
                 catch (Exception ex)
                 {
-                    await _dialogService.Prompt("Oh...", ex.ToString());
+                    await _dialogService.Prompt(_stringLocalizer["Text_ExcpetionThrownTitle"], ex.ToString());
                 }
             }
             else
             {
-                await _dialogService.Prompt("Application Permission", "Please grant this app permission to write external storage.");
+                await _dialogService.Prompt(_stringLocalizer["Text_InsufficientApplicationPermission"], _stringLocalizer["Text_RequestPermission_WriteStorage"]);
             }
 #endif
             await Task.CompletedTask;
@@ -132,9 +134,10 @@ namespace ACycle.ViewModels
             if (backupFile != null)
             {
                 var backupFilePath = backupFile.FullPath;
-                await _databaseService.DisconnectFromDatabaseAsync();
-                await FileHelper.CopyAsync(backupFilePath, _databaseService.MainDatabasePath, overWrite: true);
-                await _dialogService.Prompt("Database Restore", "Database is restored successfully.");
+                await _backupService.RestoreDatabaseBackup(backupFilePath);
+                await _dialogService.Prompt(_stringLocalizer["Text_DatabaseRestoreCompleteTitle"], _stringLocalizer["Text_DatabaseRestoreCompleteMessage"]);
+
+                await PromptForAppRestart(_stringLocalizer["Text_AppRestartReason_DatabaseRestore"]);
             }
 #endif
             await Task.CompletedTask;
@@ -143,7 +146,12 @@ namespace ACycle.ViewModels
         [RelayCommand]
         public async Task RestartApplication()
         {
-            bool shouldRestart = await _dialogService.ConfirmAppRestart(_stringLocalizer["Text_AppRestartReason_UserRequest"]);
+            await PromptForAppRestart(_stringLocalizer["Text_AppRestartReason_UserRequest"]);
+        }
+
+        private async Task PromptForAppRestart(string reason)
+        {
+            bool shouldRestart = await _dialogService.ConfirmAppRestart(reason);
 
             if (shouldRestart)
                 App.Current()!.Restart();
