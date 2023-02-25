@@ -9,7 +9,7 @@ namespace ACycle.Services
 
         protected static class MetadataKeys
         {
-            public const string PREFERED_LANGUAGE_CODE = "USER_PREFERED_LANGUAGE_CODE";
+            public const string PREFERRED_LANGUAGE_CODE = "USER_PREFERRED_LANGUAGE_CODE";
         }
 
         public UserService(IMetadataService metadataService)
@@ -19,18 +19,18 @@ namespace ACycle.Services
 
         public async Task<UserInfo> GetUserInfoAsync()
         {
-            var prefered_language_code = await _metadataService.GetMetadataAsync(MetadataKeys.PREFERED_LANGUAGE_CODE, "");
-            var prefered_language = prefered_language_code != "" ? new CultureInfo(prefered_language_code) : null;
+            var preferred_language_code = await _metadataService.GetMetadataAsync(MetadataKeys.PREFERRED_LANGUAGE_CODE, "");
+            var preferred_language = preferred_language_code != "" ? new CultureInfo(preferred_language_code) : null;
 
             return new UserInfo
             {
-                PreferredLanguage = prefered_language
+                PreferredLanguage = preferred_language
             };
         }
 
         public async Task SaveUserInfoAsync(UserInfo userInfo)
         {
-            await _metadataService.SetMetadataAsync(MetadataKeys.PREFERED_LANGUAGE_CODE, userInfo.PreferredLanguage?.Name ?? "");
+            await _metadataService.SetMetadataAsync(MetadataKeys.PREFERRED_LANGUAGE_CODE, userInfo.PreferredLanguage?.Name ?? "");
         }
     }
 }
