@@ -120,4 +120,16 @@
   <data name="v1.0.0.1" xml:space="preserve">
     <value>Initial version of ACycle.</value>
   </data>
+  <data name="v1.0.1.0" xml:space="preserve">
+    <value>Initial store version of ACycle.</value>
+  </data>
+  <data name="v1.0.2.0" xml:space="preserve">
+    <value>Diary editing is now stable.</value>
+  </data>
+  <data name="v1.0.3.0" xml:space="preserve">
+    <value>Add database migration tool.\nDatabase migration from godot version of ACycle is now possible.</value>
+  </data>
+  <data name="v1.0.4.0" xml:space="preserve">
+    <value />
+  </data>
 </root>

@@ -68,5 +68,41 @@ namespace ACycle.Resources.Strings {
                 return ResourceManager.GetString("v1.0.0.1", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initial store version of ACycle..
+        /// </summary>
+        public static string v1_0_1_0 {
+            get {
+                return ResourceManager.GetString("v1.0.1.0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diary editing is now stable..
+        /// </summary>
+        public static string v1_0_2_0 {
+            get {
+                return ResourceManager.GetString("v1.0.2.0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add database migration tool.\nDatabase migration from godot version of ACycle is now possible..
+        /// </summary>
+        public static string v1_0_3_0 {
+            get {
+                return ResourceManager.GetString("v1.0.3.0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string v1_0_4_0 {
+            get {
+                return ResourceManager.GetString("v1.0.4.0", resourceCulture);
+            }
+        }
     }
 }
