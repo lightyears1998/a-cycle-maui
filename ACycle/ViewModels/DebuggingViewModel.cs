@@ -105,7 +105,7 @@ namespace ACycle.ViewModels
             {
                 var backupFilePath = Path.Combine(
                     Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads)!.AbsolutePath,
-                    _backupService.GetDatabseBackupFileName());
+                    _backupService.GetDatabaseBackupFileName());
 
                 try
                 {

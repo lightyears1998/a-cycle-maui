@@ -8,9 +8,10 @@ namespace ACycle.ViewModels
 {
     public class LandingViewModel : ViewModelBase
     {
-        private readonly IDatabaseService _databaseService;
-        private readonly IConfigurationService _configurationService;
         private readonly IActivityCategoryService _activityCategoryService;
+        private readonly IConfigurationService _configurationService;
+        private readonly IDatabaseService _databaseService;
+        private readonly IDatabaseMigrationService _databaseMigrationService;
         private readonly IUserService _userService;
         private readonly IStringLocalizer<AppStrings> _stringLocalizer;
 
@@ -34,22 +35,24 @@ namespace ACycle.ViewModels
         }
 
         public LandingViewModel(
-            IDatabaseService databaseService,
-            IConfigurationService configurationService,
             IActivityCategoryService activityCategoryService,
+            IConfigurationService configurationService,
+            IDatabaseService databaseService,
+            IDatabaseMigrationService databaseMigrationService,
             IUserService userService,
             IStringLocalizer<AppStrings> stringLocalizer)
         {
-            _databaseService = databaseService;
-            _configurationService = configurationService;
             _activityCategoryService = activityCategoryService;
+            _configurationService = configurationService;
+            _databaseService = databaseService;
+            _databaseMigrationService = databaseMigrationService;
             _userService = userService;
             _stringLocalizer = stringLocalizer;
-            GetHeadingAndDescription();
+            GetHeadingAndDescriptionText();
         }
 
         [MemberNotNull(new[] { nameof(_heading), nameof(_description) })]
-        private void GetHeadingAndDescription()
+        private void GetHeadingAndDescriptionText()
         {
             Heading = _stringLocalizer["LandingView_Heading"];
             Description = _stringLocalizer["LandingView_Description"];
@@ -58,8 +61,11 @@ namespace ACycle.ViewModels
         public override async Task InitializeAsync()
         {
             await InitializeBasicServices();
+
             await SetupAppLanguage();
-            GetHeadingAndDescription();
+            GetHeadingAndDescriptionText();
+
+            await PerformDatabaseMigration();
 
             await InitializeAdvancedServices();
 
@@ -79,6 +85,11 @@ namespace ACycle.ViewModels
             {
                 LanguageHelper.SwitchLanguage(userInfo.PreferredLanguage);
             }
+        }
+
+        private async Task PerformDatabaseMigration()
+        {
+            await _databaseMigrationService.MigrateFromDatabase(_databaseService.MainDatabase);
         }
 
         private async Task InitializeAdvancedServices()
