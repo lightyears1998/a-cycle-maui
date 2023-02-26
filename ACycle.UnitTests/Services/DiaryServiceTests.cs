@@ -2,9 +2,7 @@
 using ACycle.Models;
 using ACycle.Repositories;
 using ACycle.Services;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SQLite;
-using System.Diagnostics.CodeAnalysis;
 
 namespace ACycle.UnitTests.Models
 {
