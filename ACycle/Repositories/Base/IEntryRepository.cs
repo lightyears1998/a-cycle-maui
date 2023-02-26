@@ -5,7 +5,7 @@
     {
         Task<List<T>> FindAllAsync();
 
-        Task<T> FindByUuid(Guid uuid);
+        Task<T?> FindByUuid(Guid uuid);
 
         Task HardDeleteAsync(T entry);
 
@@ -14,5 +14,7 @@
         Task UpdateAsync(T entry);
 
         Task RemoveAsync(T entry);
+
+        Task SaveIfFresherAsync(IEnumerable<T> entries);
     }
 }

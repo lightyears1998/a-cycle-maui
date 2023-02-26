@@ -1,5 +1,5 @@
-﻿using ACycle.Services;
-using ACycle.Entities;
+﻿using ACycle.Entities;
+using ACycle.Services;
 
 namespace ACycle.Repositories
 {

@@ -67,17 +67,17 @@ namespace ACycle.Services
             }
         }
 
-        private static bool CheckIfImplicitConversionIsPossible<TSource, TDest>(
+        private static bool CheckIfImplicitConversionIsPossible<TSource, TDestination>(
             IList<PropertyInfo> sourcePropertyInfos,
-            IDictionary<string, PropertyInfo> destPropertyDictionary)
+            IDictionary<string, PropertyInfo> destinationPropertyDictionary)
             where TSource : new()
-            where TDest : new()
+            where TDestination : new()
         {
             foreach (var pi in sourcePropertyInfos)
             {
                 if (!pi.CanWrite) continue;
 
-                if (!destPropertyDictionary.ContainsKey(pi.Name) || destPropertyDictionary[pi.Name].PropertyType != pi.PropertyType)
+                if (!destinationPropertyDictionary.ContainsKey(pi.Name) || destinationPropertyDictionary[pi.Name].PropertyType != pi.PropertyType)
                 {
                     return false;
                 }
@@ -94,29 +94,29 @@ namespace ACycle.Services
                 CheckIfImplicitConversionIsPossible<TModel, TEntity>(_modelPropertyInfos, _entityPropertyDictionary);
         }
 
-        protected virtual TDest ConvertToType<TSource, TDest>(
+        protected virtual TDestination ConvertToType<TSource, TDestination>(
             TSource source,
             IList<PropertyInfo> sourcePropertyInfos,
-            IDictionary<string, PropertyInfo> destPropertyDictionary)
-            where TDest : new()
+            IDictionary<string, PropertyInfo> destinationPropertyDictionary)
+            where TDestination : new()
             where TSource : new()
         {
             if (_shadowConversionPossible)
             {
-                var dest = new TDest();
+                var destination = new TDestination();
                 foreach (var sourcePropertyInfo in sourcePropertyInfos)
                 {
                     var sourceValue = sourcePropertyInfo.GetValue(source);
-                    var destPropertyInfo = destPropertyDictionary[sourcePropertyInfo.Name];
+                    var destPropertyInfo = destinationPropertyDictionary[sourcePropertyInfo.Name];
                     if (destPropertyInfo.CanWrite)
                     {
-                        destPropertyInfo.SetValue(dest, sourceValue);
+                        destPropertyInfo.SetValue(destination, sourceValue);
                     }
                 }
-                return dest;
+                return destination;
             }
 
-            throw new NotImplementedException($"Shadow conversion from {typeof(TSource).FullName} to {typeof(TDest).FullName} is not possible.");
+            throw new NotImplementedException($"Shadow conversion from {typeof(TSource).FullName} to {typeof(TDestination).FullName} is not possible.");
         }
 
         public virtual TEntity ConvertToEntity(TModel model)
@@ -179,7 +179,7 @@ namespace ACycle.Services
             return model;
         }
 
-        public virtual async Task UpsertAsync(TModel model, bool updateTimestamp = true)
+        public virtual async Task UpdateOrInsertAsync(TModel model, bool updateTimestamp = true)
         {
             if (updateTimestamp)
                 UpdateTimestamp(model);

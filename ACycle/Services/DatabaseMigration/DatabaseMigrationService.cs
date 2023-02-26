@@ -1,6 +1,4 @@
-﻿using ACycle.Entities;
-using ACycle.Extensions;
-using ACycle.Repositories;
+﻿using ACycle.Extensions;
 using ACycle.Services.DatabaseMigration;
 using SQLite;
 using System.Text;
@@ -11,12 +9,12 @@ namespace ACycle.Services
     {
         private readonly IDictionary<long, Lazy<IMigrator>> _schemaMigratorMap = new Dictionary<long, Lazy<IMigrator>>();
 
-        public Task<string> MigrateFromDatabase(string migrationDatabasePath)
+        public Task<string> MigrateDatabase(string migrationDatabasePath)
         {
-            return MigrateFromDatabase(new SQLiteAsyncConnection(migrationDatabasePath));
+            return MigrateDatabase(new SQLiteAsyncConnection(migrationDatabasePath));
         }
 
-        public async Task<string> MigrateFromDatabase(SQLiteAsyncConnection migrationDatabase)
+        public async Task<string> MigrateDatabase(SQLiteAsyncConnection migrationDatabase)
         {
             StringBuilder migrationResultBuilder = new();
             long? lastSchemaVersion = null;
@@ -70,6 +68,12 @@ namespace ACycle.Services
         public async Task<string> MergeDatabase(SQLiteAsyncConnection baseDatabase, SQLiteAsyncConnection mergingDatabase)
         {
             StringBuilder mergeResultBuilder = new();
+
+            var databaseService = new DatabaseServiceV1(baseDatabase);
+
+            mergeResultBuilder.AppendLine($"Entry count before merging: {await databaseService.CountEntries()}");
+            await databaseService.MergeDatabase(mergingDatabase);
+            mergeResultBuilder.AppendLine($"Entry count after merging: {await databaseService.CountEntries()}");
 
             return mergeResultBuilder.ToString();
         }

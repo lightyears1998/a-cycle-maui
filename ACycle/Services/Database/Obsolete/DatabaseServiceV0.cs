@@ -12,6 +12,10 @@ namespace ACycle.Services.Database.Obsolete
 
         public SQLiteAsyncConnection MainDatabase => throw new NotImplementedException();
 
+        public Type[] Tables => throw new NotImplementedException();
+
+        public Type[] EntryBasedEntityTables => throw new NotImplementedException();
+
         public void ConnectToDatabase(string databasePath)
         {
             throw new NotImplementedException();
@@ -38,6 +42,16 @@ namespace ACycle.Services.Database.Obsolete
         }
 
         public Task CreateTablesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task MergeDatabase(SQLiteAsyncConnection mergingDatabase)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> CountEntries()
         {
             throw new NotImplementedException();
         }

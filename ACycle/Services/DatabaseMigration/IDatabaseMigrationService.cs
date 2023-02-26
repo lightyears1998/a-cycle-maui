@@ -4,8 +4,10 @@ namespace ACycle.Services
 {
     public interface IDatabaseMigrationService
     {
-        Task<string> MigrateFromDatabase(string migrationDatabasePath);
+        Task<string> MergeDatabase(SQLiteAsyncConnection baseDatabase, SQLiteAsyncConnection mergingDatabase);
 
-        Task<string> MigrateFromDatabase(SQLiteAsyncConnection migrationDatabase);
+        Task<string> MigrateDatabase(string migrationDatabasePath);
+
+        Task<string> MigrateDatabase(SQLiteAsyncConnection migrationDatabase);
     }
 }

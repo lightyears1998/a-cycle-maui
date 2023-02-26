@@ -1,5 +1,6 @@
 ﻿using ACycle.Entities;
 using ACycle.Entities.Schemas.V0;
+using ACycle.Extensions;
 using ACycle.Helpers;
 using Newtonsoft.Json;
 using SQLite;
@@ -50,6 +51,7 @@ namespace ACycle.Services.DatabaseMigration
             await CreateTablesAsync(destinationDatabase);
             await MigrateDiariesAsync(sourceDatabase, destinationDatabase);
             await PostMigrateCleanUp(destinationDatabase);
+            await destinationDatabase.SetSchemaAsync(DestinationSchemaVersion);
 
             return _reportBuilder.ToString();
         }

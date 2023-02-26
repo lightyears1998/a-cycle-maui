@@ -22,12 +22,16 @@
 
             <Button
                 Text="{ext:LocaleString Key=DatabaseMigrationView_PerformMigration}"
-                IsEnabled="{x:Binding MigrationDatabasePathIsNotEmpty}" />
+                Command="{x:Binding PerformMigrationCommand}" />
+
+            <Button
+                Text="{ext:LocaleString Key=DatabaseMigrationView_PerformMigrationAndMerge}"
+                Command="{x:Binding PerformMigrationAndMergeCommand}" />
         </HorizontalStackLayout>
 
         <Editor
             HeightRequest="400"
             IsReadOnly="True"
-            Text="{x:Binding MigrationLog}" />
+            Text="{x:Binding Log}" />
     </VerticalStackLayout>
 </views:ContentPageBase>

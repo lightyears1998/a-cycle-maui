@@ -89,7 +89,7 @@ namespace ACycle.ViewModels
 
         private async Task PerformDatabaseMigration()
         {
-            await _databaseMigrationService.MigrateFromDatabase(_databaseService.MainDatabase);
+            await _databaseMigrationService.MigrateDatabase(_databaseService.MainDatabase);
         }
 
         private async Task InitializeAdvancedServices()

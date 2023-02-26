@@ -16,7 +16,7 @@ namespace ACycle.Extensions
             try
             {
                 var result = await connection.QueryScalarsAsync<long>("SELECT value FROM metadata WHERE key = 'SCHEMA'");
-                if (result.Count() > 0)
+                if (result.Count > 0)
                 {
                     schemaVersion = result[0];
                 }
@@ -24,6 +24,13 @@ namespace ACycle.Extensions
             catch (SQLiteException) { }
 
             return schemaVersion;
+        }
+
+        public static async Task SetSchemaAsync(this SQLiteAsyncConnection connection, long schemaVersion)
+        {
+            await connection.ExecuteAsync("INSERT INTO metadata(key, value, updated_at) VALUES('SCHEMA', ?, ?)" +
+                " ON CONFLICT(key) DO UPDATE SET value=?, updated_at=?",
+                new object[] { schemaVersion, DateTime.Now.Ticks, schemaVersion, DateTime.Now.Ticks });
         }
     }
 }
