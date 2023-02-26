@@ -1,14 +1,13 @@
 ﻿using ACycle.Helpers;
+using ACycle.Resources.Strings;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.Localization;
 using System.Globalization;
 
 namespace ACycle.ViewModels
 {
     public partial class SettingsViewModel : ViewModelBase
     {
-        private readonly IStringLocalizer _stringLocalizer;
         private readonly IDialogService _dialogService;
         private readonly INavigationService _navigationService;
         private readonly IConfigurationService _configurationService;
@@ -62,13 +61,11 @@ namespace ACycle.ViewModels
         }
 
         public SettingsViewModel(
-            IStringLocalizer stringLocalizer,
             IDialogService dialogService,
             INavigationService navigationService,
             IConfigurationService configurationService,
             IUserService userService)
         {
-            _stringLocalizer = stringLocalizer;
             _dialogService = dialogService;
             _navigationService = navigationService;
             _configurationService = configurationService;
@@ -97,7 +94,7 @@ namespace ACycle.ViewModels
 
         private void GetSupportedLanguageDisplayNames()
         {
-            string systemLanguageDisplayName = _stringLocalizer["SettingsView_UseSystemLanguage"];
+            string systemLanguageDisplayName = AppStrings.SettingsView_UseSystemLanguage;
             _supportedLanguageDisplayNames = SupportedLanguages.Select(language => language?.NativeName ?? systemLanguageDisplayName).ToList();
         }
 
@@ -111,18 +108,18 @@ namespace ACycle.ViewModels
         private void ShowRestartDueToLanguageChangeHint()
         {
             RestartDueToLanguageChangeHintIsVisible = true;
-            RestartDueToLanguageChangeHint = _stringLocalizer["SettingsView_RestartDueToLanguageChangeHint"];
+            RestartDueToLanguageChangeHint = AppStrings.SettingsView_RestartDueToLanguageChangeHint;
         }
 
         [RelayCommand]
         public async Task OpenDebuggingMenuAsync()
         {
-            await _navigationService.NavigateToAsync("/Debugging");
+            await _navigationService.NavigateToAsync(AppShell.Route.DebuggingToolRoute);
         }
 
         private async Task ConfirmAppRestart()
         {
-            var shouldRestart = await _dialogService.ConfirmAppRestart(_stringLocalizer["Text_AppRestartReason_LanguageChanges"]);
+            var shouldRestart = await _dialogService.ConfirmAppRestart(AppStrings.Text_AppRestartReason_LanguageChanges);
             if (shouldRestart)
             {
                 App.Current()!.Restart();

@@ -13,7 +13,6 @@ namespace ACycle.ViewModels
         private readonly IDatabaseService _databaseService;
         private readonly IDatabaseMigrationService _databaseMigrationService;
         private readonly IUserService _userService;
-        private readonly IStringLocalizer<AppStrings> _stringLocalizer;
 
         private string _heading;
         private string _description;
@@ -47,15 +46,14 @@ namespace ACycle.ViewModels
             _databaseService = databaseService;
             _databaseMigrationService = databaseMigrationService;
             _userService = userService;
-            _stringLocalizer = stringLocalizer;
             GetHeadingAndDescriptionText();
         }
 
         [MemberNotNull(new[] { nameof(_heading), nameof(_description) })]
         private void GetHeadingAndDescriptionText()
         {
-            Heading = _stringLocalizer["LandingView_Heading"];
-            Description = _stringLocalizer["LandingView_Description"];
+            Heading = AppStrings.LandingView_Heading;
+            Description = AppStrings.LandingView_Description;
         }
 
         public override async Task InitializeAsync()

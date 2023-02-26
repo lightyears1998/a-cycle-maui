@@ -2,7 +2,6 @@
 using ACycle.Resources.Strings;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.Localization;
 
 #if WINDOWS
 using System.Diagnostics;
@@ -17,11 +16,10 @@ namespace ACycle.ViewModels
         private readonly IDatabaseService _databaseService;
         private readonly IDialogService _dialogService;
         private readonly INavigationService _navigationService;
-        private readonly IStringLocalizer _stringLocalizer;
 
         public string NodeUuidTextCellText
         {
-            get => $"{_stringLocalizer["Text_Node"]} UUID";
+            get => $"{AppStrings.Text_Node} UUID";
         }
 
         public Guid NodeUuid => _configurationService.NodeUuid;
@@ -41,8 +39,7 @@ namespace ACycle.ViewModels
             IConfigurationService configurationService,
             IDatabaseService databaseService,
             IDialogService dialogService,
-            INavigationService NavigationService,
-            IStringLocalizer<AppStrings> stringLocalizer
+            INavigationService NavigationService
         )
         {
             _backupService = backupService;
@@ -50,7 +47,6 @@ namespace ACycle.ViewModels
             _databaseService = databaseService;
             _dialogService = dialogService;
             _navigationService = NavigationService;
-            _stringLocalizer = stringLocalizer;
         }
 
 #if WINDOWS
@@ -91,7 +87,7 @@ namespace ACycle.ViewModels
         public async Task NavigateToDatabaseMigrationView()
         {
 #if WINDOWS || ANDROID
-            await _navigationService.NavigateToAsync("DatabaseMigration");
+            await _navigationService.NavigateToAsync(AppShell.Route.DatabaseMigrationToolRoute);
 #endif
             await Task.CompletedTask;
         }
@@ -110,16 +106,16 @@ namespace ACycle.ViewModels
                 try
                 {
                     await _backupService.CreateDatabaseBackup(backupFilePath);
-                    await _dialogService.Prompt(_stringLocalizer["Text_DatabaseBackupCompleteTitle"], _stringLocalizer["Text_DatabaseBackupCompleteMessage"]);
+                    await _dialogService.Prompt(AppStrings.Text_DatabaseBackupCompleteTitle, AppStrings.Text_DatabaseBackupCompleteMessage);
                 }
                 catch (Exception ex)
                 {
-                    await _dialogService.Prompt(_stringLocalizer["Text_ExcpetionThrownTitle"], ex.ToString());
+                    await _dialogService.Prompt(AppStrings.Text_ExceptionThrownTitle, ex.ToString());
                 }
             }
             else
             {
-                await _dialogService.Prompt(_stringLocalizer["Text_InsufficientApplicationPermission"], _stringLocalizer["Text_RequestPermission_WriteStorage"]);
+                await _dialogService.Prompt(AppStrings.Text_InsufficientApplicationPermission, AppStrings.Text_RequestPermission_WriteStorage);
             }
 #endif
             await Task.CompletedTask;
@@ -135,9 +131,9 @@ namespace ACycle.ViewModels
             {
                 var backupFilePath = backupFile.FullPath;
                 await _backupService.RestoreDatabaseBackup(backupFilePath);
-                await _dialogService.Prompt(_stringLocalizer["Text_DatabaseRestoreCompleteTitle"], _stringLocalizer["Text_DatabaseRestoreCompleteMessage"]);
+                await _dialogService.Prompt(AppStrings.Text_DatabaseRestoreCompleteTitle, AppStrings.Text_DatabaseRestoreCompleteMessage);
 
-                await PromptForAppRestart(_stringLocalizer["Text_AppRestartReason_DatabaseRestore"]);
+                await PromptForAppRestart(AppStrings.Text_AppRestartReason_DatabaseRestore);
             }
 #endif
             await Task.CompletedTask;
@@ -146,7 +142,7 @@ namespace ACycle.ViewModels
         [RelayCommand]
         public async Task RestartApplication()
         {
-            await PromptForAppRestart(_stringLocalizer["Text_AppRestartReason_UserRequest"]);
+            await PromptForAppRestart(AppStrings.Text_AppRestartReason_UserRequest);
         }
 
         private async Task PromptForAppRestart(string reason)
