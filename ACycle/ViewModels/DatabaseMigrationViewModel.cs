@@ -57,31 +57,25 @@ namespace ACycle.ViewModels
         }
 
         [RelayCommand(CanExecute = nameof(MigrationDatabasePathIsNotEmpty))]
-        public async Task PerformMigration()
+        public async Task PerformMigrationAsync()
         {
             Log = "Starting migration...\n";
-            try
+            await TryToDoAsync(async () =>
             {
                 string path = _migrationDatabasePath.Trim().Trim('"');
                 FileGuard.Exists(path);
-
                 Log += await _databaseMigrationService.MigrateDatabase(path);
-            }
-            catch (Exception ex)
-            {
-                Log += AppStrings.Text_ExceptionThrownTitle + "\n";
-                Log += ex.ToString();
-            }
+            });
         }
 
         [RelayCommand(CanExecute = nameof(MigrationDatabasePathIsNotEmpty))]
-        public async Task PerformMigrationAndMerge()
+        public async Task PerformMigrationAndMergeAsync()
         {
             var databasePath = _migrationDatabasePath.Trim().Trim('"');
             SQLiteAsyncConnection? temporaryDatabase = null;
 
             Log = $"Starting migration and merge...\nCurrent database schema version: {await _databaseService.MainDatabase.GetSchemaAsync()}\n";
-            try
+            await TryToDoAsync(async () =>
             {
                 FileGuard.Exists(databasePath);
 
@@ -97,16 +91,23 @@ namespace ACycle.ViewModels
 
                 Log += "Merge Logs:\n";
                 Log += await _databaseMigrationService.MergeDatabase(_databaseService.MainDatabase, temporaryDatabase);
+            });
+
+            if (temporaryDatabase != null)
+                await temporaryDatabase.CloseAsync();
+        }
+
+        private async Task TryToDoAsync(Func<Task> job)
+        {
+            try
+            {
+                await job();
             }
             catch (Exception ex)
             {
+                Log += "\n";
                 Log += AppStrings.Text_ExceptionThrownTitle + "\n";
                 Log += ex.ToString();
-            }
-            finally
-            {
-                if (temporaryDatabase != null)
-                    await temporaryDatabase.CloseAsync();
             }
         }
     }
