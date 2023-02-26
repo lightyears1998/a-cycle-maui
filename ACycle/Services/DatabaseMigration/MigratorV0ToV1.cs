@@ -56,52 +56,41 @@ namespace ACycle.Services.DatabaseMigration
             return _reportBuilder.ToString();
         }
 
+        private void ParseDiaryV0(EntryV0 oldDiaryEntry, out DiaryV1 newDiary)
+        {
+            newDiary = new DiaryV1();
+            dynamic oldDiaryObject = JsonConvert.DeserializeObject(oldDiaryEntry.Content)!;
+
+            newDiary.Uuid = oldDiaryEntry.Uuid;
+            newDiary.CreatedAt = DateTimeHelper.ParseISO8601DateTimeString(oldDiaryEntry.CreatedAt);
+            newDiary.CreatedBy = oldDiaryEntry.UpdatedBy;
+            newDiary.UpdatedAt = DateTimeHelper.ParseISO8601DateTimeString(oldDiaryEntry.UpdatedAt);
+            newDiary.UpdatedBy = oldDiaryEntry.UpdatedBy;
+            newDiary.RemovedAt = oldDiaryEntry.RemovedAt != null && oldDiaryEntry.RemovedAt.Length > 0 ? DateTimeHelper.ParseISO8601DateTimeString(oldDiaryEntry.RemovedAt) : null;
+            newDiary.Title = (string)oldDiaryObject["title"];
+            var dateTimeString = (string)oldDiaryObject["date"];
+            newDiary.DateTime = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(dateTimeString)).LocalDateTime;
+            newDiary.Content = (string)oldDiaryObject["content"];
+
+            _reportBuilder.AppendLine(_reportSeparator);
+            _reportBuilder.AppendLine($"Uuid: {newDiary.Uuid}\n" +
+                $"CreatedAt: {newDiary.CreatedAt} ({oldDiaryEntry.CreatedAt})\n" +
+                $"RemovedAt: {newDiary.RemovedAt}\n" +
+                $"UpdatedAt: {newDiary.UpdatedAt}\n" +
+                $"UpdatedBy: {newDiary.UpdatedBy}\n" +
+                $"Title: {newDiary.Title}\n" +
+                $"Date: {newDiary.DateTime} ({dateTimeString})\n" +
+                $"Content:\n{newDiary.Content}");
+        }
+
         private async Task MigrateDiariesAsync(SQLiteAsyncConnection sourceDatabase, SQLiteAsyncConnection destinationDatabase)
         {
-            var oldDiaries = await sourceDatabase.Table<EntryV0>().Where(entry => entry.ContentType == "diary").ToListAsync();
-            _reportBuilder.AppendLine($"Total: {oldDiaries.Count}");
+            var oldDiaryEntries = await sourceDatabase.Table<EntryV0>().Where(entry => entry.ContentType == "diary").ToListAsync();
+            _reportBuilder.AppendLine($"Total: {oldDiaryEntries.Count}");
 
-            foreach (var oldDiary in oldDiaries)
+            foreach (var oldDiaryEntry in oldDiaryEntries)
             {
-                dynamic oldDiaryObject = JsonConvert.DeserializeObject(oldDiary.Content)!;
-
-                Guid uuid = oldDiary.Uuid;
-
-                DateTime createdAt = DateTimeHelper.ParseISO8601DateTimeString(oldDiary.CreatedAt);
-                DateTime? removedAt = oldDiary.RemovedAt != null && oldDiary.RemovedAt.Length > 0 ? DateTimeHelper.ParseISO8601DateTimeString(oldDiary.RemovedAt) : null;
-                DateTime updatedAt = DateTimeHelper.ParseISO8601DateTimeString(oldDiary.UpdatedAt);
-
-                Guid updatedBy = oldDiary.UpdatedBy;
-
-                string content = (string)oldDiaryObject["content"];
-
-                string dateString = (string)oldDiaryObject["date"];
-                DateTime date = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(dateString)).LocalDateTime;
-
-                string title = (string)oldDiaryObject["title"];
-
-                _reportBuilder.AppendLine(_reportSeparator);
-                _reportBuilder.AppendLine($"Uuid: {uuid}\n" +
-                    $"CreatedAt: {createdAt} ({oldDiary.CreatedAt})\n" +
-                    $"RemovedAt: {removedAt}\n" +
-                    $"UpdatedAt: {updatedAt}\nUpdatedBy: {updatedBy}\n" +
-                    $"Title: {title}\n" +
-                    $"Date: {date} ({dateString})\n" +
-                    $"Content:\n{content}");
-
-                var newDiary = new DiaryV1()
-                {
-                    Uuid = oldDiary.Uuid,
-                    CreatedAt = createdAt,
-                    CreatedBy = updatedBy,
-                    UpdatedAt = updatedAt,
-                    UpdatedBy = updatedBy,
-                    RemovedAt = removedAt,
-                    Title = title,
-                    DateTime = date,
-                    Content = content,
-                };
-
+                ParseDiaryV0(oldDiaryEntry, out DiaryV1 newDiary);
                 await destinationDatabase.InsertAsync(newDiary);
             }
         }
