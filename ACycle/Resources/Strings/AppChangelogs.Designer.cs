@@ -97,7 +97,7 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stablize database migration..
+        ///   Looks up a localized string similar to Stabilize database migration..
         /// </summary>
         public static string v1_0_3_1 {
             get {

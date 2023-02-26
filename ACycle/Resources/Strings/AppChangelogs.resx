@@ -130,6 +130,6 @@
     <value>Add database migration tool.\nDatabase migration from godot version of ACycle is now possible.</value>
   </data>
   <data name="v1.0.3.1" xml:space="preserve">
-    <value>Stablize database migration.</value>
+    <value>Stabilize database migration.</value>
   </data>
 </root>
