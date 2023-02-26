@@ -97,11 +97,11 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Stablize database migration..
         /// </summary>
-        public static string v1_0_4_0 {
+        public static string v1_0_3_1 {
             get {
-                return ResourceManager.GetString("v1.0.4.0", resourceCulture);
+                return ResourceManager.GetString("v1.0.3.1", resourceCulture);
             }
         }
     }

@@ -159,6 +159,9 @@
   <data name="DatabaseMigrationView_PerformMigration" xml:space="preserve">
     <value>Perform Migration</value>
   </data>
+  <data name="DatabaseMigrationView_PerformMigrationAndMerge" xml:space="preserve">
+    <value>Migration and Merge</value>
+  </data>
   <data name="DatabaseMigrationView_Title" xml:space="preserve">
     <value>Database Manual Migration Tool</value>
   </data>
@@ -211,7 +214,7 @@
     <value>System Language</value>
   </data>
   <data name="Text_AppRestartReason_DatabaseRestore" xml:space="preserve">
-    <value />
+    <value>The App database is restored. Please restart the App to access the lastest data.</value>
   </data>
   <data name="Text_AppRestartReason_LanguageChanges" xml:space="preserve">
     <value>The language preference has been changed recently. In order to apply this change, the application needs to restart.</value>
@@ -255,7 +258,7 @@
   <data name="Text_Discard" xml:space="preserve">
     <value>Discard</value>
   </data>
-  <data name="Text_ExcpetionThrownTitle" xml:space="preserve">
+  <data name="Text_ExceptionThrownTitle" xml:space="preserve">
     <value>Oh... Something Unexpected Happened</value>
   </data>
   <data name="Text_InsufficientApplicationPermission" xml:space="preserve">

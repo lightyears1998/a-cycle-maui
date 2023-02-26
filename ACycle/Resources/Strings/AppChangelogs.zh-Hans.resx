@@ -118,18 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="v1.0.0.1" xml:space="preserve">
-    <value>Initial version of ACycle.</value>
+    <value>循迹的初始版本。</value>
   </data>
   <data name="v1.0.1.0" xml:space="preserve">
-    <value>Initial store version of ACycle.</value>
+    <value>循迹的微软商店初始版本。</value>
   </data>
   <data name="v1.0.2.0" xml:space="preserve">
-    <value>Diary editing is now stable.</value>
+    <value>实现日记编辑功能。</value>
   </data>
   <data name="v1.0.3.0" xml:space="preserve">
-    <value>Add database migration tool.\nDatabase migration from godot version of ACycle is now possible.</value>
+    <value>添加面向循迹 Godot 版本的数据迁移工具。</value>
   </data>
   <data name="v1.0.3.1" xml:space="preserve">
-    <value>Stablize database migration.</value>
+    <value>修复数据库迁移工具中的一些问题。</value>
   </data>
 </root>

@@ -187,6 +187,15 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Migration and Merge.
+        /// </summary>
+        public static string DatabaseMigrationView_PerformMigrationAndMerge {
+            get {
+                return ResourceManager.GetString("DatabaseMigrationView_PerformMigrationAndMerge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Database Manual Migration Tool.
         /// </summary>
         public static string DatabaseMigrationView_Title {
@@ -340,7 +349,7 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to The App database is restored. Please restart the App to access the lastest data..
         /// </summary>
         public static string Text_AppRestartReason_DatabaseRestore {
             get {
@@ -477,9 +486,9 @@ namespace ACycle.Resources.Strings {
         /// <summary>
         ///   Looks up a localized string similar to Oh... Something Unexpected Happened.
         /// </summary>
-        public static string Text_ExcpetionThrownTitle {
+        public static string Text_ExceptionThrownTitle {
             get {
-                return ResourceManager.GetString("Text_ExcpetionThrownTitle", resourceCulture);
+                return ResourceManager.GetString("Text_ExceptionThrownTitle", resourceCulture);
             }
         }
         
