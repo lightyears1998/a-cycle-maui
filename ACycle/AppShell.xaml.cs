@@ -1,19 +1,29 @@
 ﻿using ACycle.Views;
 
-namespace ACycle;
-
-public partial class AppShell : Shell
+namespace ACycle
 {
-    public AppShell()
+    public partial class AppShell : Shell
     {
-        InitializeComponent();
-        InitializeRouting();
-    }
+        public AppShell()
+        {
+            InitializeComponent();
+            InitializeRouting();
+        }
 
-    private static void InitializeRouting()
-    {
-        Routing.RegisterRoute("DatabaseMigration", typeof(DatabaseMigrationView));
-        Routing.RegisterRoute("Debugging", typeof(DebuggingView));
-        Routing.RegisterRoute("Diary/Editor", typeof(DiaryEditorView));
+        private static void InitializeRouting()
+        {
+            Routing.RegisterRoute(Route.DatabaseMigrationToolRoute, typeof(DatabaseMigrationView));
+            Routing.RegisterRoute(Route.DebuggingToolRoute, typeof(DebuggingView));
+            Routing.RegisterRoute(Route.DiaryEditorRoute, typeof(DiaryEditorView));
+        }
+
+        public static class Route
+        {
+            public static string DatabaseMigrationToolRoute = "DatabaseMigration";
+
+            public static string DebuggingToolRoute = "Debugging";
+
+            public static string DiaryEditorRoute = "Diary/Editor";
+        }
     }
 }

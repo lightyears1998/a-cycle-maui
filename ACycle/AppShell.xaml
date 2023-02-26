@@ -2,10 +2,10 @@
 <Shell
     x:Class="ACycle.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:root="clr-namespace:ACycle"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ext="clr-namespace:ACycle.Extensions"
-    xmlns:views="clr-namespace:ACycle.Views"
->
+    xmlns:views="clr-namespace:ACycle.Views">
 
     <Shell.FlyoutBehavior>
         <OnPlatform x:TypeArguments="FlyoutBehavior">
@@ -73,7 +73,7 @@
         Title="{ext:LocaleString Key=AppShell_Debugging}"
         Icon="appshell_debugging.png"
         IsVisible="False"
-        Route="Debugging">
+        Route="{x:Static root:AppShell+Route.DebuggingToolRoute}">
         <ShellContent ContentTemplate="{DataTemplate views:DebuggingView}" />
     </FlyoutItem>
 </Shell>
