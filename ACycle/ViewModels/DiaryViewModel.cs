@@ -35,8 +35,18 @@ namespace ACycle.ViewModels
         public Diary? SelectedDiary
         {
             get => _selectedDiary;
-            set => SetProperty(ref _selectedDiary, value);
+            set
+            {
+                if (SetProperty(ref _selectedDiary, value))
+                {
+                    OnPropertyChanged(nameof(SelectedDiaryIsNotEmpty));
+                    RemoveDiaryCommand.NotifyCanExecuteChanged();
+                    OpenEditorForEditingCommand.NotifyCanExecuteChanged();
+                }
+            }
         }
+
+        public bool SelectedDiaryIsNotEmpty => SelectedDiary != null;
 
         public DiaryViewModel(INavigationService navigationService, IEntryService<DiaryV1, Diary> diaryService)
         {
@@ -110,7 +120,7 @@ namespace ACycle.ViewModels
             await _navigationService.NavigateToAsync("Editor");
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(SelectedDiaryIsNotEmpty))]
         public async Task OpenEditorForEditing()
         {
             if (SelectedDiary == null)
@@ -119,7 +129,7 @@ namespace ACycle.ViewModels
             await _navigationService.NavigateToAsync("Editor", new Dictionary<string, object> { { "diary", SelectedDiary } });
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(SelectedDiaryIsNotEmpty))]
         public async Task RemoveDiary()
         {
             if (SelectedDiary == null)
