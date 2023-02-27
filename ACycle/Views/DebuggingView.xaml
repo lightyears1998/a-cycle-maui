@@ -8,8 +8,12 @@
     x:Class="ACycle.Views.DebuggingView"
     x:DataType="viewModels:DebuggingViewModel"
     Title="{ext:LocaleString Key=DebuggingView_Title}">
+    <VerticalStackLayout
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        Margin="8"
+        Spacing="8">
 
-    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
         <TableView>
             <TableRoot>
                 <TableSection>
@@ -20,64 +24,66 @@
             </TableRoot>
         </TableView>
 
-        <Button
+        <VerticalStackLayout Spacing="4">
+            <Button
             Text="{ext:LocaleString Key=DebuggingView_OpenAppDataDirectory}"
             Command="{x:Binding OpenAppDataDirectoryCommand}">
-            <Button.IsVisible>
-                <OnPlatform x:TypeArguments="x:Boolean">
-                    <On Platform="WinUI">True</On>
-                    <On Platform="Default">False</On>
-                </OnPlatform>
-            </Button.IsVisible>
-        </Button>
+                <Button.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <On Platform="WinUI">True</On>
+                        <On Platform="Default">False</On>
+                    </OnPlatform>
+                </Button.IsVisible>
+            </Button>
 
-        <Button
+            <Button
             Text="{ext:LocaleString Key=DebuggingView_OpenCacheDirectory}"
             Command="{x:Binding OpenCacheDirectoryCommand}">
-            <Button.IsVisible>
-                <OnPlatform x:TypeArguments="x:Boolean">
-                    <On Platform="WinUI">True</On>
-                    <On Platform="Default">False</On>
-                </OnPlatform>
-            </Button.IsVisible>
-        </Button>
+                <Button.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <On Platform="WinUI">True</On>
+                        <On Platform="Default">False</On>
+                    </OnPlatform>
+                </Button.IsVisible>
+            </Button>
 
-        <Button
+            <Button
             Text="{ext:LocaleString Key=DebuggingView_BackupDatabaseToExternalStorage}"
             Command="{x:Binding BackupDatabaseToExternalStorageCommand}">
-            <Button.IsVisible>
-                <OnPlatform x:TypeArguments="x:Boolean">
-                    <On Platform="Android">True</On>
-                    <On Platform="Default">False</On>
-                </OnPlatform>
-            </Button.IsVisible>
-        </Button>
+                <Button.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <On Platform="Android">True</On>
+                        <On Platform="Default">False</On>
+                    </OnPlatform>
+                </Button.IsVisible>
+            </Button>
 
-        <Button
+            <Button
             Text="{ext:LocaleString Key=DebuggingView_RestoreDatabaseFromExternalStorage}"
             Command="{x:Binding RestoreDatabaseFromExternalStorageCommand}">
-            <Button.IsVisible>
-                <OnPlatform x:TypeArguments="x:Boolean">
-                    <On Platform="Android">True</On>
-                    <On Platform="Default">False</On>
-                </OnPlatform>
-            </Button.IsVisible>
-        </Button>
+                <Button.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <On Platform="Android">True</On>
+                        <On Platform="Default">False</On>
+                    </OnPlatform>
+                </Button.IsVisible>
+            </Button>
 
-        <Button
+            <Button
             Text="{ext:LocaleString Key=DebuggingView_DatabaseManualMigrationTool}"
             Command="{x:Binding NavigateToDatabaseMigrationViewCommand}">
-            <Button.IsVisible>
-                <OnPlatform x:TypeArguments="x:Boolean">
-                    <On Platform="WinUI">True</On>
-                    <On Platform="Android">True</On>
-                    <On Platform="Default">False</On>
-                </OnPlatform>
-            </Button.IsVisible>
-        </Button>
+                <Button.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <On Platform="WinUI">True</On>
+                        <On Platform="Android">True</On>
+                        <On Platform="Default">False</On>
+                    </OnPlatform>
+                </Button.IsVisible>
+            </Button>
 
-        <Button
+            <Button
             Text="{ext:LocaleString Key=DebuggingView_RestartApp}"
             Command="{x:Binding RestartApplicationCommand}" />
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </views:ContentPageBase>
