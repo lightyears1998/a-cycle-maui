@@ -132,4 +132,7 @@
   <data name="v1.0.3.1" xml:space="preserve">
     <value>Stabilize database migration.</value>
   </data>
+  <data name="v1.0.4.0" xml:space="preserve">
+    <value>Store version of v1.0.3.1.</value>
+  </data>
 </root>

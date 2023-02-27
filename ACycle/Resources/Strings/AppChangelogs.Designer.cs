@@ -104,5 +104,14 @@ namespace ACycle.Resources.Strings {
                 return ResourceManager.GetString("v1.0.3.1", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Store version of v1.0.3.1..
+        /// </summary>
+        public static string v1_0_4_0 {
+            get {
+                return ResourceManager.GetString("v1.0.4.0", resourceCulture);
+            }
+        }
     }
 }
