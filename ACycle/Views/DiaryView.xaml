@@ -8,27 +8,45 @@
     xmlns:viewModels="clr-namespace:ACycle.ViewModels"
     x:Class="ACycle.Views.DiaryView"
     x:DataType="viewModels:DiaryViewModel"
-    Title="{ext:LocaleString Key=DiaryView_Title}"
->
-    <VerticalStackLayout HorizontalOptions="Center">
-        <HorizontalStackLayout>
+    Title="{ext:LocaleString Key=DiaryView_Title}">
+    <Grid
+        VerticalOptions="Fill"
+        HorizontalOptions="Fill"
+        Margin="8"
+        RowSpacing="8"
+        RowDefinitions="Auto, *, Auto">
+
+        <HorizontalStackLayout
+            HorizontalOptions="Center"
+            Grid.Row="0"
+            Spacing="4">
             <Button Text="&lt;" Command="{Binding JumpToPreviousDateCommand}" />
-            <DatePicker VerticalOptions="Fill" Date="{Binding Date}" />
+            <DatePicker
+                WidthRequest="120"
+                HeightRequest="{Binding Source={RelativeSource AncestorType={x:Type HorizontalStackLayout}}, Path=Height}"
+                Date="{Binding Date}" />
             <Button Text="&gt;" Command="{Binding JumpToNextDateCommand}" />
         </HorizontalStackLayout>
 
-        <CollectionView ItemsSource="{Binding Diaries}" SelectedItem="{Binding SelectedDiary}" SelectionMode="Single">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <templates:DiaryTemplate />
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <ScrollView
+            Grid.Row="1">
+            <CollectionView ItemsSource="{Binding Diaries}" SelectedItem="{Binding SelectedDiary}" SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <templates:DiaryTemplate />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
 
-        <HorizontalStackLayout>
+        <HorizontalStackLayout
+            Grid.Row="2"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            Spacing="4">
             <Button Text="{ext:LocaleString Key=Action_Add}" Command="{Binding OpenEditorForAddingCommand}" />
             <Button Text="{ext:LocaleString Key=Action_Edit}" Command="{Binding OpenEditorForEditingCommand}" />
             <Button Text="{ext:LocaleString Key=Action_Remove}" Command="{Binding RemoveDiaryCommand}" />
         </HorizontalStackLayout>
-    </VerticalStackLayout>
+    </Grid>
 </views:ContentPageBase>
