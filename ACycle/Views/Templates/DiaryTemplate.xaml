@@ -5,7 +5,7 @@
              x:Class="ACycle.Views.Templates.DiaryTemplate"
              x:DataType="models:Diary">
     <VerticalStackLayout>
-        <Label Text="{Binding Title}" />
+        <Label Text="{Binding Title}" FontAttributes="Bold" />
         <Label Text="{Binding Content}" />
     </VerticalStackLayout>
 </ContentView>

@@ -8,20 +8,27 @@
     x:Class="ACycle.Views.DiaryEditorView"
     x:DataType="viewModels:DiaryEditorViewModel"
     Title="{ext:LocaleString Key=DiaryEditorView_Title}">
-    <ScrollView>
-        <VerticalStackLayout>
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{x:Binding ConfirmForLeaveCommand}" />
+    </Shell.BackButtonBehavior>
+
+    <Grid Margin="8" RowSpacing="8" RowDefinitions="Auto, *, Auto">
+        <VerticalStackLayout Grid.Row="0" Spacing="4">
             <Label Text="{ext:LocaleString Key=Text_Title}" />
             <Entry Text="{Binding Diary.Title}" />
-            <HorizontalStackLayout>
+            <HorizontalStackLayout Spacing="4">
                 <DatePicker Date="{Binding DiaryDate}" />
-                <TimePicker Time="{Binding DiaryTime}" />
-            </HorizontalStackLayout>
-            <Label Text="{ext:LocaleString Key=Text_Content}" />
-            <Editor HeightRequest="200" Text="{Binding Diary.Content}" />
-            <HorizontalStackLayout>
-                <Button Text="{ext:LocaleString Key=Text_Save}" Command="{Binding SaveCommand}" />
-                <Button Text="{ext:LocaleString Key=Text_Discard}" Command="{Binding DiscardCommand}" />
+                <TimePicker Time="{Binding DiaryTime}" Format="HH:mm" />
             </HorizontalStackLayout>
         </VerticalStackLayout>
-    </ScrollView>
+        <Grid RowSpacing="4" Grid.Row="1" RowDefinitions="Auto, *">
+            <Label Grid.Row="0" Text="{ext:LocaleString Key=Text_Content}" />
+            <Editor Grid.Row="1" Text="{Binding Diary.Content}" />
+        </Grid>
+        <HorizontalStackLayout Grid.Row="2" Spacing="4" HorizontalOptions="Center">
+            <Button Text="{ext:LocaleString Key=Text_Save}" Command="{Binding SaveCommand}" />
+            <Button Text="{ext:LocaleString Key=Text_Discard}" Command="{Binding DiscardCommand}" />
+        </HorizontalStackLayout>
+    </Grid>
 </views:ContentPageBase>

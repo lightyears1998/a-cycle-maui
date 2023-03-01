@@ -4,6 +4,6 @@
     {
         public Task NavigateToAsync(string route, IDictionary<string, object>? parameters = null);
 
-        public Task PopAsync();
+        public Task GoBackAsync();
     }
 }

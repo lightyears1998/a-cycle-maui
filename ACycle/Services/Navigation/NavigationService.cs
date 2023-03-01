@@ -7,6 +7,6 @@
             return parameters != null ? Shell.Current.GoToAsync(route, parameters) : Shell.Current.GoToAsync(route);
         }
 
-        public Task PopAsync() => Shell.Current.GoToAsync("..");
+        public Task GoBackAsync() => Shell.Current.GoToAsync("..");
     }
 }

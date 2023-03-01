@@ -1,5 +1,6 @@
 ﻿using ACycle.Entities;
 using ACycle.Models;
+using ACycle.Resources.Strings;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.Input;
 
@@ -10,7 +11,9 @@ namespace ACycle.ViewModels
     {
         private readonly INavigationService _navigationService;
         private readonly IEntryService<DiaryV1, Diary> _diaryService;
+        private readonly IDialogService _dialogService;
 
+        private Diary _lastSavedDiary = new();
         private Diary _diary = new();
 
         public Diary Diary
@@ -52,23 +55,49 @@ namespace ACycle.ViewModels
             }
         }
 
-        public DiaryEditorViewModel(INavigationService navigationService, IEntryService<DiaryV1, Diary> diaryService)
+        public DiaryEditorViewModel(INavigationService navigationService, IEntryService<DiaryV1, Diary> diaryService, IDialogService dialogService)
         {
             _navigationService = navigationService;
             _diaryService = diaryService;
+            _dialogService = dialogService;
+        }
+
+        public override async Task InitializeAsync()
+        {
+            await base.InitializeAsync();
+
+            _lastSavedDiary = _diary with { };
+        }
+
+        [RelayCommand]
+        public async Task ConfirmForLeave()
+        {
+            if (DiaryTitleOrContentHasChanged())
+            {
+                var shouldLeave = await _dialogService.Confirm(AppStrings.Text_ConfirmLeave, AppStrings.Text_UnsavedModifications);
+                if (!shouldLeave)
+                    return;
+            }
+
+            await _navigationService.GoBackAsync();
         }
 
         [RelayCommand]
         public async Task SaveAsync()
         {
             await _diaryService.SaveAsync(Diary);
-            await _navigationService.PopAsync();
+            _lastSavedDiary = _diary with { };
         }
 
         [RelayCommand]
         public async Task DiscardAsync()
         {
-            await _navigationService.PopAsync();
+            await ConfirmForLeave();
+        }
+
+        private bool DiaryTitleOrContentHasChanged()
+        {
+            return _diary.Content != _lastSavedDiary.Content || _diary.Title != _lastSavedDiary.Title;
         }
     }
 }
