@@ -222,6 +222,9 @@
   <data name="Text_AppRestartReason_UserRequest" xml:space="preserve">
     <value>The app is restarting due to user request.</value>
   </data>
+  <data name="Text_ConfirmLeave" xml:space="preserve">
+    <value>Do you want to leave the page?</value>
+  </data>
   <data name="Text_Content" xml:space="preserve">
     <value>Content</value>
   </data>
@@ -284,5 +287,8 @@
   </data>
   <data name="Text_Title" xml:space="preserve">
     <value>Title</value>
+  </data>
+  <data name="Text_UnsavedModifications" xml:space="preserve">
+    <value>Unsaved modifications will be lost.</value>
   </data>
 </root>

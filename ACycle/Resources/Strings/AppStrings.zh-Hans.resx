@@ -222,6 +222,9 @@
   <data name="Text_AppRestartReason_UserRequest" xml:space="preserve">
     <value>由于用户请求，正在重启 App。</value>
   </data>
+  <data name="Text_ConfirmLeave" xml:space="preserve">
+    <value>确认离开？</value>
+  </data>
   <data name="Text_Content" xml:space="preserve">
     <value>内容</value>
   </data>
@@ -284,5 +287,8 @@
   </data>
   <data name="Text_Title" xml:space="preserve">
     <value>标题</value>
+  </data>
+  <data name="Text_UnsavedModifications" xml:space="preserve">
+    <value>未保存的修改将会丢失。</value>
   </data>
 </root>

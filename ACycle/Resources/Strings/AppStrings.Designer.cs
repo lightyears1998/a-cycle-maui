@@ -376,6 +376,15 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to leave the page?.
+        /// </summary>
+        public static string Text_ConfirmLeave {
+            get {
+                return ResourceManager.GetString("Text_ConfirmLeave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Content.
         /// </summary>
         public static string Text_Content {
@@ -561,6 +570,15 @@ namespace ACycle.Resources.Strings {
         public static string Text_Title {
             get {
                 return ResourceManager.GetString("Text_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsaved modifications will be lost..
+        /// </summary>
+        public static string Text_UnsavedModifications {
+            get {
+                return ResourceManager.GetString("Text_UnsavedModifications", resourceCulture);
             }
         }
     }
