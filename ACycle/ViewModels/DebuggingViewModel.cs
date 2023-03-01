@@ -1,10 +1,13 @@
-﻿using ACycle.Helpers;
-using ACycle.Resources.Strings;
+﻿using ACycle.Resources.Strings;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.Input;
 
 #if WINDOWS
 using System.Diagnostics;
+#endif
+
+#if ANDROID
+using ACycle.Helpers;
 #endif
 
 namespace ACycle.ViewModels

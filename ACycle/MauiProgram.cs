@@ -5,73 +5,91 @@ using ACycle.ViewModels;
 using ACycle.Views;
 using Microsoft.Extensions.Localization;
 
-namespace ACycle;
+#if DEBUG
 
-public static class MauiProgram
+using Microsoft.Extensions.Logging;
+
+#endif
+
+namespace ACycle
 {
-    public static string MainDatabasePath => Path.Combine(FileSystem.AppDataDirectory, "MainDatabase.sqlite3");
-
-    public static MauiApp CreateMauiApp()
+    public static class MauiProgram
     {
-        var builder = MauiApp.CreateBuilder();
-        builder
-            .UseMauiApp<App>()
-            .ConfigureFonts(fonts =>
-            {
-                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-            })
-            .ConfigureLocalization()
-            .RegisterRepositories()
-            .RegisterServices()
-            .RegisterViewModels()
-            .RegisterViews();
+        public static string MainDatabasePath => Path.Combine(FileSystem.AppDataDirectory, "MainDatabase.sqlite3");
 
-        return builder.Build();
-    }
-
-    public static MauiAppBuilder ConfigureLocalization(this MauiAppBuilder builder)
-    {
-        builder.Services
-            .AddLocalization()
-            .AddTransient<IStringLocalizer, StringLocalizer<AppStrings>>();
-
-        return builder;
-    }
-
-    public static MauiAppBuilder RegisterRepositories(this MauiAppBuilder builder)
-    {
-        builder.Services
-            .AddSingleton<MetadataRepository>()
-            .AddSingleton(typeof(IEntryRepository<>), typeof(EntryRepository<>));
-
-        return builder;
-    }
-
-    public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
-    {
-        builder.Services
-            .AddSingleton(typeof(IEntryService<,>), typeof(EntryService<,>));
-
-        builder.Services
-            .AddSingleton<IActivityCategoryService, ActivityCategoryService>()
-            .AddTransient<IBackupService, BackupService>()
-            .AddSingleton<IConfigurationService, ConfigurationService>()
-            .AddSingleton<IDatabaseService>(new DatabaseServiceV1(MainDatabasePath))
-            .AddSingleton<IDatabaseMigrationService, DatabaseMigrationService>()
-            .AddSingleton<IDialogService, DialogService>()
-            .AddSingleton<IMetadataService, MetadataService>()
-            .AddSingleton<INavigationService, NavigationService>()
-            .AddSingleton<IStaticConfigurationService, StaticConfigurationService>()
-            .AddSingleton<IUserService, UserService>();
-
-        return builder;
-    }
-
-    public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
-    {
-        builder.RegisterTransients(new Type[]
+        public static MauiApp CreateMauiApp()
         {
+            var builder = MauiApp.CreateBuilder();
+            builder
+                .UseMauiApp<App>()
+                .ConfigureFonts(fonts =>
+                {
+                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                })
+                .ConfigureLocalization()
+                .ConfigureLogging()
+                .RegisterRepositories()
+                .RegisterServices()
+                .RegisterViewModels()
+                .RegisterViews();
+
+            return builder.Build();
+        }
+
+        public static MauiAppBuilder ConfigureLocalization(this MauiAppBuilder builder)
+        {
+            builder.Services
+                .AddLocalization()
+                .AddTransient<IStringLocalizer, StringLocalizer<AppStrings>>();
+
+            return builder;
+        }
+
+        public static MauiAppBuilder ConfigureLogging(this MauiAppBuilder builder)
+        {
+#if DEBUG
+            builder.Services.AddLogging(configure =>
+            {
+                configure.AddDebug();
+            });
+#endif
+            return builder;
+        }
+
+        public static MauiAppBuilder RegisterRepositories(this MauiAppBuilder builder)
+        {
+            builder.Services
+                .AddSingleton<MetadataRepository>()
+                .AddSingleton(typeof(IEntryRepository<>), typeof(EntryRepository<>));
+
+            return builder;
+        }
+
+        public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
+        {
+            builder.Services
+                .AddSingleton(typeof(IEntryService<,>), typeof(EntryService<,>));
+
+            builder.Services
+                .AddSingleton<IActivityCategoryService, ActivityCategoryService>()
+                .AddTransient<IBackupService, BackupService>()
+                .AddSingleton<IConfigurationService, ConfigurationService>()
+                .AddSingleton<IDatabaseService>(new DatabaseServiceV1(MainDatabasePath))
+                .AddSingleton<IDatabaseMigrationService, DatabaseMigrationService>()
+                .AddSingleton<IDialogService, DialogService>()
+                .AddSingleton<IMetadataService, MetadataService>()
+                .AddSingleton<INavigationService, NavigationService>()
+                .AddSingleton<IStaticConfigurationService, StaticConfigurationService>()
+                .AddSingleton<IUserService, UserService>();
+
+            return builder;
+        }
+
+        public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
+        {
+            builder.RegisterTransients(new Type[]
+            {
             typeof(DatabaseMigrationViewModel),
             typeof(DebuggingViewModel),
             typeof(DiaryViewModel),
@@ -79,15 +97,15 @@ public static class MauiProgram
             typeof(FocusViewModel),
             typeof(LandingViewModel),
             typeof(SettingsViewModel),
-        });
+            });
 
-        return builder;
-    }
+            return builder;
+        }
 
-    public static MauiAppBuilder RegisterViews(this MauiAppBuilder builder)
-    {
-        builder.RegisterTransients(new Type[]
+        public static MauiAppBuilder RegisterViews(this MauiAppBuilder builder)
         {
+            builder.RegisterTransients(new Type[]
+            {
             typeof(ActivityView),
             typeof(DatabaseMigrationView),
             typeof(DebuggingView),
@@ -99,18 +117,19 @@ public static class MauiProgram
             typeof(LedgerView),
             typeof(SettingsView),
             typeof(PlanningView)
-        });
+            });
 
-        return builder;
-    }
-
-    public static MauiAppBuilder RegisterTransients(this MauiAppBuilder builder, IList<Type> types)
-    {
-        foreach (var type in types)
-        {
-            builder.Services.AddTransient(type);
+            return builder;
         }
 
-        return builder;
+        public static MauiAppBuilder RegisterTransients(this MauiAppBuilder builder, IList<Type> types)
+        {
+            foreach (var type in types)
+            {
+                builder.Services.AddTransient(type);
+            }
+
+            return builder;
+        }
     }
 }
