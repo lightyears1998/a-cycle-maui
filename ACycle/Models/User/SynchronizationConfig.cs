@@ -1,4 +1,4 @@
-﻿namespace ACycle.Models.User
+﻿namespace ACycle.Models
 {
     public class SynchronizationConfig
     {

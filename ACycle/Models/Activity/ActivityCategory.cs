@@ -2,7 +2,7 @@
 
 namespace ACycle.Models
 {
-    public class ActivityCategory : Entry
+    public record class ActivityCategory : Entry
     {
         [JsonProperty("name")]
         public string Name { get; set; } = string.Empty;

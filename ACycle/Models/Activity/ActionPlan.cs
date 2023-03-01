@@ -1,6 +1,6 @@
 ﻿namespace ACycle.Models
 {
-    public class ActionPlan : Entry
+    public record class ActionPlan : Entry
     {
     }
 }

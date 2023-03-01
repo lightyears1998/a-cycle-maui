@@ -1,6 +1,6 @@
 ﻿namespace ACycle.Models
 {
-    public class Entry
+    public record class Entry
     {
         public Guid Uuid { set; get; } = Guid.NewGuid();
 

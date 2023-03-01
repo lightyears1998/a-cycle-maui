@@ -2,7 +2,7 @@
 
 namespace ACycle.Models
 {
-    public class Diary : Entry
+    public record class Diary : Entry
     {
         [JsonProperty("title")]
         public string Title { get; set; } = string.Empty;
