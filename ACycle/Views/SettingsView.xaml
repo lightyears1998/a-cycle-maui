@@ -8,16 +8,20 @@
     x:Class="ACycle.Views.SettingsView"
     x:DataType="viewModels:SettingsViewModel"
     Title="{ext:LocaleString Key=SettingsView_Title}">
-    <VerticalStackLayout HorizontalOptions="Center">
-        <Picker
-            Title="{ext:LocaleString Key=SettingsView_LanguagePickerTitle}"
-            ItemsSource="{Binding SupportedLanguageDisplayNames}"
-            SelectedIndex="{Binding SelectedLanguageIndex}" />
+    <VerticalStackLayout VerticalOptions="Fill" HorizontalOptions="Fill" Margin="8" Spacing="4">
+        <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
+            <Picker
+                Title="{ext:LocaleString Key=SettingsView_LanguagePickerTitle}"
+                ItemsSource="{Binding SupportedLanguageDisplayNames}"
+                SelectedIndex="{Binding SelectedLanguageIndex}" />
+            <Label
+                IsVisible="{Binding RestartDueToLanguageChangeHintIsVisible}"
+                Text="{Binding RestartDueToLanguageChangeHint}" />
+        </VerticalStackLayout>
+
         <Button
+            HorizontalOptions="Center"
             Text="{ext:LocaleString Key=SettingsView_OpenDebuggingMenu}"
             Command="{Binding OpenDebuggingMenuCommand}" />
-        <Label
-            IsVisible="{Binding RestartDueToLanguageChangeHintIsVisible}"
-            Text="{Binding RestartDueToLanguageChangeHint}" />
     </VerticalStackLayout>
 </views:ContentPageBase>
