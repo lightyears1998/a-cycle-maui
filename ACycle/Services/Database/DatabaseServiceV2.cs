@@ -18,6 +18,10 @@ namespace ACycle.Services
             typeof(DiaryV1),
         };
 
+        public DatabaseServiceV2(IStaticConfigurationService staticConfiguration) : base(staticConfiguration)
+        {
+        }
+
         public DatabaseServiceV2(string mainDatabasePath) : base(mainDatabasePath)
         {
         }

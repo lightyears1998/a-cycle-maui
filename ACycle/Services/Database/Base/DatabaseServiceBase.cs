@@ -29,6 +29,10 @@ namespace ACycle.Services
 
         public bool IsConnected => _mainDatabase != null;
 
+        public DatabaseServiceBase(IStaticConfigurationService staticConfiguration) : this(staticConfiguration.MainDatabasePath)
+        {
+        }
+
         public DatabaseServiceBase(string mainDatabasePath)
         {
             SchemaVersion = GetSchemaVersionOfDatabaseService(GetType());
