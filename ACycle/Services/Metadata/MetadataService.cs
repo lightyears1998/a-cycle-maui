@@ -42,7 +42,20 @@ namespace ACycle.Services
 
         public async Task SetMetadataAsync(string key, string value)
         {
+            Guard.IsNotNull(key);
+            Guard.IsNotNull(value);
+
             await _metadataRepository.SaveMetadataAsync(key, value);
+        }
+
+        public async Task SetBoolMetadataAsync(string key, bool value)
+        {
+            await _metadataRepository.SaveMetadataAsync(key, value.ToString());
+        }
+
+        public async Task SetNumberMetadataAsync<TNumber>(string key, TNumber value) where TNumber : INumber<TNumber>
+        {
+            await _metadataRepository.SaveMetadataAsync(key, value.ToString()!);
         }
     }
 }
