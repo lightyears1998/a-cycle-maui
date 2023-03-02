@@ -4,6 +4,8 @@
     {
         string AppWindowTitle { get; }
 
+        string MainDatabasePath { get; }
+
         Type DatabaseServiceImplement { get; }
 
         long DatabaseSchemaVersion { get; }

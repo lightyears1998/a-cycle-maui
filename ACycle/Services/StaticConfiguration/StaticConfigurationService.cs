@@ -16,6 +16,8 @@ namespace ACycle.Services
             }
         }
 
+        public string MainDatabasePath => Path.Combine(FileSystem.AppDataDirectory, "MainDatabase.sqlite3");
+
         public Type DatabaseServiceImplement => typeof(DatabaseServiceV2);
 
         public long DatabaseSchemaVersion => DatabaseServiceBase.GetSchemaVersionOfDatabaseService(DatabaseServiceImplement);

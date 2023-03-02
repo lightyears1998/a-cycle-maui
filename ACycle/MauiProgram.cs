@@ -15,7 +15,7 @@ namespace ACycle
 {
     public static class MauiProgram
     {
-        public static string MainDatabasePath => Path.Combine(FileSystem.AppDataDirectory, "MainDatabase.sqlite3");
+        public static StaticConfigurationService StaticConfiguration { get; } = new();
 
         public static MauiApp CreateMauiApp()
         {
@@ -69,18 +69,18 @@ namespace ACycle
         public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
         {
             builder.Services
-                .AddSingleton(typeof(IEntryService<,>), typeof(EntryService<,>));
-
-            builder.Services
                 .AddSingleton<IActivityCategoryService, ActivityCategoryService>()
                 .AddTransient<IBackupService, BackupService>()
                 .AddSingleton<IConfigurationService, ConfigurationService>()
-                .AddSingleton<IDatabaseService>(new DatabaseServiceV1(MainDatabasePath))
+                .AddSingleton(typeof(IDatabaseService), StaticConfiguration.DatabaseServiceImplement)
+                .AddSingleton(typeof(IEntryService<,>), typeof(EntryService<,>))
                 .AddSingleton<IDatabaseMigrationService, DatabaseMigrationService>()
                 .AddSingleton<IDialogService, DialogService>()
                 .AddSingleton<IMetadataService, MetadataService>()
                 .AddSingleton<INavigationService, NavigationService>()
-                .AddSingleton<IStaticConfigurationService, StaticConfigurationService>()
+                .AddSingleton<IStaticConfigurationService>(StaticConfiguration)
+                .AddSingleton<ISynchronizationService, SynchronizationService>()
+                .AddSingleton<ISynchronizationEndpointService, SynchronizationEndpointService>()
                 .AddSingleton<IUserService, UserService>();
 
             return builder;
@@ -90,13 +90,13 @@ namespace ACycle
         {
             builder.RegisterTransients(new Type[]
             {
-            typeof(DatabaseMigrationViewModel),
-            typeof(DebuggingViewModel),
-            typeof(DiaryViewModel),
-            typeof(DiaryEditorViewModel),
-            typeof(FocusViewModel),
-            typeof(LandingViewModel),
-            typeof(SettingsViewModel),
+                typeof(DatabaseMigrationViewModel),
+                typeof(DebuggingViewModel),
+                typeof(DiaryViewModel),
+                typeof(DiaryEditorViewModel),
+                typeof(FocusViewModel),
+                typeof(LandingViewModel),
+                typeof(SettingsViewModel),
             });
 
             return builder;
@@ -106,17 +106,17 @@ namespace ACycle
         {
             builder.RegisterTransients(new Type[]
             {
-            typeof(ActivityView),
-            typeof(DatabaseMigrationView),
-            typeof(DebuggingView),
-            typeof(DiaryEditorView),
-            typeof(DiaryView),
-            typeof(FocusView),
-            typeof(HealthView),
-            typeof(LandingView),
-            typeof(LedgerView),
-            typeof(SettingsView),
-            typeof(PlanningView)
+                typeof(ActivityView),
+                typeof(DatabaseMigrationView),
+                typeof(DebuggingView),
+                typeof(DiaryEditorView),
+                typeof(DiaryView),
+                typeof(FocusView),
+                typeof(HealthView),
+                typeof(LandingView),
+                typeof(LedgerView),
+                typeof(SettingsView),
+                typeof(PlanningView)
             });
 
             return builder;
