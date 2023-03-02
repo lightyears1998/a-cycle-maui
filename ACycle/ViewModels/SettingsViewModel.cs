@@ -1,6 +1,7 @@
 ﻿using ACycle.Helpers;
 using ACycle.Resources.Strings;
 using ACycle.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Globalization;
 
@@ -12,11 +13,7 @@ namespace ACycle.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IConfigurationService _configurationService;
         private readonly IUserService _userService;
-
-        private List<string> _supportedLanguageDisplayNames = new();
-        private int _selectedLanguageIndex = 0;
-        private bool _restartDueToLanguageChangeHintIsVisible = false;
-        private string _restartDueToLanguageChangeHint = "";
+        private readonly ISynchronizationService _synchronizationService;
 
         public List<CultureInfo?> SupportedLanguages { get; } = new List<CultureInfo?> {
             null,
@@ -24,11 +21,15 @@ namespace ACycle.ViewModels
             new CultureInfo("zh-Hans")
         };
 
+        private List<string> _supportedLanguageDisplayNames = new();
+
         public List<string> SupportedLanguageDisplayNames
         {
             get => _supportedLanguageDisplayNames;
             set => SetProperty(ref _supportedLanguageDisplayNames, value);
         }
+
+        private int _selectedLanguageIndex = 0;
 
         public int SelectedLanguageIndex
         {
@@ -48,11 +49,15 @@ namespace ACycle.ViewModels
 
         public CultureInfo SelectedLanguage => SupportedLanguages[_selectedLanguageIndex] ?? _configurationService.SystemCultureInfo;
 
+        private bool _restartDueToLanguageChangeHintIsVisible = false;
+
         public bool RestartDueToLanguageChangeHintIsVisible
         {
             get => _restartDueToLanguageChangeHintIsVisible;
             set => SetProperty(ref _restartDueToLanguageChangeHintIsVisible, value);
         }
+
+        private string _restartDueToLanguageChangeHint = "";
 
         public string RestartDueToLanguageChangeHint
         {
@@ -60,16 +65,34 @@ namespace ACycle.ViewModels
             set => SetProperty(ref _restartDueToLanguageChangeHint, value);
         }
 
+        public bool SynchronizationEnabled
+        {
+            get => _synchronizationService.SynchronizationEnabled;
+            set
+            {
+                SynchronizationSwitchEnabled = false;
+                _synchronizationService.SetSynchronizationEnabled(value).ContinueWith((_) =>
+                {
+                    SynchronizationSwitchEnabled = true;
+                });
+            }
+        }
+
+        [ObservableProperty]
+        private bool _synchronizationSwitchEnabled = true;
+
         public SettingsViewModel(
             IDialogService dialogService,
             INavigationService navigationService,
             IConfigurationService configurationService,
-            IUserService userService)
+            IUserService userService,
+            ISynchronizationService synchronizationService)
         {
             _dialogService = dialogService;
             _navigationService = navigationService;
             _configurationService = configurationService;
             _userService = userService;
+            _synchronizationService = synchronizationService;
 
             GetSupportedLanguageDisplayNames();
         }

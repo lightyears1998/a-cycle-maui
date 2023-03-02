@@ -13,6 +13,7 @@ namespace ACycle.ViewModels
         private readonly IConfigurationService _configurationService;
         private readonly IDatabaseService _databaseService;
         private readonly IDatabaseMigrationService _databaseMigrationService;
+        private readonly ISynchronizationService _syncService;
         private readonly IUserService _userService;
 
         private string _heading;
@@ -40,7 +41,8 @@ namespace ACycle.ViewModels
             IConfigurationService configurationService,
             IDatabaseService databaseService,
             IDatabaseMigrationService databaseMigrationService,
-            IUserService userService)
+            IUserService userService,
+            ISynchronizationService syncService)
         {
             _logger = logger;
             _activityCategoryService = activityCategoryService;
@@ -48,6 +50,8 @@ namespace ACycle.ViewModels
             _databaseService = databaseService;
             _databaseMigrationService = databaseMigrationService;
             _userService = userService;
+            _syncService = syncService;
+
             GetHeadingAndDescriptionText();
         }
 
@@ -101,6 +105,7 @@ namespace ACycle.ViewModels
         private async Task InitializeAdvancedServices()
         {
             await _activityCategoryService.InitializeAsync();
+            await _syncService.InitializeAsync();
 
             _logger.LogDebug("Advanced services are initialized.");
         }

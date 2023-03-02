@@ -8,20 +8,27 @@
     x:Class="ACycle.Views.SettingsView"
     x:DataType="viewModels:SettingsViewModel"
     Title="{ext:LocaleString Key=SettingsView_Title}">
-    <VerticalStackLayout VerticalOptions="Fill" HorizontalOptions="Fill" Margin="8" Spacing="4">
+    <ScrollView VerticalOptions="Fill" HorizontalOptions="Fill" Margin="8">
         <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
-            <Picker
-                Title="{ext:LocaleString Key=SettingsView_LanguagePickerTitle}"
-                ItemsSource="{Binding SupportedLanguageDisplayNames}"
-                SelectedIndex="{Binding SelectedLanguageIndex}" />
-            <Label
-                IsVisible="{Binding RestartDueToLanguageChangeHintIsVisible}"
-                Text="{Binding RestartDueToLanguageChangeHint}" />
-        </VerticalStackLayout>
+            <VerticalStackLayout Spacing="4">
+                <Picker
+                    Title="{ext:LocaleString Key=SettingsView_LanguagePickerTitle}"
+                    ItemsSource="{Binding SupportedLanguageDisplayNames}"
+                    SelectedIndex="{Binding SelectedLanguageIndex}" />
+                <Label
+                    IsVisible="{Binding RestartDueToLanguageChangeHintIsVisible}"
+                    Text="{Binding RestartDueToLanguageChangeHint}" />
+            </VerticalStackLayout>
 
-        <Button
-            HorizontalOptions="Center"
-            Text="{ext:LocaleString Key=SettingsView_OpenDebuggingMenu}"
-            Command="{Binding OpenDebuggingMenuCommand}" />
-    </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Label Text="SettingsView_CrossDeviceSynchronization" />
+                <Switch IsToggled="{Binding SynchronizationEnabled}" IsEnabled="{Binding SynchronizationSwitchEnabled}" />
+                <Button Text="SettingsView_EditEndpoints" />
+            </VerticalStackLayout>
+
+            <Button
+                Text="{ext:LocaleString Key=SettingsView_OpenDebuggingMenu}"
+                Command="{Binding OpenDebuggingMenuCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
 </views:ContentPageBase>
