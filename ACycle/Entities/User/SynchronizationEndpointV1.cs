@@ -2,12 +2,12 @@
 
 namespace ACycle.Entities
 {
-    [Table("user_synchronization_config")]
-    public class SynchronizationConfigV1
+    [Table("user_synchronization_endpoint")]
+    public class SynchronizationEndpointV1
     {
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
         [Column("id")]
-        public long Id { get; set; }
+        public int? Id { get; set; }
 
         [Column("host")]
         public string Host { get; set; } = string.Empty;

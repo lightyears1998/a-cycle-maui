@@ -1,7 +1,9 @@
 ﻿namespace ACycle.Models
 {
-    public class SynchronizationConfig
+    public class SynchronizationEndpoint
     {
+        public long? Id;
+
         public string Host = string.Empty;
 
         public string Path = "api";
@@ -12,7 +14,7 @@
 
         public string Username = "guest";
 
-        public string Password = "pa$$w0rd";
+        public string PasswordSha256 = "pa$$w0rd";
 
         public bool UseTLS = true;
 
