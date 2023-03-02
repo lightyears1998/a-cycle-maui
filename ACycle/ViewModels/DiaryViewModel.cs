@@ -2,18 +2,19 @@
 using ACycle.Models;
 using ACycle.Models.Base;
 using ACycle.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Windows.Input;
 
 namespace ACycle.ViewModels
 {
     public partial class DiaryViewModel : ViewModelBase
     {
-        private readonly INavigationService _navigationService;
+        private readonly IDialogService _dialogService;
         private readonly IEntryService<DiaryV1, Diary> _diaryService;
+        private readonly INavigationService _navigationService;
 
         private DateTime _date = DateTime.Today;
-        private RelayCollection<Diary> _diaries = new();
-        private Diary? _selectedDiary;
 
         public DateTime Date
         {
@@ -22,16 +23,15 @@ namespace ACycle.ViewModels
             {
                 if (SetProperty(ref _date, value))
                 {
-                    Task.Run(LoadDiaries);
+                    Task.Run(LoadDiariesAsync);
                 }
             }
         }
 
-        public RelayCollection<Diary> Diaries
-        {
-            get => _diaries;
-            set => SetProperty(ref _diaries, value);
-        }
+        [ObservableProperty]
+        private RelayCollection<Diary, DiaryRelay> _diaries;
+
+        private Diary? _selectedDiary;
 
         public Diary? SelectedDiary
         {
@@ -49,10 +49,30 @@ namespace ACycle.ViewModels
 
         public bool SelectedDiaryIsNotEmpty => SelectedDiary != null;
 
-        public DiaryViewModel(INavigationService navigationService, IEntryService<DiaryV1, Diary> diaryService)
+        public DiaryViewModel(
+            IDialogService dialogService,
+            IEntryService<DiaryV1, Diary> diaryService,
+            INavigationService navigationService)
         {
-            _navigationService = navigationService;
+            _dialogService = dialogService;
             _diaryService = diaryService;
+            _navigationService = navigationService;
+
+            _diaries = new((item, collection) => new DiaryRelay(
+                item,
+                editCommand: new Command(() =>
+                {
+                }),
+                removeCommand: new AsyncRelayCommand(async () =>
+                {
+                    var shouldRemove = await ConfirmRemoveDiaryAsync();
+
+                    if (shouldRemove)
+                    {
+                        collection.Remove(item);
+                    }
+                })));
+
             _diaryService.ModelCreated += OnDiaryCreated;
             _diaryService.ModelUpdated += OnDiaryUpdated;
             _diaryService.ModelRemoved += OnDiaryRemoved;
@@ -70,7 +90,7 @@ namespace ACycle.ViewModels
         {
             for (int i = 0; i < Diaries.Count; ++i)
             {
-                if (Diaries[i].Uuid == args.Model.Uuid)
+                if (Diaries[i].Item.Uuid == args.Model.Uuid)
                 {
                     Diaries.NotifyItemChangedAt(i);
                 }
@@ -87,10 +107,10 @@ namespace ACycle.ViewModels
 
         public override async Task InitializeAsync()
         {
-            await IsBusyFor(LoadDiaries);
+            await IsBusyFor(LoadDiariesAsync);
         }
 
-        private async Task<IEnumerable<Diary>> GetDiariesOfTheDate(DateTime date)
+        private async Task<IEnumerable<Diary>> GetDiariesOfTheDateAsync(DateTime date)
         {
             var diaries = await _diaryService.FindAllAsync();
             return diaries
@@ -98,9 +118,9 @@ namespace ACycle.ViewModels
                 .OrderBy(diary => diary.DateTime);
         }
 
-        private async Task LoadDiaries()
+        private async Task LoadDiariesAsync()
         {
-            Diaries.Reload(await GetDiariesOfTheDate(Date));
+            Diaries.Reload(await GetDiariesOfTheDateAsync(Date));
         }
 
         [RelayCommand]
@@ -116,13 +136,13 @@ namespace ACycle.ViewModels
         }
 
         [RelayCommand]
-        public async Task OpenEditorForAdding()
+        public async Task OpenEditorForAddingAsync()
         {
             await _navigationService.NavigateToAsync("Editor");
         }
 
         [RelayCommand(CanExecute = nameof(SelectedDiaryIsNotEmpty))]
-        public async Task OpenEditorForEditing()
+        public async Task OpenEditorForEditingAsync()
         {
             if (SelectedDiary == null)
                 return;
@@ -131,13 +151,31 @@ namespace ACycle.ViewModels
         }
 
         [RelayCommand(CanExecute = nameof(SelectedDiaryIsNotEmpty))]
-        public async Task RemoveDiary()
+        public async Task RemoveDiaryAsync()
         {
             if (SelectedDiary == null)
                 return;
 
             await _diaryService.RemoveAsync(SelectedDiary);
             Diaries.Remove(SelectedDiary);
+        }
+
+        public async Task<bool> ConfirmRemoveDiaryAsync()
+        {
+            return await _dialogService.Confirm("Confirm Remove", "Do you really want to remove this diary?");
+        }
+
+        public class DiaryRelay : Relay<Diary>
+        {
+            public ICommand EditCommand;
+
+            public ICommand RemoveCommand;
+
+            public DiaryRelay(Diary item, ICommand editCommand, ICommand removeCommand) : base(item)
+            {
+                EditCommand = editCommand;
+                RemoveCommand = removeCommand;
+            }
         }
     }
 }

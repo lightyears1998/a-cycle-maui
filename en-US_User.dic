@@ -2,6 +2,7 @@ app
 args
 metadata
 Migrator
+readonly
 refactor
 username
 uuid
