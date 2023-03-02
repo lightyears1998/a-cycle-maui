@@ -1,6 +1,6 @@
-﻿namespace ACycle.Services.Synchronization
+﻿namespace ACycle.Services
 {
-    public class SynchronizationService
+    public class SynchronizationService : Service
     {
     }
 }

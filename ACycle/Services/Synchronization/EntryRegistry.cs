@@ -1,4 +1,6 @@
-﻿namespace ACycle.Models
+﻿using ACycle.Entities;
+
+namespace ACycle.Services.Synchronization
 {
     public class EntryRegistry
     {
@@ -12,15 +14,14 @@
 
         private void RegisterEntries()
         {
-            RegisterEntry(typeof(Activity), "activity");
-            RegisterEntry(typeof(ActivityCategory), "activity_category");
-            RegisterEntry(typeof(Diary), "diary");
+            RegisterEntry(typeof(ActivityCategoryV1), "activity_category_v1");
+            RegisterEntry(typeof(DiaryV1), "diary_v1");
         }
 
-        private void RegisterEntry(Type modelType, string entryContentType)
+        private void RegisterEntry(Type type, string contentTypeString)
         {
-            _type2str[modelType] = entryContentType;
-            _str2type[entryContentType] = modelType;
+            _type2str[type] = contentTypeString;
+            _str2type[contentTypeString] = type;
         }
 
         public static EntryRegistry Instance => new();
@@ -29,20 +30,20 @@
         {
             if (!_str2type.ContainsKey(contentTypeString))
             {
-                throw new EntryContentTypeUnknownException(contentTypeString);
+                throw new ContentTypeStringUnknownException(contentTypeString);
             }
 
             return _str2type[contentTypeString];
         }
 
-        public string GetContentTypeStringFromType(Type modelType)
+        public string GetContentTypeStringFromType(Type type)
         {
-            if (!_type2str.ContainsKey(modelType))
+            if (!_type2str.ContainsKey(type))
             {
-                throw new ModelTypeUnknownException(modelType);
+                throw new EntryTypeUnknownException(type);
             }
 
-            return _type2str[modelType];
+            return _type2str[type];
         }
     }
 }
