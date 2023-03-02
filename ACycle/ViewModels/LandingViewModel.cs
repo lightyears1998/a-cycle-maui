@@ -1,13 +1,14 @@
 ﻿using ACycle.Helpers;
 using ACycle.Resources.Strings;
 using ACycle.Services;
-using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics.CodeAnalysis;
 
 namespace ACycle.ViewModels
 {
     public class LandingViewModel : ViewModelBase
     {
+        private readonly ILogger _logger;
         private readonly IActivityCategoryService _activityCategoryService;
         private readonly IConfigurationService _configurationService;
         private readonly IDatabaseService _databaseService;
@@ -34,13 +35,14 @@ namespace ACycle.ViewModels
         }
 
         public LandingViewModel(
+            ILogger<LandingViewModel> logger,
             IActivityCategoryService activityCategoryService,
             IConfigurationService configurationService,
             IDatabaseService databaseService,
             IDatabaseMigrationService databaseMigrationService,
-            IUserService userService,
-            IStringLocalizer<AppStrings> stringLocalizer)
+            IUserService userService)
         {
+            _logger = logger;
             _activityCategoryService = activityCategoryService;
             _configurationService = configurationService;
             _databaseService = databaseService;
@@ -74,6 +76,8 @@ namespace ACycle.ViewModels
         {
             await _databaseService.InitializeAsync();
             await _configurationService.InitializeAsync();
+
+            _logger.LogDebug("Basic services are initialized.");
         }
 
         private async Task SetupAppLanguage()
@@ -83,21 +87,29 @@ namespace ACycle.ViewModels
             {
                 LanguageHelper.SwitchLanguage(userInfo.PreferredLanguage);
             }
+
+            _logger.LogDebug("Language settings are initialized.");
         }
 
         private async Task PerformDatabaseMigration()
         {
             await _databaseMigrationService.MigrateDatabase(_databaseService.MainDatabase);
+
+            _logger.LogDebug("Database migration is finished.");
         }
 
         private async Task InitializeAdvancedServices()
         {
             await _activityCategoryService.InitializeAsync();
+
+            _logger.LogDebug("Advanced services are initialized.");
         }
 
-        private static void NavigateToAppShell()
+        private void NavigateToAppShell()
         {
             Application.Current!.MainPage = new AppShell();
+
+            _logger.LogDebug("Navigated to AppShell.");
         }
     }
 }
