@@ -1,9 +1,10 @@
-namespace ACycle.Views;
-
-public partial class HealthView : ContentPageBase
+namespace ACycle.Views
 {
-    public HealthView()
+    public partial class HealthView : ContentPageBase
     {
-        InitializeComponent();
+        public HealthView()
+        {
+            InitializeComponent();
+        }
     }
 }

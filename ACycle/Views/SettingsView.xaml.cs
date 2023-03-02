@@ -1,12 +1,13 @@
 using ACycle.ViewModels;
 
-namespace ACycle.Views;
-
-public partial class SettingsView : ContentPageBase
+namespace ACycle.Views
 {
-    public SettingsView(SettingsViewModel model)
+    public partial class SettingsView : ContentPageBase
     {
-        BindingContext = model;
-        InitializeComponent();
+        public SettingsView(SettingsViewModel model)
+        {
+            BindingContext = model;
+            InitializeComponent();
+        }
     }
 }

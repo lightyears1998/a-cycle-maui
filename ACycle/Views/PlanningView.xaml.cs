@@ -1,9 +1,10 @@
-namespace ACycle.Views;
-
-public partial class PlanningView : ContentPageBase
+namespace ACycle.Views
 {
-    public PlanningView()
+    public partial class PlanningView : ContentPageBase
     {
-        InitializeComponent();
+        public PlanningView()
+        {
+            InitializeComponent();
+        }
     }
 }

@@ -1,12 +1,13 @@
 using ACycle.ViewModels;
 
-namespace ACycle.Views;
-
-public partial class LandingView : ContentPageBase
+namespace ACycle.Views
 {
-    public LandingView(LandingViewModel model)
+    public partial class LandingView : ContentPageBase
     {
-        BindingContext = model;
-        InitializeComponent();
+        public LandingView(LandingViewModel model)
+        {
+            BindingContext = model;
+            InitializeComponent();
+        }
     }
 }

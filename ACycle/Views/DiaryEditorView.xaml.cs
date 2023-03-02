@@ -1,12 +1,13 @@
 using ACycle.ViewModels;
 
-namespace ACycle.Views;
-
-public partial class DiaryEditorView : ContentPageBase
+namespace ACycle.Views
 {
-    public DiaryEditorView(DiaryEditorViewModel model)
+    public partial class DiaryEditorView : ContentPageBase
     {
-        BindingContext = model;
-        InitializeComponent();
+        public DiaryEditorView(DiaryEditorViewModel model)
+        {
+            BindingContext = model;
+            InitializeComponent();
+        }
     }
 }

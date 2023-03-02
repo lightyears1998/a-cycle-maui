@@ -1,12 +1,13 @@
 using ACycle.ViewModels;
 
-namespace ACycle.Views;
-
-public partial class DebuggingView : ContentPageBase
+namespace ACycle.Views
 {
-    public DebuggingView(DebuggingViewModel viewModel)
+    public partial class DebuggingView : ContentPageBase
     {
-        BindingContext = viewModel;
-        InitializeComponent();
+        public DebuggingView(DebuggingViewModel viewModel)
+        {
+            BindingContext = viewModel;
+            InitializeComponent();
+        }
     }
 }

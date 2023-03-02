@@ -1,9 +1,10 @@
-namespace ACycle.Views.Templates;
-
-public partial class DiaryTemplate : ContentView
+namespace ACycle.Views.Templates
 {
-    public DiaryTemplate()
+    public partial class DiaryTemplate : ContentView
     {
-        InitializeComponent();
+        public DiaryTemplate()
+        {
+            InitializeComponent();
+        }
     }
 }

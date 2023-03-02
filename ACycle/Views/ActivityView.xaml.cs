@@ -1,9 +1,10 @@
-﻿namespace ACycle.Views;
-
-public partial class ActivityView : ContentPageBase
+﻿namespace ACycle.Views
 {
-    public ActivityView()
+    public partial class ActivityView : ContentPageBase
     {
-        InitializeComponent();
+        public ActivityView()
+        {
+            InitializeComponent();
+        }
     }
 }

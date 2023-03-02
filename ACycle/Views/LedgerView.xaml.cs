@@ -1,9 +1,10 @@
-namespace ACycle.Views;
-
-public partial class LedgerView : ContentPageBase
+namespace ACycle.Views
 {
-    public LedgerView()
+    public partial class LedgerView : ContentPageBase
     {
-        InitializeComponent();
+        public LedgerView()
+        {
+            InitializeComponent();
+        }
     }
 }

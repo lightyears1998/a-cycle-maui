@@ -1,9 +1,10 @@
-namespace ACycle.Views;
-
-public partial class FocusView : ContentPageBase
+namespace ACycle.Views
 {
-    public FocusView()
+    public partial class FocusView : ContentPageBase
     {
-        InitializeComponent();
+        public FocusView()
+        {
+            InitializeComponent();
+        }
     }
 }

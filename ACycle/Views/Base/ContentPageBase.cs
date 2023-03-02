@@ -10,8 +10,23 @@ namespace ACycle.Views
 
             if (BindingContext is IViewModelBase model && !model.IsInitialized)
             {
-                model.IsInitialized = true;
-                await model.InitializeAsync();
+                if (!model.IsInitialized)
+                {
+                    model.IsInitialized = true;
+                    await model.InitializeAsync();
+                }
+
+                model.OnViewAppearing();
+            }
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            if (BindingContext is IViewModelBase model)
+            {
+                model.OnViewDisappearing();
             }
         }
     }
