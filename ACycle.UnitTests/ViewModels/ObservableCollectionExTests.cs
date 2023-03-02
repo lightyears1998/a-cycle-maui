@@ -1,4 +1,4 @@
-﻿using ACycle.ViewModels;
+﻿using ACycle.Models;
 
 namespace ACycle.UnitTests.ViewModels
 {

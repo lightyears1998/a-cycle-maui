@@ -2,7 +2,7 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace ACycle.ViewModels
+namespace ACycle.Models
 {
     public class ObservableCollectionEx<T> : ObservableCollection<T>
     {
