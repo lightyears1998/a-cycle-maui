@@ -7,5 +7,9 @@
         public bool IsBusy { get; set; }
 
         public Task InitializeAsync();
+
+        public void OnViewAppearing();
+
+        public void OnViewDisappearing();
     }
 }

@@ -64,5 +64,13 @@ namespace ACycle.ViewModels
                 _isBusyLock.Dispose();
             }
         }
+
+        public virtual void OnViewAppearing()
+        {
+        }
+
+        public virtual void OnViewDisappearing()
+        {
+        }
     }
 }
