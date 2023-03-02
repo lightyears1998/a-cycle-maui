@@ -1,5 +1,6 @@
 ﻿using ACycle.Repositories;
 using CommunityToolkit.Diagnostics;
+using System.Numerics;
 
 namespace ACycle.Services
 {
@@ -27,14 +28,21 @@ namespace ACycle.Services
             return value;
         }
 
+        public async Task<bool> GetBoolMetadataAsync(string key, bool? defaultValue)
+        {
+            string stringValue = defaultValue.HasValue ? await GetMetadataAsync(key, defaultValue.ToString()) : await GetMetadataAsync(key, null);
+            return bool.Parse(stringValue);
+        }
+
+        public async Task<TNumber> GetNumberMetadataAsync<TNumber>(string key, TNumber? defaultValue) where TNumber : INumber<TNumber>
+        {
+            string stringValue = defaultValue != null ? await GetMetadataAsync(key, defaultValue.ToString()) : await GetMetadataAsync(key, null);
+            return TNumber.Parse(stringValue, System.Globalization.NumberStyles.None, null);
+        }
+
         public async Task SetMetadataAsync(string key, string value)
         {
             await _metadataRepository.SaveMetadataAsync(key, value);
-        }
-
-        public async Task<Guid> GetNodeUuidAsync()
-        {
-            return Guid.Parse(await GetMetadataAsync("NODE_UUID", defaultValue: Guid.NewGuid().ToString()));
         }
     }
 }
