@@ -10,11 +10,11 @@ namespace ACycle.Models
         private static readonly PropertyChangedEventArgs IndexerPropertyChangedEventArgs = new("Item[]");
         private static readonly NotifyCollectionChangedEventArgs CollectionResetEventArgs = new(NotifyCollectionChangedAction.Reset);
 
-        private void OnCountPropertyChanged() => OnPropertyChanged(CountPropertyChangedEventArgs);
+        protected void OnCountPropertyChanged() => OnPropertyChanged(CountPropertyChangedEventArgs);
 
-        private void OnIndexerPropertyChanged() => OnPropertyChanged(IndexerPropertyChangedEventArgs);
+        protected void OnIndexerPropertyChanged() => OnPropertyChanged(IndexerPropertyChangedEventArgs);
 
-        private void OnCollectionReset() => OnCollectionChanged(CollectionResetEventArgs);
+        protected void OnCollectionReset() => OnCollectionChanged(CollectionResetEventArgs);
 
         public ObservableCollectionEx() : base()
         { }

@@ -33,7 +33,7 @@
             <CollectionView ItemsSource="{Binding Diaries}" SelectedItem="{Binding SelectedDiary}" SelectionMode="Single">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <templates:DiaryTemplate />
+                        <templates:DiaryCollectionItemTemplate />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

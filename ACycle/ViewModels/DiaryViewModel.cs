@@ -1,5 +1,6 @@
 ﻿using ACycle.Entities;
 using ACycle.Models;
+using ACycle.Models.Base;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.Input;
 
@@ -11,7 +12,7 @@ namespace ACycle.ViewModels
         private readonly IEntryService<DiaryV1, Diary> _diaryService;
 
         private DateTime _date = DateTime.Today;
-        private ObservableCollectionEx<Diary> _diaries = new();
+        private RelayCollection<Diary> _diaries = new();
         private Diary? _selectedDiary;
 
         public DateTime Date
@@ -26,7 +27,7 @@ namespace ACycle.ViewModels
             }
         }
 
-        public ObservableCollectionEx<Diary> Diaries
+        public RelayCollection<Diary> Diaries
         {
             get => _diaries;
             set => SetProperty(ref _diaries, value);
