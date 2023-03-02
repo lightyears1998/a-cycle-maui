@@ -104,6 +104,7 @@ namespace ACycle.ViewModels
 
         private async Task InitializeAdvancedServices()
         {
+            await _databaseService.CreateTablesAsync();
             await _activityCategoryService.InitializeAsync();
             await _syncService.InitializeAsync();
 

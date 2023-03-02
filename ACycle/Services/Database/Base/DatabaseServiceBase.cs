@@ -12,9 +12,7 @@ namespace ACycle.Services
     {
         public long SchemaVersion { get; private set; }
 
-        public virtual Type[] Tables => new Type[] {
-            typeof(Metadata)
-        };
+        public virtual Type[] Tables => new Type[] { };
 
         public abstract Type[] EntryBasedEntityTables { get; }
 
@@ -86,8 +84,13 @@ namespace ACycle.Services
 
         public override async Task InitializeAsync()
         {
-            await CreateTablesAsync();
+            await CreateMetadataTableAsync();
             await CreateSchemaIfNotPresent();
+        }
+
+        private async Task CreateMetadataTableAsync()
+        {
+            await MainDatabase.CreateTableAsync<Metadata>();
         }
 
         public virtual async Task CreateTablesAsync()
