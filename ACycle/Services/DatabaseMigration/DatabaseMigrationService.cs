@@ -1,5 +1,7 @@
 ﻿using ACycle.Extensions;
 using ACycle.Services.DatabaseMigration;
+using ACycle.Services.DatabaseMigration.Migrators;
+using CommunityToolkit.Diagnostics;
 using SQLite;
 using System.Text;
 
@@ -7,7 +9,36 @@ namespace ACycle.Services
 {
     public class DatabaseMigrationService : IDatabaseMigrationService
     {
-        private readonly IDictionary<long, Lazy<IMigrator>> _schemaMigratorMap = new Dictionary<long, Lazy<IMigrator>>();
+        private readonly IDictionary<long, Lazy<Migrator>> _schemaMigratorMap = new Dictionary<long, Lazy<Migrator>>();
+        private readonly IServiceProvider _serviceProvider;
+        private readonly IStaticConfigurationService _staticConfigurationService;
+
+        public DatabaseMigrationService(IServiceProvider serviceProvider, IStaticConfigurationService staticConfiguration)
+        {
+            _serviceProvider = serviceProvider;
+            _staticConfigurationService = staticConfiguration;
+
+            RegisterMigrators();
+        }
+
+        private void RegisterMigrators()
+        {
+            RegisterMigrator<MigratorV0ToV1>();
+            RegisterMigrator<MigratorV1ToV2>();
+        }
+
+        private void RegisterMigrator<TMigrator>() where TMigrator : Migrator, new()
+        {
+            long sourceSchemaVersion = Migrator.GetSchemaVersions<TMigrator>().Source;
+
+            _schemaMigratorMap.Add(sourceSchemaVersion, new Lazy<Migrator>(
+                () =>
+                {
+                    var migrator = (TMigrator)Activator.CreateInstance(typeof(TMigrator))!;
+                    Guard.IsNotNull(migrator);
+                    return migrator;
+                }));
+        }
 
         public Task<string> MigrateDatabase(string migrationDatabasePath)
         {
@@ -22,42 +53,33 @@ namespace ACycle.Services
 
             if (!schemaVersion.HasValue)
             {
-                var migrationResult = await MigrateFromUnknownSchema(migrationDatabase);
-                migrationResultBuilder.AppendLine(migrationResult);
-                schemaVersion = await migrationDatabase.GetSchemaAsync();
+                schemaVersion = 0;
             }
 
-            while (schemaVersion.HasValue && schemaVersion != lastSchemaVersion)
+            var targetDatabaseSchemaVersion = _staticConfigurationService.DatabaseSchemaVersion;
+            while (schemaVersion < targetDatabaseSchemaVersion && schemaVersion != lastSchemaVersion)
             {
                 lastSchemaVersion = schemaVersion;
 
-                Lazy<IMigrator>? migrator;
+                Lazy<Migrator>? migrator;
                 _schemaMigratorMap.TryGetValue(schemaVersion.Value, out migrator);
 
                 if (migrator == null)
                 {
                     break;
                 }
-                var migrationResult = await migrator.Value.MigrateAsync(migrationDatabase, migrationDatabase);
+                var migrationResult = await migrator.Value.MigrateAsync(migrationDatabase);
                 migrationResultBuilder.AppendLine(migrationResult);
+                await migrator.Value.PostMigrateAsync(migrationDatabase);
 
                 schemaVersion = await migrationDatabase.GetSchemaAsync();
+                if (schemaVersion == lastSchemaVersion)
+                {
+                    ThrowHelper.ThrowInvalidDataException("The schema version of the migrated database should be updated.");
+                }
             }
 
             return migrationResultBuilder.ToString();
-        }
-
-        public async Task<string> MigrateFromUnknownSchema(SQLiteAsyncConnection migrationDatabase)
-        {
-            var migratorV0 = new MigratorV0ToV1();
-            var isGodotVersionDatabase = await MigratorV0ToV1.CheckIfGodotVersionDatabaseAsync(migrationDatabase);
-
-            if (!isGodotVersionDatabase)
-            {
-                return "Source database is not a valid database, because its schema is unknown, and it is not a ACycle Godot version database.";
-            }
-
-            return await migratorV0.MigrateAsync(migrationDatabase, migrationDatabase);
         }
 
         /// <summary>
@@ -69,7 +91,7 @@ namespace ACycle.Services
         {
             StringBuilder mergeResultBuilder = new();
 
-            var databaseService = new DatabaseServiceV1(baseDatabase);
+            var databaseService = (IDatabaseService)_serviceProvider.GetService(_staticConfigurationService.DatabaseServiceImplement)!;
 
             mergeResultBuilder.AppendLine($"Entry count before merging: {await databaseService.CountEntries()}");
             await databaseService.MergeDatabase(mergingDatabase);

@@ -15,5 +15,9 @@ namespace ACycle.Services
                 return title;
             }
         }
+
+        public Type DatabaseServiceImplement => typeof(DatabaseServiceV2);
+
+        public long DatabaseSchemaVersion => DatabaseServiceBase.GetSchemaVersionOfDatabaseService(DatabaseServiceImplement);
     }
 }

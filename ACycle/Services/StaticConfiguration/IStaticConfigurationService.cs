@@ -3,5 +3,9 @@
     public interface IStaticConfigurationService : IService
     {
         string AppWindowTitle { get; }
+
+        Type DatabaseServiceImplement { get; }
+
+        long DatabaseSchemaVersion { get; }
     }
 }

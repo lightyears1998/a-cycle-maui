@@ -2,6 +2,7 @@
 using ACycle.Extensions;
 using ACycle.Repositories;
 using ACycle.Services.Database;
+using ACycle.Services.Database.Base;
 using CommunityToolkit.Diagnostics;
 using SQLite;
 
@@ -9,7 +10,7 @@ namespace ACycle.Services
 {
     public abstract class DatabaseServiceBase : Service, IDatabaseService
     {
-        public abstract long SchemaVersion { get; }
+        public long SchemaVersion { get; private set; }
 
         public virtual Type[] Tables => new Type[] {
             typeof(Metadata)
@@ -30,7 +31,16 @@ namespace ACycle.Services
 
         public DatabaseServiceBase(string mainDatabasePath)
         {
+            SchemaVersion = GetSchemaVersionOfDatabaseService(GetType());
             ConnectToDatabase(mainDatabasePath);
+        }
+
+        public static long GetSchemaVersionOfDatabaseService(Type type)
+        {
+            var schemaAttribute = (DatabaseSchemaAttribute)Attribute.GetCustomAttribute(type, typeof(DatabaseSchemaAttribute))!;
+            Guard.IsNotNull(schemaAttribute);
+
+            return schemaAttribute.Version;
         }
 
         public DatabaseServiceBase(SQLiteAsyncConnection mainDatabase)

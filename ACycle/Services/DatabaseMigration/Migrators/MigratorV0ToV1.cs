@@ -1,57 +1,58 @@
 ﻿using ACycle.Entities;
 using ACycle.Entities.Schemas.V0;
-using ACycle.Extensions;
 using ACycle.Helpers;
+using CommunityToolkit.Diagnostics;
 using Newtonsoft.Json;
 using SQLite;
 using System.Text;
 
-namespace ACycle.Services.DatabaseMigration
+namespace ACycle.Services.DatabaseMigration.Migrators
 {
-    public class MigratorV0ToV1 : IMigrator
+    [MigratorSchemaVersion(Source = 0, Destination = 1)]
+    public class MigratorV0ToV1 : Migrator
     {
-        public long SourceSchemaVersion => 0;
-
-        public long DestinationSchemaVersion => 1;
-
         private StringBuilder _reportBuilder = new();
 
         private string _reportSeparator = "\n===============================\n";
 
-        public static async Task<bool> CheckIfGodotVersionDatabaseAsync(SQLiteAsyncConnection database)
+        public static async Task<bool> CheckIfV0DatabaseAsync(SQLiteAsyncConnection database)
         {
-            var isGodotVersionDatabase = false;
+            var isV0Database = false; // v0 database, aka. Godot version database
             try
             {
                 await database.Table<EntryV0>().CountAsync();
-                isGodotVersionDatabase = true;
+                isV0Database = true;
             }
             catch (SQLiteException) { }
-            return isGodotVersionDatabase;
+            return isV0Database;
         }
 
-        private async Task CreateTablesAsync(SQLiteAsyncConnection destinationDatabase)
+        private async Task CreateTablesAsync(SQLiteAsyncConnection connection)
         {
-            DatabaseServiceV1 databaseService = new(destinationDatabase);
+            DatabaseServiceV1 databaseService = new(connection);
             await databaseService.CreateTablesAsync();
         }
 
-        private async Task DropRedundantTablesAsync(SQLiteAsyncConnection destinationDatabase)
+        private async Task DropRedundantTablesAsync(SQLiteAsyncConnection connection)
         {
             string[] tableNames = new[] { "entry_history", "peer_node", "metadata" };
             foreach (var tableName in tableNames)
             {
-                await destinationDatabase.ExecuteAsync($"DROP TABLE IF EXISTS {tableName}");
+                await connection.ExecuteAsync($"DROP TABLE IF EXISTS {tableName}");
             }
         }
 
-        public async Task<string> MigrateAsync(SQLiteAsyncConnection sourceDatabase, SQLiteAsyncConnection destinationDatabase)
+        public override async Task<string> MigrateAsync(SQLiteAsyncConnection connection)
         {
-            await DropRedundantTablesAsync(destinationDatabase);
-            await CreateTablesAsync(destinationDatabase);
-            await MigrateDiariesAsync(sourceDatabase, destinationDatabase);
-            await PostMigrateCleanUp(destinationDatabase);
-            await destinationDatabase.SetSchemaAsync(DestinationSchemaVersion);
+            var isV0Database = await CheckIfV0DatabaseAsync(connection);
+            if (!isV0Database)
+            {
+                ThrowHelper.ThrowInvalidDataException("Database is not a valid database: its schema is unknown.");
+            }
+
+            await DropRedundantTablesAsync(connection);
+            await CreateTablesAsync(connection);
+            await MigrateDiariesAsync(connection);
 
             return _reportBuilder.ToString();
         }
@@ -83,25 +84,25 @@ namespace ACycle.Services.DatabaseMigration
                 $"Content:\n{newDiary.Content}");
         }
 
-        private async Task MigrateDiariesAsync(SQLiteAsyncConnection sourceDatabase, SQLiteAsyncConnection destinationDatabase)
+        private async Task MigrateDiariesAsync(SQLiteAsyncConnection connection)
         {
-            var oldDiaryEntries = await sourceDatabase.Table<EntryV0>().Where(entry => entry.ContentType == "diary").ToListAsync();
+            var oldDiaryEntries = await connection.Table<EntryV0>().Where(entry => entry.ContentType == "diary").ToListAsync();
             _reportBuilder.AppendLine($"Total: {oldDiaryEntries.Count}");
 
             foreach (var oldDiaryEntry in oldDiaryEntries)
             {
                 ParseDiaryV0(oldDiaryEntry, out DiaryV1 newDiary);
-                await destinationDatabase.InsertAsync(newDiary);
+                await connection.InsertAsync(newDiary);
             }
         }
 
-        private async Task PostMigrateCleanUp(SQLiteAsyncConnection destinationDatabase)
+        public override async Task PostMigrateAsync(SQLiteAsyncConnection connection)
         {
             string[] tableNames = new[] { "entry" };
             foreach (var tableName in tableNames)
             {
-                await destinationDatabase.ExecuteAsync($"DROP TABLE IF EXISTS {tableName}");
-                await destinationDatabase.ExecuteAsync($"DELETE FROM sqlite_sequence WHERE name = ?", tableName);
+                await connection.ExecuteAsync($"DROP TABLE IF EXISTS {tableName}");
+                await connection.ExecuteAsync($"DELETE FROM sqlite_sequence WHERE name = ?", tableName);
             }
         }
     }

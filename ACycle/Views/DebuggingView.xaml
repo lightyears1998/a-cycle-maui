@@ -17,9 +17,10 @@
         <TableView>
             <TableRoot>
                 <TableSection>
-                    <TextCell Text="{x:Binding NodeUuidTextCellText}" Detail="{x:Binding NodeUuid}"></TextCell>
-                    <TextCell Text="Application Name" Detail="{x:Binding ApplicationNameString}"></TextCell>
-                    <TextCell Text="Application Version" Detail="{x:Binding ApplicationVersionString}"></TextCell>
+                    <TextCell Text="{x:Binding NodeUuidTextCellText}" Detail="{x:Binding NodeUuid}" />
+                    <TextCell Text="Application Name" Detail="{x:Binding ApplicationNameString}" />
+                    <TextCell Text="Application Version" Detail="{x:Binding ApplicationVersionString}" />
+                    <TextCell Text="Database Schema Version" Detail="{x:Binding DatabaseSchemaVersionString}" />
                 </TableSection>
             </TableRoot>
         </TableView>

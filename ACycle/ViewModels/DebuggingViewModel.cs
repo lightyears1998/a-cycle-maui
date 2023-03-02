@@ -19,30 +19,25 @@ namespace ACycle.ViewModels
         private readonly IDatabaseService _databaseService;
         private readonly IDialogService _dialogService;
         private readonly INavigationService _navigationService;
+        private readonly IStaticConfigurationService _staticConfigurationService;
 
-        public string NodeUuidTextCellText
-        {
-            get => $"{AppStrings.Text_Node} UUID";
-        }
+        public string NodeUuidTextCellText => $"{AppStrings.Text_Node} UUID";
 
         public Guid NodeUuid => _configurationService.NodeUuid;
 
-        public string ApplicationNameString
-        {
-            get => $"{AppInfo.Current.Name} ({AppInfo.Current.PackageName})";
-        }
+        public string ApplicationNameString => $"{AppInfo.Current.Name} ({AppInfo.Current.PackageName})";
 
-        public string ApplicationVersionString
-        {
-            get => $"{AppInfo.VersionString} ({AppInfo.BuildString})";
-        }
+        public string ApplicationVersionString => $"{AppInfo.VersionString} ({AppInfo.BuildString})";
+
+        public string DatabaseSchemaVersionString => $"{_staticConfigurationService.DatabaseSchemaVersion}";
 
         public DebuggingViewModel(
             IBackupService backupService,
             IConfigurationService configurationService,
             IDatabaseService databaseService,
             IDialogService dialogService,
-            INavigationService NavigationService
+            INavigationService NavigationService,
+            IStaticConfigurationService staticConfigurationService
         )
         {
             _backupService = backupService;
@@ -50,6 +45,7 @@ namespace ACycle.ViewModels
             _databaseService = databaseService;
             _dialogService = dialogService;
             _navigationService = NavigationService;
+            _staticConfigurationService = staticConfigurationService;
         }
 
 #if WINDOWS

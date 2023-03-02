@@ -1,14 +1,14 @@
 ﻿using ACycle.Entities;
+using ACycle.Services.Database.Base;
 using SQLite;
 
 namespace ACycle.Services
 {
-    public class DatabaseServiceV1 : DatabaseServiceBase, IDatabaseService
+    [DatabaseSchema(Version = 2)]
+    public class DatabaseServiceV2 : DatabaseServiceBase, IDatabaseService
     {
-        public override long SchemaVersion => 1;
-
         public override Type[] Tables => new Type[] {
-            typeof(NodeHistoryV1),
+            typeof(NodeHistoryV2),
             typeof(NodePeerV1)
         }.Concat(EntryBasedEntityTables).Concat(base.Tables).ToArray();
 
@@ -18,11 +18,11 @@ namespace ACycle.Services
             typeof(DiaryV1),
         };
 
-        public DatabaseServiceV1(string mainDatabasePath) : base(mainDatabasePath)
+        public DatabaseServiceV2(string mainDatabasePath) : base(mainDatabasePath)
         {
         }
 
-        public DatabaseServiceV1(SQLiteAsyncConnection mainDatabase) : base(mainDatabase)
+        public DatabaseServiceV2(SQLiteAsyncConnection mainDatabase) : base(mainDatabase)
         {
         }
     }
