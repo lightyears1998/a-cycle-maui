@@ -9,11 +9,11 @@ namespace ACycle.UnitTests.Models
     [TestClass]
     public class DiaryServiceTests
     {
-        private static readonly DatabaseServiceV1 s_db = new("./MainDatabase.sqlite3");
+        private static readonly DatabaseServiceV2 s_db = new("./MainDatabase.sqlite3");
 
-        private static readonly MetadataRepository s_metadataRepositoryV1 = new(s_db);
+        private static readonly MetadataRepository s_metadataRepository = new(s_db);
 
-        private static readonly MetadataService s_metadataService = new(s_metadataRepositoryV1);
+        private static readonly MetadataService s_metadataService = new(s_metadataRepository);
 
         private static readonly ConfigurationService s_config = new(s_metadataService);
 
@@ -26,6 +26,7 @@ namespace ACycle.UnitTests.Models
         {
             await s_db.InitializeAsync();
             await s_config.InitializeAsync();
+            await s_db.CreateTablesAsync();
         }
 
         [TestMethod]
