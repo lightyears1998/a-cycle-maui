@@ -7,6 +7,14 @@ namespace ACycle.Services.DatabaseMigration.Migrators
     {
         public override async Task<string> MigrateAsync(SQLiteAsyncConnection connection)
         {
+            await MigrateNodeHistoryAsync(connection);
+            await CreateTables(connection);
+
+            return "Migrate table `node_history` successfully.";
+        }
+
+        private async Task MigrateNodeHistoryAsync(SQLiteAsyncConnection connection)
+        {
             var statements = new string[]
             {
                 "ALTER TABLE node_history RENAME COLUMN model_uuid TO 'entry_uuid'",
@@ -18,8 +26,11 @@ namespace ACycle.Services.DatabaseMigration.Migrators
             {
                 await connection.ExecuteAsync(sql);
             }
+        }
 
-            return "Migrate table `node_history` successfully.";
+        private async Task CreateTables(SQLiteAsyncConnection connection)
+        {
+            await new DatabaseServiceV2(connection).CreateTablesAsync();
         }
     }
 }
