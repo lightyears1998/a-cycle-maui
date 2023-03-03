@@ -1,6 +1,7 @@
 ﻿using ACycle.Entities;
 using ACycle.Models;
 using ACycle.Models.Base;
+using ACycle.Resources.Strings;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -31,9 +32,9 @@ namespace ACycle.ViewModels
         [ObservableProperty]
         private RelayCollection<Diary, DiaryRelay> _diaries;
 
-        private Diary? _selectedDiary;
+        private DiaryRelay? _selectedDiary;
 
-        public Diary? SelectedDiary
+        public DiaryRelay? SelectedDiary
         {
             get => _selectedDiary;
             set
@@ -62,15 +63,11 @@ namespace ACycle.ViewModels
                 item,
                 editCommand: new Command(() =>
                 {
+                    _ = OpenEditorForEditingAsync(item);
                 }),
-                removeCommand: new AsyncRelayCommand(async () =>
+                removeCommand: new Command(() =>
                 {
-                    var shouldRemove = await ConfirmRemoveDiaryAsync();
-
-                    if (shouldRemove)
-                    {
-                        collection.Remove(item);
-                    }
+                    _ = RemoveDiaryAsync(item);
                 })));
 
             _diaryService.ModelCreated += OnDiaryCreated;
@@ -147,7 +144,12 @@ namespace ACycle.ViewModels
             if (SelectedDiary == null)
                 return;
 
-            await _navigationService.NavigateToAsync("Editor", new Dictionary<string, object> { { "diary", SelectedDiary } });
+            await OpenEditorForEditingAsync(SelectedDiary.Item);
+        }
+
+        public async Task OpenEditorForEditingAsync(Diary diary)
+        {
+            await _navigationService.NavigateToAsync("Editor", new Dictionary<string, object> { { "diary", diary } });
         }
 
         [RelayCommand(CanExecute = nameof(SelectedDiaryIsNotEmpty))]
@@ -156,20 +158,29 @@ namespace ACycle.ViewModels
             if (SelectedDiary == null)
                 return;
 
-            await _diaryService.RemoveAsync(SelectedDiary);
-            Diaries.Remove(SelectedDiary);
+            await RemoveDiaryAsync(SelectedDiary.Item);
+        }
+
+        public async Task RemoveDiaryAsync(Diary diary)
+        {
+            var shouldRemove = await ConfirmRemoveDiaryAsync();
+            if (shouldRemove)
+            {
+                await _diaryService.RemoveAsync(diary);
+                Diaries.Remove(diary);
+            }
         }
 
         public async Task<bool> ConfirmRemoveDiaryAsync()
         {
-            return await _dialogService.Confirm("Confirm Remove", "Do you really want to remove this diary?");
+            return await _dialogService.Confirm(AppStrings.DiaryView_ConfirmRemoveTitle, AppStrings.DiaryView_ConfirmRemoveText);
         }
 
         public class DiaryRelay : Relay<Diary>
         {
-            public ICommand EditCommand;
+            public ICommand EditCommand { get; protected set; }
 
-            public ICommand RemoveCommand;
+            public ICommand RemoveCommand { get; protected set; }
 
             public DiaryRelay(Diary item, ICommand editCommand, ICommand removeCommand) : base(item)
             {

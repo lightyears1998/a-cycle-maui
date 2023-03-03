@@ -87,6 +87,7 @@ namespace ACycle.ViewModels
         {
             await _diaryService.SaveAsync(Diary);
             _lastSavedDiary = _diary with { };
+            await _navigationService.GoBackAsync();
         }
 
         [RelayCommand]

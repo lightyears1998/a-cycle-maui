@@ -189,6 +189,12 @@
   <data name="DiaryEditorView_Title" xml:space="preserve">
     <value>Diary Editor</value>
   </data>
+  <data name="DiaryView_ConfirmRemoveText" xml:space="preserve">
+    <value>Do you really want to remove this diary?</value>
+  </data>
+  <data name="DiaryView_ConfirmRemoveTitle" xml:space="preserve">
+    <value>Confirm Remove</value>
+  </data>
   <data name="DiaryView_Title" xml:space="preserve">
     <value>Diary</value>
   </data>
@@ -261,17 +267,26 @@
   <data name="Text_Discard" xml:space="preserve">
     <value>Discard</value>
   </data>
+  <data name="Text_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="Text_ExceptionThrownTitle" xml:space="preserve">
     <value>Oh... Something Unexpected Happened</value>
   </data>
   <data name="Text_InsufficientApplicationPermission" xml:space="preserve">
     <value>Insufficient Application Permission</value>
   </data>
+  <data name="Text_Modify" xml:space="preserve">
+    <value>Modify</value>
+  </data>
   <data name="Text_Node" xml:space="preserve">
     <value>Node</value>
   </data>
   <data name="Text_PickFile" xml:space="preserve">
     <value>Pick File</value>
+  </data>
+  <data name="Text_Remove" xml:space="preserve">
+    <value>Remvoe</value>
   </data>
   <data name="Text_RequestPermission_WriteStorage" xml:space="preserve">
     <value>Please grant this app permission to write external storage.</value>

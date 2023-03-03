@@ -277,6 +277,24 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you really want to remove this diary?.
+        /// </summary>
+        public static string DiaryView_ConfirmRemoveText {
+            get {
+                return ResourceManager.GetString("DiaryView_ConfirmRemoveText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Remove.
+        /// </summary>
+        public static string DiaryView_ConfirmRemoveTitle {
+            get {
+                return ResourceManager.GetString("DiaryView_ConfirmRemoveTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Diary.
         /// </summary>
         public static string DiaryView_Title {
@@ -493,6 +511,15 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Text_Edit {
+            get {
+                return ResourceManager.GetString("Text_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Oh... Something Unexpected Happened.
         /// </summary>
         public static string Text_ExceptionThrownTitle {
@@ -511,6 +538,15 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modify.
+        /// </summary>
+        public static string Text_Modify {
+            get {
+                return ResourceManager.GetString("Text_Modify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Node.
         /// </summary>
         public static string Text_Node {
@@ -525,6 +561,15 @@ namespace ACycle.Resources.Strings {
         public static string Text_PickFile {
             get {
                 return ResourceManager.GetString("Text_PickFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remvoe.
+        /// </summary>
+        public static string Text_Remove {
+            get {
+                return ResourceManager.GetString("Text_Remove", resourceCulture);
             }
         }
         

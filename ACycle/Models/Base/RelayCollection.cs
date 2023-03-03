@@ -1,4 +1,6 @@
-﻿namespace ACycle.Models.Base
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace ACycle.Models.Base
 {
     public class RelayCollection<TItem, TRelay> : ObservableCollectionEx<TRelay>
         where TItem : class where TRelay : Relay<TItem>
@@ -74,10 +76,10 @@
         }
     }
 
-    public class Relay<TItem>
+    public class Relay<TItem> : ObservableObject
         where TItem : class
     {
-        public TItem Item;
+        public TItem Item { get; protected set; }
 
         public Relay(TItem item)
         {

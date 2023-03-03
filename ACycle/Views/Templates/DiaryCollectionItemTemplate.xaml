@@ -3,15 +3,16 @@
     x:Class="ACycle.Views.Templates.DiaryCollectionItemTemplate"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:models="clr-namespace:ACycle.Models"
+    xmlns:viewModels="clr-namespace:ACycle.ViewModels"
     xmlns:ext="clr-namespace:ACycle.Extensions"
-    x:DataType="models:Diary">
+    x:DataType="{x:Type viewModels:DiaryViewModel+DiaryRelay}">
     <VerticalStackLayout>
-        <Label Text="{Binding Title}" FontAttributes="Bold" />
-        <Label Text="{Binding Content}" />
+        <Label Text="{Binding Item.Title}" FontAttributes="Bold" />
+        <Label Text="{Binding Item.Content}" />
         <FlyoutBase.ContextFlyout>
             <MenuFlyout>
-                <MenuFlyoutItem Text="" />
+                <MenuFlyoutItem Text="{ext:LocaleString Key=Text_Edit}" Command="{Binding EditCommand}" />
+                <MenuFlyoutItem Text="{ext:LocaleString Key=Text_Remove}" Command="{Binding RemoveCommand}" />
             </MenuFlyout>
         </FlyoutBase.ContextFlyout>
     </VerticalStackLayout>
