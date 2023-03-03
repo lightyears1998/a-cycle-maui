@@ -1,5 +1,4 @@
-﻿using ACycle.Entities;
-using ACycle.Models;
+﻿using ACycle.Models;
 using ACycle.Repositories;
 using ACycle.Services;
 using SQLite;
@@ -9,7 +8,7 @@ namespace ACycle.UnitTests.Models
     [TestClass]
     public class DiaryServiceTests
     {
-        private static readonly DatabaseServiceV2 s_db = new("./MainDatabase.sqlite3");
+        private static readonly DatabaseServiceImpl s_db = new("./MainDatabase.sqlite3");
 
         private static readonly MetadataRepository s_metadataRepository = new(s_db);
 
@@ -17,9 +16,9 @@ namespace ACycle.UnitTests.Models
 
         private static readonly ConfigurationService s_config = new(s_metadataService);
 
-        private static readonly EntryRepository<DiaryV1> s_repo = new(s_db);
+        private static readonly DiaryRepository s_repo = new(s_db);
 
-        private static readonly EntryService<DiaryV1, Diary> s_service = new(s_config, s_repo);
+        private static readonly DiaryService s_service = new(s_config, s_repo);
 
         [ClassInitialize]
         public static async Task Initialize(TestContext _)
