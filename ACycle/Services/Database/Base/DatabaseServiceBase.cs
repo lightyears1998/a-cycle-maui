@@ -12,7 +12,7 @@ namespace ACycle.Services
     {
         public long SchemaVersion { get; private set; }
 
-        public virtual Type[] Tables => new Type[] { };
+        public abstract Type[] Tables { get; }
 
         public abstract Type[] EntryBasedEntityTables { get; }
 

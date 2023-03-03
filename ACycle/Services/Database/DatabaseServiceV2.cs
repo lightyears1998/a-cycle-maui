@@ -11,7 +11,7 @@ namespace ACycle.Services
             typeof(NodeHistoryV2),
             typeof(NodePeerV1),
             typeof(SynchronizationEndpointV1)
-        }.Concat(EntryBasedEntityTables).Concat(base.Tables).ToArray();
+        }.Concat(EntryBasedEntityTables).ToArray();
 
         public override Type[] EntryBasedEntityTables => new Type[]
         {
