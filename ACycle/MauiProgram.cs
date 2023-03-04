@@ -3,6 +3,7 @@ using ACycle.Resources.Strings;
 using ACycle.Services;
 using ACycle.ViewModels;
 using ACycle.Views;
+using CommunityToolkit.Maui;
 using Microsoft.Extensions.Localization;
 
 #if DEBUG
@@ -22,6 +23,7 @@ namespace ACycle
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
