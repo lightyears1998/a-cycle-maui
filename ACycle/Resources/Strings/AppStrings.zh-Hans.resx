@@ -204,6 +204,12 @@
   <data name="LandingView_Heading" xml:space="preserve">
     <value>欢迎使用 ACycle 循迹！</value>
   </data>
+  <data name="SettingsView_CrossDeviceSynchronization" xml:space="preserve">
+    <value>跨设备同步</value>
+  </data>
+  <data name="SettingsView_EditSynchronizationEndpoints" xml:space="preserve">
+    <value>编辑同步端点</value>
+  </data>
   <data name="SettingsView_LanguagePickerTitle" xml:space="preserve">
     <value>语言</value>
   </data>

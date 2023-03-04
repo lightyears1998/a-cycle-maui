@@ -322,6 +322,24 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cross Device Synchronization.
+        /// </summary>
+        public static string SettingsView_CrossDeviceSyncSettingsView_CrossDeviceSynchronization {
+            get {
+                return ResourceManager.GetString("SettingsView_CrossDeviceSyncSettingsView_CrossDeviceSynchronization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Synchronization Endpoints.
+        /// </summary>
+        public static string SettingsView_EditSynchronizationEndpoints {
+            get {
+                return ResourceManager.GetString("SettingsView_EditSynchronizationEndpoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string SettingsView_LanguagePickerTitle {

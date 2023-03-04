@@ -204,6 +204,12 @@
   <data name="LandingView_Heading" xml:space="preserve">
     <value>Welcome to ACycle!</value>
   </data>
+  <data name="SettingsView_CrossDeviceSyncSettingsView_CrossDeviceSynchronization" xml:space="preserve">
+    <value>Cross Device Synchronization</value>
+  </data>
+  <data name="SettingsView_EditSynchronizationEndpoints" xml:space="preserve">
+    <value>Edit Synchronization Endpoints</value>
+  </data>
   <data name="SettingsView_LanguagePickerTitle" xml:space="preserve">
     <value>Language</value>
   </data>
