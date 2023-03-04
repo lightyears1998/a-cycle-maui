@@ -22,8 +22,12 @@
 
             <VerticalStackLayout>
                 <Label Text="SettingsView_CrossDeviceSynchronization" />
-                <Switch IsToggled="{Binding SynchronizationEnabled}" IsEnabled="{Binding SynchronizationSwitchEnabled}" />
-                <Button Text="SettingsView_EditEndpoints" />
+                <Switch
+                    IsToggled="{Binding SynchronizationEnabled}"
+                    IsEnabled="{Binding SynchronizationSwitchEnabled}" />
+                <Button
+                    Text="SettingsView_EditSynchronizationEndpoints"
+                    Command="{Binding OpenEndpointListViewCommand}" />
             </VerticalStackLayout>
 
             <Button

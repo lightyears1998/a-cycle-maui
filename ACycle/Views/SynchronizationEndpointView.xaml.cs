@@ -2,9 +2,9 @@
 
 namespace ACycle.Views
 {
-    public partial class SynchronizationConfigView : ContentPageBase
+    public partial class SynchronizationEndpointView : ContentPageBase
     {
-        public SynchronizationConfigView(SynchronizationConfigViewModel model)
+        public SynchronizationEndpointView(SynchronizationEndpointViewModel model)
         {
             BindingContext = model;
             InitializeComponent();

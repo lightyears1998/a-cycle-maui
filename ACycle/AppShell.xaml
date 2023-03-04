@@ -73,7 +73,7 @@
         Title="{ext:LocaleString Key=AppShell_Debugging}"
         Icon="appshell_debugging.png"
         IsVisible="False"
-        Route="{x:Static root:AppShell+Route.DebuggingToolRoute}">
+        Route="{x:Static root:AppShell+Route.DebuggingViewRoute}">
         <ShellContent ContentTemplate="{DataTemplate views:DebuggingView}" />
     </FlyoutItem>
 </Shell>

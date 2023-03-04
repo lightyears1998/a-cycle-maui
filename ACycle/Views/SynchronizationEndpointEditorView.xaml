@@ -5,7 +5,9 @@
     xmlns:views="clr-namespace:ACycle.Views"
     xmlns:viewModels="clr-namespace:ACycle.ViewModels"
     xmlns:ext="clr-namespace:ACycle.Extensions"
-    x:Class="ACycle.Views.SynchronizationEndpointListView">
+    x:Class="ACycle.Views.SynchronizationEndpointEditorView"
+    x:DataType="viewModels:SynchronizationEndpointEditorViewModel"
+    Title="{ext:LocaleString Key=SynchronizationConfigView_Title}">
 
     <Grid Margin="8" RowSpacing="8" RowDefinitions="Auto, *, Auto">
     </Grid>

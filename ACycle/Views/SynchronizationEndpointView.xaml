@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:ACycle.Views"
+    xmlns:viewModels="clr-namespace:ACycle.ViewModels"
+    xmlns:templates="clr-namespace:ACycle.Views.Templates"
+    xmlns:ext="clr-namespace:ACycle.Extensions"
+    x:Class="ACycle.Views.SynchronizationEndpointView"
+    x:DataType="viewModels:SynchronizationEndpointViewModel"
+    Title="{ext:LocaleString Key=SynchronizationEndpointView_Title}">
+
+    <Grid RowDefinitions="Auto, *">
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Button
+                Text="{ext:LocaleString Key=SynchronizationEndpointView_AddEndpoint}"
+                Command="{Binding AddEndpointCommand}" />
+        </HorizontalStackLayout>
+
+        <ScrollView Grid.Row="1">
+            <CollectionView ItemsSource="{Binding RelaySynchronizationEndpoints}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <templates:SynchronizationEndpointCollectionItemTemplate />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+    </Grid>
+</views:ContentPageBase>

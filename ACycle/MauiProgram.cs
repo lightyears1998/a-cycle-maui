@@ -97,6 +97,8 @@ namespace ACycle
                 typeof(FocusViewModel),
                 typeof(LandingViewModel),
                 typeof(SettingsViewModel),
+                typeof(SynchronizationEndpointViewModel),
+                typeof(SynchronizationEndpointEditorViewModel),
             });
 
             return builder;
@@ -116,6 +118,8 @@ namespace ACycle
                 typeof(LandingView),
                 typeof(LedgerView),
                 typeof(SettingsView),
+                typeof(SynchronizationEndpointView),
+                typeof(SynchronizationEndpointEditorView),
                 typeof(PlanningView)
             });
 
