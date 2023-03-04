@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace ACycle.ViewModels
 {
-    [QueryProperty(nameof(Diary), "diary")]
+    [QueryProperty(nameof(Diary), "Diary")]
     public partial class DiaryEditorViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
@@ -23,7 +23,7 @@ namespace ACycle.ViewModels
             get => _diary;
             set
             {
-                if (SetProperty(ref _diary, value))
+                if (SetProperty(ref _diary, value with { }))
                 {
                     OnPropertyChanged(nameof(DiaryDate));
                     OnPropertyChanged(nameof(DiaryTime));

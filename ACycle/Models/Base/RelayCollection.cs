@@ -79,7 +79,7 @@ namespace ACycle.Models.Base
     public class Relay<TItem> : ObservableObject
         where TItem : class
     {
-        public TItem Item { get; protected set; }
+        public TItem Item { get; set; }
 
         public Relay(TItem item)
         {

@@ -77,9 +77,9 @@ namespace ACycle.ViewModels
 
         private void OnDiaryCreated(object? sender, EntryServiceEventArgs<Diary> args)
         {
-            if (args.Model.DateTime.Date == Date)
+            if (args.Entry.DateTime.Date == Date)
             {
-                Diaries.InsertSorted(args.Model, Comparer<Diary>.Create((a, b) => a.DateTime.CompareTo(b.DateTime)));
+                Diaries.InsertSorted(args.Entry, Comparer<Diary>.Create((a, b) => a.DateTime.CompareTo(b.DateTime)));
             }
         }
 
@@ -87,8 +87,9 @@ namespace ACycle.ViewModels
         {
             for (int i = 0; i < Diaries.Count; ++i)
             {
-                if (Diaries[i].Item.Uuid == args.Model.Uuid)
+                if (Diaries[i].Item.Uuid == args.Entry.Uuid)
                 {
+                    Diaries[i].Item = args.Entry;
                     Diaries.NotifyItemChangedAt(i);
                 }
             }
@@ -96,9 +97,9 @@ namespace ACycle.ViewModels
 
         private void OnDiaryRemoved(object? sender, EntryServiceEventArgs<Diary> args)
         {
-            if (Diaries.Contains(args.Model))
+            if (Diaries.Contains(args.Entry))
             {
-                Diaries.Remove(args.Model);
+                Diaries.Remove(args.Entry);
             }
         }
 
@@ -149,7 +150,9 @@ namespace ACycle.ViewModels
 
         public async Task OpenEditorForEditingAsync(Diary diary)
         {
-            await _navigationService.NavigateToAsync("Editor", new Dictionary<string, object> { { "diary", diary } });
+            await _navigationService.NavigateToAsync(
+                AppShell.Route.DiaryEditorViewRoute,
+                new Dictionary<string, object> { { "Diary", diary } });
         }
 
         [RelayCommand(CanExecute = nameof(SelectedDiaryIsNotEmpty))]
@@ -178,9 +181,9 @@ namespace ACycle.ViewModels
 
         public class DiaryRelay : Relay<Diary>
         {
-            public ICommand EditCommand { get; protected set; }
+            public ICommand EditCommand { get; set; }
 
-            public ICommand RemoveCommand { get; protected set; }
+            public ICommand RemoveCommand { get; set; }
 
             public DiaryRelay(Diary item, ICommand editCommand, ICommand removeCommand) : base(item)
             {
