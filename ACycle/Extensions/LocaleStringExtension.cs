@@ -17,7 +17,9 @@ namespace ACycle.Extensions
 
         public string ProvideValue(IServiceProvider serviceProvider)
         {
-            Guard.IsNotNullOrEmpty(Key);
+#if DEBUG
+            Guard.IsNotNullOrWhiteSpace(Key);
+#endif
             return s_stringLocalizer![Key];
         }
 
