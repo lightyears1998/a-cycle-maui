@@ -86,7 +86,7 @@ namespace ACycle.ViewModels
         public async Task NavigateToDatabaseMigrationView()
         {
 #if WINDOWS || ANDROID
-            await _navigationService.NavigateToAsync(AppShell.Route.DatabaseMigrationToolRoute);
+            await _navigationService.NavigateToAsync(AppShell.Route.DatabaseMigrationViewRoute);
 #endif
             await Task.CompletedTask;
         }

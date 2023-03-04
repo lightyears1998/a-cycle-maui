@@ -137,7 +137,13 @@ namespace ACycle.ViewModels
         [RelayCommand]
         public async Task OpenDebuggingMenuAsync()
         {
-            await _navigationService.NavigateToAsync(AppShell.Route.DebuggingToolRoute);
+            await _navigationService.NavigateToAsync(AppShell.Route.DebuggingViewRoute);
+        }
+
+        [RelayCommand]
+        public async Task OpenEndpointListViewAsync()
+        {
+            await _navigationService.NavigateToAsync(AppShell.Route.SynchronizationEndpointViewRoute);
         }
 
         private async Task ConfirmAppRestart()

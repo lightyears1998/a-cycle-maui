@@ -2,14 +2,18 @@
 {
     public interface IViewModelBase : IQueryAttributable
     {
-        public bool IsInitialized { get; set; }
+        bool IsInitialized { get; set; }
 
-        public bool IsBusy { get; set; }
+        bool IsBusy { get; set; }
 
-        public Task InitializeAsync();
+        Task InitializeAsync();
 
-        public void OnViewAppearing();
+        void OnViewAppearing();
 
-        public void OnViewDisappearing();
+        void OnViewDisappearing();
+
+        void OnViewNavigatedFrom(NavigatedFromEventArgs args);
+
+        void OnViewNavigatingFrom(NavigatingFromEventArgs args);
     }
 }

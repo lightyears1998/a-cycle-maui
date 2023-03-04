@@ -72,5 +72,13 @@ namespace ACycle.ViewModels
         public virtual void OnViewDisappearing()
         {
         }
+
+        public virtual void OnViewNavigatedFrom(NavigatedFromEventArgs args)
+        {
+        }
+
+        public virtual void OnViewNavigatingFrom(NavigatingFromEventArgs args)
+        {
+        }
     }
 }

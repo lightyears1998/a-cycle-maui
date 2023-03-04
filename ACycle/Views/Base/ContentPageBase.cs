@@ -29,5 +29,25 @@ namespace ACycle.Views
                 model.OnViewDisappearing();
             }
         }
+
+        protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
+        {
+            base.OnNavigatedFrom(args);
+
+            if (BindingContext is IViewModelBase model)
+            {
+                model.OnViewNavigatedFrom(args);
+            }
+        }
+
+        protected override void OnNavigatingFrom(NavigatingFromEventArgs args)
+        {
+            base.OnNavigatingFrom(args);
+
+            if (BindingContext is IViewModelBase model)
+            {
+                model.OnViewNavigatingFrom(args);
+            }
+        }
     }
 }

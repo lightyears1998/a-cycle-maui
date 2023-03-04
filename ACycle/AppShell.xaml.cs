@@ -12,18 +12,24 @@ namespace ACycle
 
         private static void InitializeRouting()
         {
-            Routing.RegisterRoute(Route.DatabaseMigrationToolRoute, typeof(DatabaseMigrationView));
-            Routing.RegisterRoute(Route.DebuggingToolRoute, typeof(DebuggingView));
-            Routing.RegisterRoute(Route.DiaryEditorRoute, typeof(DiaryEditorView));
+            Routing.RegisterRoute(Route.DatabaseMigrationViewRoute, typeof(DatabaseMigrationView));
+            Routing.RegisterRoute(Route.DebuggingViewRoute, typeof(DebuggingView));
+            Routing.RegisterRoute(Route.DiaryEditorViewRoute, typeof(DiaryEditorView));
+            Routing.RegisterRoute(Route.SynchronizationEndpointViewRoute, typeof(SynchronizationEndpointView));
+            Routing.RegisterRoute(Route.SynchronizationEndpointEditorViewRoute, typeof(SynchronizationEndpointEditorView));
         }
 
         public static class Route
         {
-            public static string DatabaseMigrationToolRoute = "DatabaseMigration";
+            public const string DatabaseMigrationViewRoute = "DatabaseMigration";
 
-            public static string DebuggingToolRoute = "Debugging";
+            public const string DebuggingViewRoute = "Debugging";
 
-            public static string DiaryEditorRoute = "Diary/Editor";
+            public const string DiaryEditorViewRoute = "Diary/Editor";
+
+            public const string SynchronizationEndpointViewRoute = "SynchronizationEndpoint";
+
+            public const string SynchronizationEndpointEditorViewRoute = "SynchronizationEndpoint/Editor";
         }
     }
 }
