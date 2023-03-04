@@ -83,7 +83,7 @@ namespace ACycle.ViewModels
         }
 
         [RelayCommand]
-        public async Task NavigateToDatabaseMigrationView()
+        public async Task NavigateToDatabaseMigrationViewAsync()
         {
 #if WINDOWS || ANDROID
             await _navigationService.NavigateToAsync(AppShell.Route.DatabaseMigrationViewRoute);
@@ -92,10 +92,10 @@ namespace ACycle.ViewModels
         }
 
         [RelayCommand]
-        public async Task BackupDatabaseToExternalStorage()
+        public async Task BackupDatabaseToExternalStorageAsync()
         {
 #if ANDROID
-            var status = await PermissionHelper.CheckAndRequestPermission<Permissions.StorageWrite>();
+            var status = await PermissionHelper.CheckAndRequestPermissionAsync<Permissions.StorageWrite>();
             if (status == PermissionStatus.Granted)
             {
                 var backupFilePath = Path.Combine(
@@ -104,49 +104,49 @@ namespace ACycle.ViewModels
 
                 try
                 {
-                    await _backupService.CreateDatabaseBackup(backupFilePath);
-                    await _dialogService.Prompt(AppStrings.Text_DatabaseBackupCompleteTitle, AppStrings.Text_DatabaseBackupCompleteMessage);
+                    await _backupService.CreateDatabaseBackupAsync(backupFilePath);
+                    await _dialogService.PromptAsync(AppStrings.Text_DatabaseBackupCompleteTitle, AppStrings.Text_DatabaseBackupCompleteMessage);
                 }
                 catch (Exception ex)
                 {
-                    await _dialogService.Prompt(AppStrings.Text_ExceptionThrownTitle, ex.ToString());
+                    await _dialogService.PromptAsync(AppStrings.Text_ExceptionThrownTitle, ex.ToString());
                 }
             }
             else
             {
-                await _dialogService.Prompt(AppStrings.Text_InsufficientApplicationPermission, AppStrings.Text_RequestPermission_WriteStorage);
+                await _dialogService.PromptAsync(AppStrings.Text_InsufficientApplicationPermission, AppStrings.Text_RequestPermission_WriteStorage);
             }
 #endif
             await Task.CompletedTask;
         }
 
         [RelayCommand]
-        public async Task RestoreDatabaseFromExternalStorage()
+        public async Task RestoreDatabaseFromExternalStorageAsync()
         {
 #if ANDROID
-            var status = await PermissionHelper.CheckAndRequestPermission<Permissions.StorageRead>();
+            var status = await PermissionHelper.CheckAndRequestPermissionAsync<Permissions.StorageRead>();
             var backupFile = await FilePicker.Default.PickAsync(new PickOptions { PickerTitle = "ACycle Database" });
             if (backupFile != null)
             {
                 var backupFilePath = backupFile.FullPath;
-                await _backupService.RestoreDatabaseBackup(backupFilePath);
-                await _dialogService.Prompt(AppStrings.Text_DatabaseRestoreCompleteTitle, AppStrings.Text_DatabaseRestoreCompleteMessage);
+                await _backupService.RestoreDatabaseBackupAsync(backupFilePath);
+                await _dialogService.PromptAsync(AppStrings.Text_DatabaseRestoreCompleteTitle, AppStrings.Text_DatabaseRestoreCompleteMessage);
 
-                await PromptForAppRestart(AppStrings.Text_AppRestartReason_DatabaseRestore);
+                await RequestForAppRestartAsync(AppStrings.Text_AppRestartReason_DatabaseRestore);
             }
 #endif
             await Task.CompletedTask;
         }
 
         [RelayCommand]
-        public async Task RestartApplication()
+        public async Task RestartApplicationAsync()
         {
-            await PromptForAppRestart(AppStrings.Text_AppRestartReason_UserRequest);
+            await RequestForAppRestartAsync(AppStrings.Text_AppRestartReason_UserRequest);
         }
 
-        private async Task PromptForAppRestart(string reason)
+        private async Task RequestForAppRestartAsync(string reason)
         {
-            bool shouldRestart = await _dialogService.ConfirmAppRestart(reason);
+            bool shouldRestart = await _dialogService.RequestAppRestart(reason);
 
             if (shouldRestart)
                 App.Current()!.Restart();

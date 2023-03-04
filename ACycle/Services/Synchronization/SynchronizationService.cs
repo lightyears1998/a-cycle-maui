@@ -24,7 +24,7 @@ namespace ACycle.Services
             await LoadEndpointsAsync();
         }
 
-        public async Task SetSynchronizationEnabled(bool value)
+        public async Task SetSynchronizationEnabledAsync(bool value)
         {
             await _metadataService.SetBoolMetadataAsync(MetadataKeys.SYNCHRONIZATION_ENABLED, value);
             SynchronizationEnabled = value;

@@ -47,7 +47,7 @@ namespace ACycle.ViewModels
         }
 
         [RelayCommand]
-        public async Task PickDatabaseFile()
+        public async Task PickDatabaseFileAsync()
         {
             var fileResult = await FilePicker.Default.PickAsync();
             if (fileResult != null)
@@ -64,7 +64,7 @@ namespace ACycle.ViewModels
             {
                 string path = _migrationDatabasePath.Trim().Trim('"');
                 FileGuard.Exists(path);
-                Log += await _databaseMigrationService.MigrateDatabase(path);
+                Log += await _databaseMigrationService.MigrateDatabaseAsync(path);
             });
         }
 
@@ -87,10 +87,10 @@ namespace ACycle.ViewModels
 
                 temporaryDatabase = new SQLiteAsyncConnection(temporaryCopyPath);
                 Log += "Migration Logs:\n";
-                Log += await _databaseMigrationService.MigrateDatabase(temporaryDatabase);
+                Log += await _databaseMigrationService.MigrateDatabaseAsync(temporaryDatabase);
 
                 Log += "Merge Logs:\n";
-                Log += await _databaseMigrationService.MergeDatabase(_databaseService.MainDatabase, temporaryDatabase);
+                Log += await _databaseMigrationService.MergeDatabaseAsync(_databaseService.MainDatabase, temporaryDatabase);
             });
 
             if (temporaryDatabase != null)

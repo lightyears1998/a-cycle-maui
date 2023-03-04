@@ -8,7 +8,7 @@ namespace ACycle.Services.DatabaseMigration.Migrators
         public override async Task<string> MigrateAsync(SQLiteAsyncConnection connection)
         {
             await MigrateNodeHistoryAsync(connection);
-            await CreateTables(connection);
+            await CreateTablesAsync(connection);
 
             return "Migrate table `node_history` successfully.";
         }
@@ -28,7 +28,7 @@ namespace ACycle.Services.DatabaseMigration.Migrators
             }
         }
 
-        private async Task CreateTables(SQLiteAsyncConnection connection)
+        private async Task CreateTablesAsync(SQLiteAsyncConnection connection)
         {
             await new DatabaseServiceV2(connection).CreateTablesAsync();
         }

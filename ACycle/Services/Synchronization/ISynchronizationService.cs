@@ -10,6 +10,6 @@ namespace ACycle.Services
 
         Task InitializeAsync();
 
-        Task SetSynchronizationEnabled(bool value);
+        Task SetSynchronizationEnabledAsync(bool value);
     }
 }

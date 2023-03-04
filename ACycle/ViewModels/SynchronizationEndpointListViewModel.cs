@@ -26,7 +26,7 @@ namespace ACycle.ViewModels
                 (item, collection) => new RelaySynchronizationEndpoint(item,
                 editCommand: new AsyncRelayCommand(async () =>
                     {
-                        await EditEndpoint(item);
+                        await EditEndpointAsync(item);
                     }
                 ),
                 removeCommand: new AsyncRelayCommand(async () =>
@@ -39,28 +39,28 @@ namespace ACycle.ViewModels
 
         public override async Task InitializeAsync()
         {
-            await LoadEndpoints();
+            await LoadEndpointsAsync();
         }
 
         public override void OnViewNavigatingFrom(NavigatingFromEventArgs args)
         {
-            _ = LoadEndpoints();
+            _ = LoadEndpointsAsync();
         }
 
-        private async Task LoadEndpoints()
+        private async Task LoadEndpointsAsync()
         {
             var endpoints = await _endpointService.LoadAsync();
             RelaySynchronizationEndpoints.Reload(endpoints);
         }
 
         [RelayCommand]
-        public async Task AddEndpoint()
+        public async Task AddEndpointAsync()
         {
             await _navigationService.NavigateToAsync(AppShell.Route.SynchronizationEndpointEditorViewRoute);
         }
 
         [RelayCommand]
-        public async Task EditEndpoint(SynchronizationEndpoint endpoint)
+        public async Task EditEndpointAsync(SynchronizationEndpoint endpoint)
         {
             await _navigationService.NavigateToAsync(
                 AppShell.Route.SynchronizationEndpointEditorViewRoute,

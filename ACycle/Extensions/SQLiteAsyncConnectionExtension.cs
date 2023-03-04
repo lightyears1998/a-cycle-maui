@@ -5,10 +5,10 @@ namespace ACycle.Extensions
     public static class SQLiteAsyncConnectionExtension
     {
         /// <summary>
-        /// Get schema version of the connection.
+        /// Get the schema version of the connection.
         /// </summary>
         /// <param name="connection"></param>
-        /// <returns>The schema version number; 0 if no schema version is found.</returns>
+        /// <returns>The schema version number; `null` if no schema version is found.</returns>
         public static async Task<long?> GetSchemaAsync(this SQLiteAsyncConnection connection)
         {
             long? schemaVersion = null;

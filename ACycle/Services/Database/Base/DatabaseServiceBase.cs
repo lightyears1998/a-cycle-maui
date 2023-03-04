@@ -85,7 +85,7 @@ namespace ACycle.Services
         public override async Task InitializeAsync()
         {
             await CreateMetadataTableAsync();
-            await CreateSchemaIfNotPresent();
+            await CreateSchemaIfNotPresentAsync();
         }
 
         private async Task CreateMetadataTableAsync()
@@ -101,7 +101,7 @@ namespace ACycle.Services
             }
         }
 
-        public async Task CreateSchemaIfNotPresent()
+        public async Task CreateSchemaIfNotPresentAsync()
         {
             long? schema = await MainDatabase.GetSchemaAsync();
             if (schema == null)
@@ -110,7 +110,7 @@ namespace ACycle.Services
             }
         }
 
-        public async Task<int> CountEntries()
+        public async Task<int> CountEntriesAsync()
         {
             int count = 0;
             foreach (var entryType in EntryBasedEntityTables)
@@ -129,12 +129,12 @@ namespace ACycle.Services
             return count;
         }
 
-        public virtual async Task MergeDatabase(SQLiteAsyncConnection mergingDatabase)
+        public virtual async Task MergeDatabaseAsync(SQLiteAsyncConnection mergingDatabase)
         {
-            await MergeEntryBasedEntityTables(mergingDatabase);
+            await MergeEntryBasedEntityTablesAsync(mergingDatabase);
         }
 
-        private async Task MergeEntryBasedEntityTables(SQLiteAsyncConnection mergingDatabase)
+        private async Task MergeEntryBasedEntityTablesAsync(SQLiteAsyncConnection mergingDatabase)
         {
             foreach (var entryType in EntryBasedEntityTables)
             {

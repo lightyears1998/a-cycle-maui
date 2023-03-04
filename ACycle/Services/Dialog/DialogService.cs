@@ -4,14 +4,14 @@ namespace ACycle.Services
 {
     public class DialogService : Service, IDialogService
     {
-        public Task Prompt(string title, string message, string? confirm = null)
+        public Task PromptAsync(string title, string message, string? confirm = null)
         {
             confirm ??= AppStrings.Text_Dialog_Confirm;
 
             return Application.Current!.MainPage!.DisplayAlert(title, message, confirm);
         }
 
-        public Task<bool> Confirm(string title, string message, string? accept = null, string? cancel = null)
+        public Task<bool> RequestAsync(string title, string message, string? accept = null, string? cancel = null)
         {
             accept ??= AppStrings.Text_Dialog_Accept;
             cancel ??= AppStrings.Text_Dialog_Cancel;
@@ -19,13 +19,13 @@ namespace ACycle.Services
             return Application.Current!.MainPage!.DisplayAlert(title, message, accept, cancel);
         }
 
-        public Task<bool> ConfirmAppRestart(string message)
+        public Task<bool> RequestAppRestart(string message)
         {
-            string title = AppStrings.Text_Dialog_ConfirmAppRestartTitle;
-            string accept = AppStrings.Text_Dialog_ConfirmAppRestartAccept;
-            string cancel = AppStrings.Text_Dialog_ConfirmAppRestartCancel;
+            string title = AppStrings.Text_Dialog_RequestAppRestartTitle;
+            string accept = AppStrings.Text_Dialog_RequestAppRestartAccept;
+            string cancel = AppStrings.Text_Dialog_RequestAppRestartCancel;
 
-            return Confirm(title, message, accept, cancel);
+            return RequestAsync(title, message, accept, cancel);
         }
     }
 }

@@ -2,10 +2,10 @@
 {
     public interface IBackupService
     {
-        Task CreateDatabaseBackup(string backupFilePath);
+        Task CreateDatabaseBackupAsync(string backupFilePath);
 
         string GetDatabaseBackupFileName();
 
-        Task RestoreDatabaseBackup(string backupFilePath);
+        Task RestoreDatabaseBackupAsync(string backupFilePath);
     }
 }

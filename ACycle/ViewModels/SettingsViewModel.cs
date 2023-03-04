@@ -40,9 +40,9 @@ namespace ACycle.ViewModels
                 {
                     LanguageHelper.SwitchLanguage(SelectedLanguage);
                     GetSupportedLanguageDisplayNames();
-                    Task.Run(UpdateLanguageSettings);
+                    Task.Run(UpdateLanguageSettingsAsync);
                     ShowRestartDueToLanguageChangeHint();
-                    _ = ConfirmAppRestart();
+                    _ = ConfirmAppRestartAsync();
                 }
             }
         }
@@ -71,7 +71,7 @@ namespace ACycle.ViewModels
             set
             {
                 SynchronizationSwitchEnabled = false;
-                _synchronizationService.SetSynchronizationEnabled(value).ContinueWith((_) =>
+                _synchronizationService.SetSynchronizationEnabledAsync(value).ContinueWith((_) =>
                 {
                     SynchronizationSwitchEnabled = true;
                 });
@@ -121,7 +121,7 @@ namespace ACycle.ViewModels
             _supportedLanguageDisplayNames = SupportedLanguages.Select(language => language?.NativeName ?? systemLanguageDisplayName).ToList();
         }
 
-        private async Task UpdateLanguageSettings()
+        private async Task UpdateLanguageSettingsAsync()
         {
             var userInfo = await _userService.GetUserInfoAsync();
             userInfo.PreferredLanguage = SelectedLanguage;
@@ -146,9 +146,9 @@ namespace ACycle.ViewModels
             await _navigationService.NavigateToAsync(AppShell.Route.SynchronizationEndpointViewRoute);
         }
 
-        private async Task ConfirmAppRestart()
+        private async Task ConfirmAppRestartAsync()
         {
-            var shouldRestart = await _dialogService.ConfirmAppRestart(AppStrings.Text_AppRestartReason_LanguageChanges);
+            var shouldRestart = await _dialogService.RequestAppRestart(AppStrings.Text_AppRestartReason_LanguageChanges);
             if (shouldRestart)
             {
                 App.Current()!.Restart();

@@ -40,12 +40,12 @@ namespace ACycle.Services
                 }));
         }
 
-        public Task<string> MigrateDatabase(string migrationDatabasePath)
+        public Task<string> MigrateDatabaseAsync(string migrationDatabasePath)
         {
-            return MigrateDatabase(new SQLiteAsyncConnection(migrationDatabasePath));
+            return MigrateDatabaseAsync(new SQLiteAsyncConnection(migrationDatabasePath));
         }
 
-        public async Task<string> MigrateDatabase(SQLiteAsyncConnection migrationDatabase)
+        public async Task<string> MigrateDatabaseAsync(SQLiteAsyncConnection migrationDatabase)
         {
             StringBuilder migrationResultBuilder = new();
             long? lastSchemaVersion = null;
@@ -87,15 +87,15 @@ namespace ACycle.Services
         /// </summary>
         /// <param name="baseDatabase">The base database</param>
         /// <param name="mergingDatabase">The database that is being merged into the base database</param>
-        public async Task<string> MergeDatabase(SQLiteAsyncConnection baseDatabase, SQLiteAsyncConnection mergingDatabase)
+        public async Task<string> MergeDatabaseAsync(SQLiteAsyncConnection baseDatabase, SQLiteAsyncConnection mergingDatabase)
         {
             StringBuilder mergeResultBuilder = new();
 
             var databaseService = (IDatabaseService)_serviceProvider.GetService(_staticConfigurationService.DatabaseServiceImplement)!;
 
-            mergeResultBuilder.AppendLine($"Entry count before merging: {await databaseService.CountEntries()}");
-            await databaseService.MergeDatabase(mergingDatabase);
-            mergeResultBuilder.AppendLine($"Entry count after merging: {await databaseService.CountEntries()}");
+            mergeResultBuilder.AppendLine($"Entry count before merging: {await databaseService.CountEntriesAsync()}");
+            await databaseService.MergeDatabaseAsync(mergingDatabase);
+            mergeResultBuilder.AppendLine($"Entry count after merging: {await databaseService.CountEntriesAsync()}");
 
             return mergeResultBuilder.ToString();
         }

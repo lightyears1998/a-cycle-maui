@@ -4,7 +4,7 @@ namespace ACycle.Helpers
 {
     public static class PermissionHelper
     {
-        public static async Task<PermissionStatus> CheckAndRequestPermission<TPermission>() where TPermission : BasePermission, new()
+        public static async Task<PermissionStatus> CheckAndRequestPermissionAsync<TPermission>() where TPermission : BasePermission, new()
         {
             PermissionStatus status = await Permissions.CheckStatusAsync<TPermission>();
 

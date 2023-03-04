@@ -23,8 +23,8 @@ namespace ACycle.Services
 
         Task CreateTablesAsync();
 
-        Task MergeDatabase(SQLiteAsyncConnection mergingDatabase);
+        Task MergeDatabaseAsync(SQLiteAsyncConnection mergingDatabase);
 
-        Task<int> CountEntries();
+        Task<int> CountEntriesAsync();
     }
 }

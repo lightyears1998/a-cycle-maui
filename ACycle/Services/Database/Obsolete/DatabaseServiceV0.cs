@@ -46,12 +46,12 @@ namespace ACycle.Services.Database.Obsolete
             throw new NotImplementedException();
         }
 
-        public Task MergeDatabase(SQLiteAsyncConnection mergingDatabase)
+        public Task MergeDatabaseAsync(SQLiteAsyncConnection mergingDatabase)
         {
             throw new NotImplementedException();
         }
 
-        public Task<int> CountEntries()
+        public Task<int> CountEntriesAsync()
         {
             throw new NotImplementedException();
         }

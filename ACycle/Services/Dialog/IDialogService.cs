@@ -2,10 +2,10 @@
 {
     public interface IDialogService : IService
     {
-        Task Prompt(string title, string message, string? confirm = null);
+        Task PromptAsync(string title, string message, string? confirm = null);
 
-        Task<bool> Confirm(string title, string message, string? accept = null, string? cancel = null);
+        Task<bool> RequestAsync(string title, string message, string? accept = null, string? cancel = null);
 
-        Task<bool> ConfirmAppRestart(string message);
+        Task<bool> RequestAppRestart(string message);
     }
 }

@@ -261,13 +261,13 @@
   <data name="Text_Dialog_Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
-  <data name="Text_Dialog_ConfirmAppRestartAccept" xml:space="preserve">
+  <data name="Text_Dialog_RequestAppRestartAccept" xml:space="preserve">
     <value>Confirm Restart</value>
   </data>
-  <data name="Text_Dialog_ConfirmAppRestartCancel" xml:space="preserve">
+  <data name="Text_Dialog_RequestAppRestartCancel" xml:space="preserve">
     <value>Later</value>
   </data>
-  <data name="Text_Dialog_ConfirmAppRestartTitle" xml:space="preserve">
+  <data name="Text_Dialog_RequestAppRestartTitle" xml:space="preserve">
     <value>Restart App</value>
   </data>
   <data name="Text_Discard" xml:space="preserve">

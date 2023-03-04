@@ -46,7 +46,7 @@ namespace ACycle.Repositories
         {
             foreach (var incomingEntry in entries)
             {
-                var existsEntry = await FindByUuid(incomingEntry.Uuid);
+                var existsEntry = await FindByUuidAsync(incomingEntry.Uuid);
 
                 if (existsEntry == null)
                 {
@@ -69,7 +69,7 @@ namespace ACycle.Repositories
             return await query.ToListAsync();
         }
 
-        public async Task<T?> FindByUuid(Guid uuid)
+        public async Task<T?> FindByUuidAsync(Guid uuid)
         {
             var query = _connection.MainDatabase.Table<T>()
                 .Where(entry => entry.RemovedAt == null && entry.Uuid == uuid);

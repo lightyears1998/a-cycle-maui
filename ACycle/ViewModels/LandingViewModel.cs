@@ -64,19 +64,19 @@ namespace ACycle.ViewModels
 
         public override async Task InitializeAsync()
         {
-            await InitializeBasicServices();
+            await InitializeBasicServicesAsync();
 
-            await SetupAppLanguage();
+            await SetupAppLanguageAsync();
             GetHeadingAndDescriptionText();
 
-            await PerformDatabaseMigration();
+            await PerformDatabaseMigrationAsync();
 
-            await InitializeAdvancedServices();
+            await InitializeAdvancedServicesAsync();
 
             NavigateToAppShell();
         }
 
-        private async Task InitializeBasicServices()
+        private async Task InitializeBasicServicesAsync()
         {
             await _databaseService.InitializeAsync();
             await _configurationService.InitializeAsync();
@@ -84,7 +84,7 @@ namespace ACycle.ViewModels
             _logger.LogDebug("Basic services are initialized.");
         }
 
-        private async Task SetupAppLanguage()
+        private async Task SetupAppLanguageAsync()
         {
             var userInfo = await _userService.GetUserInfoAsync();
             if (userInfo.PreferredLanguage != null)
@@ -95,14 +95,14 @@ namespace ACycle.ViewModels
             _logger.LogDebug("Language settings are initialized.");
         }
 
-        private async Task PerformDatabaseMigration()
+        private async Task PerformDatabaseMigrationAsync()
         {
-            await _databaseMigrationService.MigrateDatabase(_databaseService.MainDatabase);
+            await _databaseMigrationService.MigrateDatabaseAsync(_databaseService.MainDatabase);
 
             _logger.LogDebug("Database migration is finished.");
         }
 
-        private async Task InitializeAdvancedServices()
+        private async Task InitializeAdvancedServicesAsync()
         {
             await _databaseService.CreateTablesAsync();
             await _activityCategoryService.InitializeAsync();

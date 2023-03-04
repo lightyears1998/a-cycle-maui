@@ -16,6 +16,8 @@ namespace ACycle.ViewModels
         private Diary _lastSavedDiary = new();
         private Diary _diary = new();
 
+        public bool DiaryHasChanged => _diary.Content != _lastSavedDiary.Content || _diary.Title != _lastSavedDiary.Title;
+
         public Diary Diary
         {
             get => _diary;
@@ -70,11 +72,11 @@ namespace ACycle.ViewModels
         }
 
         [RelayCommand]
-        public async Task ConfirmForLeave()
+        public async Task ConfirmForLeaveAsync()
         {
-            if (DiaryTitleOrContentHasChanged())
+            if (DiaryHasChanged)
             {
-                var shouldLeave = await _dialogService.Confirm(AppStrings.Text_ConfirmLeave, AppStrings.Text_UnsavedModifications);
+                var shouldLeave = await _dialogService.RequestAsync(AppStrings.Text_ConfirmLeave, AppStrings.Text_UnsavedModifications);
                 if (!shouldLeave)
                     return;
             }
@@ -93,12 +95,7 @@ namespace ACycle.ViewModels
         [RelayCommand]
         public async Task DiscardAsync()
         {
-            await ConfirmForLeave();
-        }
-
-        private bool DiaryTitleOrContentHasChanged()
-        {
-            return _diary.Content != _lastSavedDiary.Content || _diary.Title != _lastSavedDiary.Title;
+            await ConfirmForLeaveAsync();
         }
     }
 }

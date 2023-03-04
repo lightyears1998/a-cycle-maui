@@ -16,12 +16,12 @@ namespace ACycle.Services
             return $"MainDatabase_{DateTime.Now:yyyy-MM-ddTHHmmss}.sqlite3";
         }
 
-        public async Task CreateDatabaseBackup(string backupFilePath)
+        public async Task CreateDatabaseBackupAsync(string backupFilePath)
         {
             await FileHelper.CopyAsync(_databaseService.MainDatabasePath, backupFilePath);
         }
 
-        public async Task RestoreDatabaseBackup(string backupFilePath)
+        public async Task RestoreDatabaseBackupAsync(string backupFilePath)
         {
             await _databaseService.DisconnectFromDatabaseAsync();
             await FileHelper.CopyAsync(backupFilePath, _databaseService.MainDatabasePath, overWrite: true);

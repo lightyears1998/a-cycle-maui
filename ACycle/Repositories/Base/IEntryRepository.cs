@@ -5,7 +5,7 @@
     {
         Task<List<T>> FindAllAsync();
 
-        Task<T?> FindByUuid(Guid uuid);
+        Task<T?> FindByUuidAsync(Guid uuid);
 
         Task HardDeleteAsync(T entry);
 

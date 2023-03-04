@@ -173,7 +173,7 @@ namespace ACycle.ViewModels
 
         public async Task<bool> ConfirmRemoveDiaryAsync()
         {
-            return await _dialogService.Confirm(AppStrings.DiaryView_ConfirmRemoveTitle, AppStrings.DiaryView_ConfirmRemoveText);
+            return await _dialogService.RequestAsync(AppStrings.DiaryView_ConfirmRemoveTitle, AppStrings.DiaryView_ConfirmRemoveText);
         }
 
         public class DiaryRelay : Relay<Diary>

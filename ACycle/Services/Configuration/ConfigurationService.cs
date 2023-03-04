@@ -17,10 +17,10 @@ namespace ACycle.Services
 
         public override async Task InitializeAsync()
         {
-            NodeUuid = await GetNodeUuid();
+            NodeUuid = await GetNodeUuidAsync();
         }
 
-        private async Task<Guid> GetNodeUuid()
+        private async Task<Guid> GetNodeUuidAsync()
         {
             return Guid.Parse(await _metadataService.GetMetadataAsync(MetadataKeys.NODE_UUID, defaultValue: Guid.NewGuid().ToString()));
         }

@@ -495,27 +495,27 @@ namespace ACycle.Resources.Strings {
         /// <summary>
         ///   Looks up a localized string similar to Confirm Restart.
         /// </summary>
-        public static string Text_Dialog_ConfirmAppRestartAccept {
+        public static string Text_Dialog_RequestAppRestartAccept {
             get {
-                return ResourceManager.GetString("Text_Dialog_ConfirmAppRestartAccept", resourceCulture);
+                return ResourceManager.GetString("Text_Dialog_RequestAppRestartAccept", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Later.
         /// </summary>
-        public static string Text_Dialog_ConfirmAppRestartCancel {
+        public static string Text_Dialog_RequestAppRestartCancel {
             get {
-                return ResourceManager.GetString("Text_Dialog_ConfirmAppRestartCancel", resourceCulture);
+                return ResourceManager.GetString("Text_Dialog_RequestAppRestartCancel", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Restart App.
         /// </summary>
-        public static string Text_Dialog_ConfirmAppRestartTitle {
+        public static string Text_Dialog_RequestAppRestartTitle {
             get {
-                return ResourceManager.GetString("Text_Dialog_ConfirmAppRestartTitle", resourceCulture);
+                return ResourceManager.GetString("Text_Dialog_RequestAppRestartTitle", resourceCulture);
             }
         }
         
