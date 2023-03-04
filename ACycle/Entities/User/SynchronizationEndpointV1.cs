@@ -24,8 +24,8 @@ namespace ACycle.Entities
         [Column("username")]
         public string Username { set; get; } = "guest";
 
-        [Column("password_sha256")]
-        public string PasswordSha256 { set; get; } = string.Empty;
+        [Column("password")]
+        public string Password { set; get; } = string.Empty;
 
         [Column("use_tls")]
         public bool UseTLS { set; get; } = true;
