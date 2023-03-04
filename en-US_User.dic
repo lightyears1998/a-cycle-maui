@@ -2,7 +2,9 @@ app
 args
 metadata
 Migrator
+parseable
 readonly
 refactor
+str
 username
 uuid

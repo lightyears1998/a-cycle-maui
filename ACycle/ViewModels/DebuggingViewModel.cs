@@ -14,6 +14,7 @@ namespace ACycle.ViewModels
 {
     public partial class DebuggingViewModel : ViewModelBase
     {
+        private readonly IAppLifecycleService _appLifecycleService;
         private readonly IBackupService _backupService;
         private readonly IConfigurationService _configurationService;
         private readonly IDatabaseService _databaseService;
@@ -32,14 +33,15 @@ namespace ACycle.ViewModels
         public string DatabaseSchemaVersionString => $"{_staticConfigurationService.DatabaseSchemaVersion}";
 
         public DebuggingViewModel(
+            IAppLifecycleService appLifecycleService,
             IBackupService backupService,
             IConfigurationService configurationService,
             IDatabaseService databaseService,
             IDialogService dialogService,
             INavigationService NavigationService,
-            IStaticConfigurationService staticConfigurationService
-        )
+            IStaticConfigurationService staticConfigurationService)
         {
+            _appLifecycleService = appLifecycleService;
             _backupService = backupService;
             _configurationService = configurationService;
             _databaseService = databaseService;
@@ -146,7 +148,7 @@ namespace ACycle.ViewModels
 
         private async Task RequestForAppRestartAsync(string reason)
         {
-            bool shouldRestart = await _dialogService.RequestAppRestart(reason);
+            bool shouldRestart = await _appLifecycleService.RequestAppRestart(reason);
 
             if (shouldRestart)
                 App.Current()!.Restart();

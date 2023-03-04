@@ -1,23 +1,36 @@
-﻿namespace ACycle.Models
+﻿using System.Security.Cryptography;
+using System.Text;
+
+namespace ACycle.Models
 {
-    public class SynchronizationEndpoint
+    public record class SynchronizationEndpoint
     {
-        public long? Id;
+        public long? Id { get; set; }
 
-        public string Host = string.Empty;
+        public bool IsEnabled { get; set; } = true;
 
-        public string Path = "api";
+        public string Host { get; set; } = string.Empty;
 
-        public int HttpPort = 443;
+        public string Path { get; set; } = "api";
 
-        public int WsPort = 44;
+        public int HttpPort { get; set; } = 443;
 
-        public string Username = "guest";
+        public int WsPort { get; set; } = 443;
 
-        public string PasswordSha256 = "pa$$w0rd";
+        public bool UseTLS { get; set; } = true;
 
-        public bool UseTLS = true;
+        public string Username { get; set; } = "guest";
 
-        public bool IsEnabled = true;
+        public string Password { get; set; } = "pa$$w0rd";
+
+        public string PasswordSha256
+        {
+            get
+            {
+                var crypt = SHA256.Create();
+                var bytes = crypt.ComputeHash(Encoding.UTF8.GetBytes(Password));
+                return Convert.ToHexString(bytes).ToLower();
+            }
+        }
     }
 }

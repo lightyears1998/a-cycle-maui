@@ -385,6 +385,105 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Host.
+        /// </summary>
+        public static string SynchronizationEndpoint_Host {
+            get {
+                return ResourceManager.GetString("SynchronizationEndpoint_Host", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HTTP port.
+        /// </summary>
+        public static string SynchronizationEndpoint_HttpPort {
+            get {
+                return ResourceManager.GetString("SynchronizationEndpoint_HttpPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable this config.
+        /// </summary>
+        public static string SynchronizationEndpoint_IsEnabled {
+            get {
+                return ResourceManager.GetString("SynchronizationEndpoint_IsEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string SynchronizationEndpoint_Password {
+            get {
+                return ResourceManager.GetString("SynchronizationEndpoint_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path.
+        /// </summary>
+        public static string SynchronizationEndpoint_Path {
+            get {
+                return ResourceManager.GetString("SynchronizationEndpoint_Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string SynchronizationEndpoint_Username {
+            get {
+                return ResourceManager.GetString("SynchronizationEndpoint_Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use TLS.
+        /// </summary>
+        public static string SynchronizationEndpoint_UseTLS {
+            get {
+                return ResourceManager.GetString("SynchronizationEndpoint_UseTLS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Websocket port.
+        /// </summary>
+        public static string SynchronizationEndpoint_WsPort {
+            get {
+                return ResourceManager.GetString("SynchronizationEndpoint_WsPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please correct the configuration..
+        /// </summary>
+        public static string SynchronizationEndpointEditorView_Dialog_InvalidConfigMessage {
+            get {
+                return ResourceManager.GetString("SynchronizationEndpointEditorView_Dialog_InvalidConfigMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Config.
+        /// </summary>
+        public static string SynchronizationEndpointEditorView_Dialog_InvalidConfigTitle {
+            get {
+                return ResourceManager.GetString("SynchronizationEndpointEditorView_Dialog_InvalidConfigTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synchronization Endpoint Editor.
+        /// </summary>
+        public static string SynchronizationEndpointEditorView_Title {
+            get {
+                return ResourceManager.GetString("SynchronizationEndpointEditorView_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The App database is restored. Please restart the App to access the lastest data..
         /// </summary>
         public static string Text_AppRestartReason_DatabaseRestore {
@@ -414,9 +513,9 @@ namespace ACycle.Resources.Strings {
         /// <summary>
         ///   Looks up a localized string similar to Do you want to leave the page?.
         /// </summary>
-        public static string Text_ConfirmLeave {
+        public static string Text_ConfirmForLeave {
             get {
-                return ResourceManager.GetString("Text_ConfirmLeave", resourceCulture);
+                return ResourceManager.GetString("Text_ConfirmForLeave", resourceCulture);
             }
         }
         
@@ -430,7 +529,7 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Databse backup is compeleted..
+        ///   Looks up a localized string similar to Database backup is completed..
         /// </summary>
         public static string Text_DatabaseBackupCompleteMessage {
             get {
@@ -619,6 +718,15 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reveal password.
+        /// </summary>
+        public static string Text_RevealPassword {
+            get {
+                return ResourceManager.GetString("Text_RevealPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Text_Save {
@@ -639,9 +747,9 @@ namespace ACycle.Resources.Strings {
         /// <summary>
         ///   Looks up a localized string similar to Unsaved modifications will be lost..
         /// </summary>
-        public static string Text_UnsavedModifications {
+        public static string Text_UnsavedModificationsWillBeLost {
             get {
-                return ResourceManager.GetString("Text_UnsavedModifications", resourceCulture);
+                return ResourceManager.GetString("Text_UnsavedModificationsWillBeLost", resourceCulture);
             }
         }
     }

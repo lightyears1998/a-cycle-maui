@@ -4,8 +4,8 @@ namespace ACycle.Models
 {
     public class UserInfo
     {
-        public FeaturePreference FeaturePreference = new();
+        public FeaturePreference FeaturePreference { set; get; } = new();
 
-        public CultureInfo? PreferredLanguage;
+        public CultureInfo? PreferredLanguage { set; get; }
     }
 }

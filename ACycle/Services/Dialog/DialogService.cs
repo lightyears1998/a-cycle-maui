@@ -18,14 +18,5 @@ namespace ACycle.Services
 
             return Application.Current!.MainPage!.DisplayAlert(title, message, accept, cancel);
         }
-
-        public Task<bool> RequestAppRestart(string message)
-        {
-            string title = AppStrings.Text_Dialog_RequestAppRestartTitle;
-            string accept = AppStrings.Text_Dialog_RequestAppRestartAccept;
-            string cancel = AppStrings.Text_Dialog_RequestAppRestartCancel;
-
-            return RequestAsync(title, message, accept, cancel);
-        }
     }
 }

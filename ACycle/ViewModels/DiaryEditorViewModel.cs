@@ -76,12 +76,12 @@ namespace ACycle.ViewModels
         {
             if (DiaryHasChanged)
             {
-                var shouldLeave = await _dialogService.RequestAsync(AppStrings.Text_ConfirmLeave, AppStrings.Text_UnsavedModifications);
-                if (!shouldLeave)
-                    return;
+                await _navigationService.ConfirmForLeaveAsync();
             }
-
-            await _navigationService.GoBackAsync();
+            else
+            {
+                await _navigationService.GoBackAsync();
+            }
         }
 
         [RelayCommand]

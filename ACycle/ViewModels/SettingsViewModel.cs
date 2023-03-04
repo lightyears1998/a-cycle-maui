@@ -9,6 +9,7 @@ namespace ACycle.ViewModels
 {
     public partial class SettingsViewModel : ViewModelBase
     {
+        private readonly IAppLifecycleService _appLifecycleService;
         private readonly IDialogService _dialogService;
         private readonly INavigationService _navigationService;
         private readonly IConfigurationService _configurationService;
@@ -82,12 +83,14 @@ namespace ACycle.ViewModels
         private bool _synchronizationSwitchEnabled = true;
 
         public SettingsViewModel(
+            IAppLifecycleService appLifecycleService,
             IDialogService dialogService,
             INavigationService navigationService,
             IConfigurationService configurationService,
             IUserService userService,
             ISynchronizationService synchronizationService)
         {
+            _appLifecycleService = appLifecycleService;
             _dialogService = dialogService;
             _navigationService = navigationService;
             _configurationService = configurationService;
@@ -148,7 +151,7 @@ namespace ACycle.ViewModels
 
         private async Task ConfirmAppRestartAsync()
         {
-            var shouldRestart = await _dialogService.RequestAppRestart(AppStrings.Text_AppRestartReason_LanguageChanges);
+            var shouldRestart = await _appLifecycleService.RequestAppRestart(AppStrings.Text_AppRestartReason_LanguageChanges);
             if (shouldRestart)
             {
                 App.Current()!.Restart();

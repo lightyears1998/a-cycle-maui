@@ -9,6 +9,9 @@ namespace ACycle.Entities
         [Column("id")]
         public int? Id { get; set; }
 
+        [Column("is_enabled")]
+        public bool IsEnabled { set; get; } = true;
+
         [Column("host")]
         public string Host { get; set; } = string.Empty;
 
@@ -21,16 +24,13 @@ namespace ACycle.Entities
         [Column("ws_port")]
         public int WsPort { set; get; } = 44;
 
+        [Column("use_tls")]
+        public bool UseTLS { set; get; } = true;
+
         [Column("username")]
         public string Username { set; get; } = "guest";
 
         [Column("password")]
         public string Password { set; get; } = string.Empty;
-
-        [Column("use_tls")]
-        public bool UseTLS { set; get; } = true;
-
-        [Column("is_enabled")]
-        public bool IsEnabled { set; get; } = true;
     }
 }

@@ -1,10 +1,10 @@
 ﻿namespace ACycle.Models
 {
-    public abstract class Flow
+    public abstract record class Flow
     {
         public string Name { set; get; } = "";
 
-        public FlowDirection Direction;
+        public FlowDirection Direction { set; get; }
     }
 
     public enum FlowDirection

@@ -71,6 +71,7 @@ namespace ACycle
         public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
         {
             builder.Services
+                .AddSingleton<IAppLifecycleService, AppLifecycleService>()
                 .AddSingleton<IActivityCategoryService, ActivityCategoryService>()
                 .AddTransient<IBackupService, BackupService>()
                 .AddSingleton<IConfigurationService, ConfigurationService>()

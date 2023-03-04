@@ -225,6 +225,39 @@
   <data name="SettingsView_UseSystemLanguage" xml:space="preserve">
     <value>System Language</value>
   </data>
+  <data name="SynchronizationEndpointEditorView_Dialog_InvalidConfigMessage" xml:space="preserve">
+    <value>Please correct the configuration.</value>
+  </data>
+  <data name="SynchronizationEndpointEditorView_Dialog_InvalidConfigTitle" xml:space="preserve">
+    <value>Invalid Config</value>
+  </data>
+  <data name="SynchronizationEndpointEditorView_Title" xml:space="preserve">
+    <value>Synchronization Endpoint Editor</value>
+  </data>
+  <data name="SynchronizationEndpoint_Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="SynchronizationEndpoint_HttpPort" xml:space="preserve">
+    <value>HTTP port</value>
+  </data>
+  <data name="SynchronizationEndpoint_IsEnabled" xml:space="preserve">
+    <value>Enable this config</value>
+  </data>
+  <data name="SynchronizationEndpoint_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="SynchronizationEndpoint_Path" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="SynchronizationEndpoint_Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="SynchronizationEndpoint_UseTLS" xml:space="preserve">
+    <value>Use TLS</value>
+  </data>
+  <data name="SynchronizationEndpoint_WsPort" xml:space="preserve">
+    <value>Websocket port</value>
+  </data>
   <data name="Text_AppRestartReason_DatabaseRestore" xml:space="preserve">
     <value>The App database is restored. Please restart the App to access the lastest data.</value>
   </data>
@@ -234,14 +267,14 @@
   <data name="Text_AppRestartReason_UserRequest" xml:space="preserve">
     <value>The app is restarting due to user request.</value>
   </data>
-  <data name="Text_ConfirmLeave" xml:space="preserve">
+  <data name="Text_ConfirmForLeave" xml:space="preserve">
     <value>Do you want to leave the page?</value>
   </data>
   <data name="Text_Content" xml:space="preserve">
     <value>Content</value>
   </data>
   <data name="Text_DatabaseBackupCompleteMessage" xml:space="preserve">
-    <value>Databse backup is compeleted.</value>
+    <value>Database backup is completed.</value>
   </data>
   <data name="Text_DatabaseBackupCompleteTitle" xml:space="preserve">
     <value>Database Backup</value>
@@ -303,13 +336,16 @@
   <data name="Text_Restart_Cancel" xml:space="preserve">
     <value>Later</value>
   </data>
+  <data name="Text_RevealPassword" xml:space="preserve">
+    <value>Reveal password</value>
+  </data>
   <data name="Text_Save" xml:space="preserve">
     <value>Save</value>
   </data>
   <data name="Text_Title" xml:space="preserve">
     <value>Title</value>
   </data>
-  <data name="Text_UnsavedModifications" xml:space="preserve">
+  <data name="Text_UnsavedModificationsWillBeLost" xml:space="preserve">
     <value>Unsaved modifications will be lost.</value>
   </data>
 </root>

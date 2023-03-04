@@ -212,13 +212,13 @@ namespace ACycle.Services
         }
     }
 
-    public class EntryServiceEventArgs<TModel> : EventArgs
+    public class EntryServiceEventArgs<TEntry> : EventArgs
     {
-        public TModel Model;
+        public TEntry Entry;
 
-        public EntryServiceEventArgs(TModel model)
+        public EntryServiceEventArgs(TEntry model)
         {
-            Model = model;
+            Entry = model;
         }
     }
 }

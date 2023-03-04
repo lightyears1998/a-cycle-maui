@@ -2,13 +2,96 @@
 <views:ContentPageBase
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:views="clr-namespace:ACycle.Views"
     xmlns:viewModels="clr-namespace:ACycle.ViewModels"
     xmlns:ext="clr-namespace:ACycle.Extensions"
     x:Class="ACycle.Views.SynchronizationEndpointEditorView"
     x:DataType="viewModels:SynchronizationEndpointEditorViewModel"
-    Title="{ext:LocaleString Key=SynchronizationConfigView_Title}">
+    Title="{ext:LocaleString Key=SynchronizationEndpointEditorView_Title}">
 
-    <Grid Margin="8" RowSpacing="8" RowDefinitions="Auto, *, Auto">
-    </Grid>
+    <ContentPage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView Margin="8">
+        <VerticalStackLayout Spacing="8">
+            <VerticalStackLayout>
+                <Label Text="{ext:LocaleString Key=SynchronizationEndpoint_IsEnabled}" />
+                <Switch IsToggled="{Binding Endpoint.IsEnabled}" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label Text="{ext:LocaleString Key=SynchronizationEndpoint_Host}" />
+                <Entry Text="{Binding Endpoint.Host}" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label Text="{ext:LocaleString Key=SynchronizationEndpoint_Path}" />
+                <Entry Text="{Binding Endpoint.Path}" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label Text="{ext:LocaleString Key=SynchronizationEndpoint_HttpPort}" />
+                <Entry
+                Text="{Binding Endpoint.HttpPort}"
+                Keyboard="Numeric">
+                    <Entry.Behaviors>
+                        <toolkit:NumericValidationBehavior
+                        MinimumValue="1"
+                        MaximumValue="65535"
+                        MaximumDecimalPlaces="0"
+                        Flags="ValidateOnValueChanged"
+                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                        IsValid="{Binding HttpPortIsValid}" />
+                    </Entry.Behaviors>
+                </Entry>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label Text="{ext:LocaleString Key=SynchronizationEndpoint_WsPort}" />
+                <Entry
+                    Text="{Binding Endpoint.WsPort}"
+                    Keyboard="Numeric">
+                    <Entry.Behaviors>
+                        <toolkit:NumericValidationBehavior
+                            MinimumValue="1"
+                            MaximumValue="65535"
+                            MaximumDecimalPlaces="0"
+                            Flags="ValidateOnValueChanged"
+                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                            IsValid="{Binding WsPortIsValid}" />
+                    </Entry.Behaviors>
+                </Entry>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label Text="{ext:LocaleString Key=SynchronizationEndpoint_UseTLS}" />
+                <Switch IsToggled="{Binding Endpoint.UseTLS}" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label Text="{ext:LocaleString Key=SynchronizationEndpoint_Username}" />
+                <Entry Text="{Binding Endpoint.Username}" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label Text="{ext:LocaleString Key=SynchronizationEndpoint_Password}" />
+                <Grid ColumnSpacing="4" ColumnDefinitions="*, Auto">
+                    <Entry Text="{Binding Endpoint.Password}" IsPassword="{Binding MaskPassword}" />
+                    <Button
+                        Grid.Column="1"
+                        Text="{ext:LocaleString Key=Text_RevealPassword}"
+                        Command="{Binding ToggleMaskPasswordCommand}" />
+                </Grid>
+            </VerticalStackLayout>
+
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="4">
+                <Button Text="{ext:LocaleString Key=Text_Save}" Command="{Binding SaveEndpointCommand}" />
+                <Button Text="{ext:LocaleString Key=Text_Discard}" Command="{Binding ConfirmForLeaveCommand}" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </views:ContentPageBase>

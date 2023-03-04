@@ -1,8 +1,9 @@
 ﻿namespace ACycle.Models
 {
-    public class FeaturePreference
+    public record class FeaturePreference
     {
-        public bool ActivityEnabled = true;
-        public bool DiaryEnabled = true;
+        public bool ActivityEnabled { set; get; } = true;
+
+        public bool DiaryEnabled { set; get; } = true;
     }
 }
