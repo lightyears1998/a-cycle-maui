@@ -204,8 +204,8 @@
   <data name="LandingView_Heading" xml:space="preserve">
     <value>Welcome to ACycle!</value>
   </data>
-  <data name="SettingsView_CrossDeviceSyncSettingsView_CrossDeviceSynchronization" xml:space="preserve">
-    <value>Cross Device Synchronization</value>
+  <data name="SettingsView_DoSync" xml:space="preserve">
+    <value>Do Sync</value>
   </data>
   <data name="SettingsView_EditSynchronizationConfiguration" xml:space="preserve">
     <value>Edit Synchronization Configuration</value>
@@ -218,6 +218,9 @@
   </data>
   <data name="SettingsView_RestartDueToLanguageChangeHint" xml:space="preserve">
     <value>Please restart the application for the language changes to take effects.</value>
+  </data>
+  <data name="SettingsView_SynchronizationInBackground" xml:space="preserve">
+    <value>Synchronization in Background</value>
   </data>
   <data name="SettingsView_Title" xml:space="preserve">
     <value>Settings</value>

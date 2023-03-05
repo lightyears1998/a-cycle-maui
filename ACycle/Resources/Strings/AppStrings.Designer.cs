@@ -322,11 +322,11 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cross Device Synchronization.
+        ///   Looks up a localized string similar to Do Sync.
         /// </summary>
-        public static string SettingsView_CrossDeviceSyncSettingsView_CrossDeviceSynchronization {
+        public static string SettingsView_DoSync {
             get {
-                return ResourceManager.GetString("SettingsView_CrossDeviceSyncSettingsView_CrossDeviceSynchronization", resourceCulture);
+                return ResourceManager.GetString("SettingsView_DoSync", resourceCulture);
             }
         }
         
@@ -363,6 +363,15 @@ namespace ACycle.Resources.Strings {
         public static string SettingsView_RestartDueToLanguageChangeHint {
             get {
                 return ResourceManager.GetString("SettingsView_RestartDueToLanguageChangeHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synchronization in Background.
+        /// </summary>
+        public static string SettingsView_SynchronizationInBackground {
+            get {
+                return ResourceManager.GetString("SettingsView_SynchronizationInBackground", resourceCulture);
             }
         }
         
