@@ -27,9 +27,28 @@ namespace ACycle.Models
         {
             get
             {
-                var crypt = SHA256.Create();
-                var bytes = crypt.ComputeHash(Encoding.UTF8.GetBytes(Password));
+                var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(Password));
                 return Convert.ToHexString(bytes).ToLower();
+            }
+        }
+
+        public string BriefDescription => $"{Username}@{Host}/{Path} {HttpPort}:{WsPort} (Enabled: {IsEnabled})";
+
+        public Uri HttpUri
+        {
+            get
+            {
+                var schema = UseTLS ? "https" : "http";
+                return new($"{schema}://{Host.TrimEnd('/')}:{HttpPort}/{Path.Trim('/')}/");
+            }
+        }
+
+        public Uri WsUri
+        {
+            get
+            {
+                var schema = UseTLS ? "wss" : "ws";
+                return new($"{schema}://{Host.TrimEnd('/')}:{WsPort}/{Path.Trim('/')}/socket");
             }
         }
     }
