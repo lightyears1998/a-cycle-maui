@@ -63,6 +63,7 @@ namespace ACycle
         {
             builder.Services
                 .AddSingleton<MetadataRepository>()
+                .AddSingleton<IEntryRepository>(EntryRepository.Instance)
                 .AddSingleton(typeof(IEntryRepository<>), typeof(EntryRepository<>));
 
             return builder;

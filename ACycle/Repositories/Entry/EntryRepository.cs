@@ -1,30 +1,38 @@
 ﻿using ACycle.Entities;
 
-namespace ACycle.Services.Synchronization
+namespace ACycle.Repositories
 {
-    public class EntryRegistry
+    public class EntryRepository : IEntryRepository
     {
+        private readonly List<Type> _entryTypes = new();
         private readonly Dictionary<Type, string> _type2str = new();
         private readonly Dictionary<string, Type> _str2type = new();
 
-        private EntryRegistry()
+        public static EntryRepository Instance => new();
+
+        private EntryRepository()
         {
             RegisterEntries();
         }
 
         private void RegisterEntries()
         {
-            RegisterEntry(typeof(ActivityCategoryV1), "activity_category_v1");
-            RegisterEntry(typeof(DiaryV1), "diary_v1");
+            RegisterEntryType<DiaryV1>();
         }
 
-        private void RegisterEntry(Type type, string contentTypeString)
+        private void RegisterEntryType<TEntry>()
+            where TEntry : Entities.Entry
         {
+            var type = typeof(TEntry);
+            var contentTypeString = typeof(TEntry).Name;
+
+            if (_entryTypes.Contains(type))
+                throw new ArgumentException($"Duplicate type: {type} has been registered.");
+
+            _entryTypes.Add(type);
             _type2str[type] = contentTypeString;
             _str2type[contentTypeString] = type;
         }
-
-        public static EntryRegistry Instance => new();
 
         public Type GetTypeFromContentTypeString(string contentTypeString)
         {

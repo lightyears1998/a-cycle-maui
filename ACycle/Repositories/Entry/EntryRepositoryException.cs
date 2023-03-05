@@ -1,13 +1,14 @@
-﻿namespace ACycle.Services.Synchronization
+﻿namespace ACycle.Repositories
 {
-    public abstract class EntryRegistryException : Exception
+    public abstract class EntryRepositoryException
+        : Exception
     {
-        public EntryRegistryException(string message) : base(message)
+        public EntryRepositoryException(string message) : base(message)
         {
         }
     }
 
-    public class ContentTypeStringUnknownException : EntryRegistryException
+    public class ContentTypeStringUnknownException : EntryRepositoryException
     {
         public string ContentTypeString { get; set; }
 
@@ -17,7 +18,7 @@
         }
     }
 
-    public class EntryTypeUnknownException : EntryRegistryException
+    public class EntryTypeUnknownException : EntryRepositoryException
     {
         public Type Type { get; set; }
 
