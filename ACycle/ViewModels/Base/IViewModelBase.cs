@@ -15,5 +15,7 @@
         void OnViewNavigatedFrom(NavigatedFromEventArgs args);
 
         void OnViewNavigatingFrom(NavigatingFromEventArgs args);
+
+        void OnViewNavigatedTo(NavigatedToEventArgs args);
     }
 }

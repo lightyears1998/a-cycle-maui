@@ -49,5 +49,15 @@ namespace ACycle.Views
                 model.OnViewNavigatingFrom(args);
             }
         }
+
+        protected override void OnNavigatedTo(NavigatedToEventArgs args)
+        {
+            base.OnNavigatedTo(args);
+
+            if (BindingContext is IViewModelBase model)
+            {
+                model.OnViewNavigatedTo(args);
+            }
+        }
     }
 }

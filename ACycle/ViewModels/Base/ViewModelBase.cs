@@ -80,5 +80,9 @@ namespace ACycle.ViewModels
         public virtual void OnViewNavigatingFrom(NavigatingFromEventArgs args)
         {
         }
+
+        public virtual void OnViewNavigatedTo(NavigatedToEventArgs args)
+        {
+        }
     }
 }
