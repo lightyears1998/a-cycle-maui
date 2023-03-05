@@ -21,6 +21,7 @@
                     <TextCell Text="Application Name" Detail="{x:Binding ApplicationNameString}" />
                     <TextCell Text="Application Version" Detail="{x:Binding ApplicationVersionString}" />
                     <TextCell Text="Database Schema Version" Detail="{x:Binding DatabaseSchemaVersionString}" />
+                    <TextCell Text="Connectivity" Detail="{x:Binding ConnectivityString}" />
                 </TableSection>
             </TableRoot>
         </TableView>

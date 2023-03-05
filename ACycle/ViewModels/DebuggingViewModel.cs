@@ -32,6 +32,15 @@ namespace ACycle.ViewModels
 
         public string DatabaseSchemaVersionString => $"{_staticConfigurationService.DatabaseSchemaVersion}";
 
+        public string ConnectivityString
+        {
+            get
+            {
+                var profiles = Connectivity.Current.ConnectionProfiles.Select(profile => profile.ToString()).ToList();
+                return string.Join(", ", profiles);
+            }
+        }
+
         public DebuggingViewModel(
             IAppLifecycleService appLifecycleService,
             IBackupService backupService,
