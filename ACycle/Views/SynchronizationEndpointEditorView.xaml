@@ -25,12 +25,16 @@
 
             <VerticalStackLayout>
                 <Label Text="{ext:LocaleString Key=SynchronizationEndpoint_Host}" />
-                <Entry Text="{Binding Endpoint.Host}" />
+                <Entry
+                    Text="{Binding Endpoint.Host}"
+                    IsSpellCheckEnabled="False" />
             </VerticalStackLayout>
 
             <VerticalStackLayout>
                 <Label Text="{ext:LocaleString Key=SynchronizationEndpoint_Path}" />
-                <Entry Text="{Binding Endpoint.Path}" />
+                <Entry
+                    Text="{Binding Endpoint.Path}"
+                    IsSpellCheckEnabled="False" />
             </VerticalStackLayout>
 
             <VerticalStackLayout>
@@ -74,13 +78,18 @@
 
             <VerticalStackLayout>
                 <Label Text="{ext:LocaleString Key=SynchronizationEndpoint_Username}" />
-                <Entry Text="{Binding Endpoint.Username}" />
+                <Entry
+                    Text="{Binding Endpoint.Username}"
+                    IsSpellCheckEnabled="False" />
             </VerticalStackLayout>
 
             <VerticalStackLayout>
                 <Label Text="{ext:LocaleString Key=SynchronizationEndpoint_Password}" />
                 <Grid ColumnSpacing="4" ColumnDefinitions="*, Auto">
-                    <Entry Text="{Binding Endpoint.Password}" IsPassword="{Binding MaskPassword}" />
+                    <Entry
+                        Text="{Binding Endpoint.Password}"
+                        IsPassword="{Binding MaskPassword}"
+                        IsSpellCheckEnabled="False" />
                     <Button
                         Grid.Column="1"
                         Text="{ext:LocaleString Key=Text_RevealPassword}"

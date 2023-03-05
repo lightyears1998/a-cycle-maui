@@ -33,7 +33,7 @@ namespace ACycle.ViewModels
         public bool WsPortIsValid { set; get; }
 
         [ObservableProperty]
-        private bool _maskPassword = false;
+        private bool _maskPassword = true;
 
         public SynchronizationEndpointEditorViewModel(
             IDialogService dialogService,
@@ -59,6 +59,8 @@ namespace ACycle.ViewModels
             if (EndpointIsValid)
             {
                 await _endpointService.SaveAsync(Endpoint);
+                _lastSavedEndpoint = Endpoint;
+                await _navigationService.GoBackAsync();
             }
             else
             {

@@ -13,7 +13,7 @@ namespace ACycle.ViewModels
         private INavigationService _navigationService;
 
         [ObservableProperty]
-        private RelayCollection<SynchronizationEndpoint, RelaySynchronizationEndpoint> _relaySynchronizationEndpoints;
+        private RelayCollection<SynchronizationEndpoint, SynchronizationEndpointRelay> _relaySynchronizationEndpoints;
 
         public SynchronizationEndpointViewModel(
             ISynchronizationEndpointService endpointService,
@@ -22,8 +22,8 @@ namespace ACycle.ViewModels
             _endpointService = endpointService;
             _navigationService = navigation;
 
-            _relaySynchronizationEndpoints = new RelayCollection<SynchronizationEndpoint, RelaySynchronizationEndpoint>(
-                (item, collection) => new RelaySynchronizationEndpoint(item,
+            _relaySynchronizationEndpoints = new RelayCollection<SynchronizationEndpoint, SynchronizationEndpointRelay>(
+                (item, collection) => new SynchronizationEndpointRelay(item,
                 editCommand: new AsyncRelayCommand(async () =>
                     {
                         await EditEndpointAsync(item);
@@ -31,8 +31,7 @@ namespace ACycle.ViewModels
                 ),
                 removeCommand: new AsyncRelayCommand(async () =>
                     {
-                        await _endpointService.RemoveAsync(item);
-                        collection.Remove(item);
+                        await RemoveEndpointAsync(item);
                     }))
                 );
         }
@@ -42,7 +41,7 @@ namespace ACycle.ViewModels
             await LoadEndpointsAsync();
         }
 
-        public override void OnViewNavigatingFrom(NavigatingFromEventArgs args)
+        public override void OnViewNavigatedTo(NavigatedToEventArgs args)
         {
             _ = LoadEndpointsAsync();
         }
@@ -64,16 +63,22 @@ namespace ACycle.ViewModels
         {
             await _navigationService.NavigateToAsync(
                 AppShell.Route.SynchronizationEndpointEditorViewRoute,
-                new Dictionary<string, object> { { "endpoint", endpoint } });
+                new Dictionary<string, object> { { nameof(SynchronizationEndpointEditorViewModel.Endpoint), endpoint } });
         }
 
-        public class RelaySynchronizationEndpoint : Relay<SynchronizationEndpoint>
+        public async Task RemoveEndpointAsync(SynchronizationEndpoint endpoint)
+        {
+            await _endpointService.RemoveAsync(endpoint);
+            RelaySynchronizationEndpoints.Remove(endpoint);
+        }
+
+        public class SynchronizationEndpointRelay : Relay<SynchronizationEndpoint>
         {
             public ICommand EditCommand { get; }
 
             public ICommand RemoveCommand { get; }
 
-            public RelaySynchronizationEndpoint(SynchronizationEndpoint item, ICommand editCommand, ICommand removeCommand) : base(item)
+            public SynchronizationEndpointRelay(SynchronizationEndpoint item, ICommand editCommand, ICommand removeCommand) : base(item)
             {
                 EditCommand = editCommand;
                 RemoveCommand = removeCommand;

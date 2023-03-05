@@ -82,6 +82,10 @@ namespace ACycle.ViewModels
         [ObservableProperty]
         private bool _synchronizationSwitchEnabled = true;
 
+        public string SynchronizationStatus => _synchronizationService.SynchronizationStatus;
+
+        public bool ShowSynchronizationStatus => SynchronizationStatus != string.Empty;
+
         public SettingsViewModel(
             IAppLifecycleService appLifecycleService,
             IDialogService dialogService,
@@ -138,15 +142,23 @@ namespace ACycle.ViewModels
         }
 
         [RelayCommand]
-        public async Task OpenDebuggingMenuAsync()
-        {
-            await _navigationService.NavigateToAsync(AppShell.Route.DebuggingViewRoute);
-        }
-
-        [RelayCommand]
         public async Task OpenEndpointListViewAsync()
         {
             await _navigationService.NavigateToAsync(AppShell.Route.SynchronizationEndpointViewRoute);
+        }
+
+        [RelayCommand]
+        public async Task DoSync()
+        {
+            await _synchronizationService.SyncAsync();
+            OnPropertyChanged(nameof(SynchronizationStatus));
+            OnPropertyChanged(nameof(ShowSynchronizationStatus));
+        }
+
+        [RelayCommand]
+        public async Task OpenDebuggingMenuAsync()
+        {
+            await _navigationService.NavigateToAsync(AppShell.Route.DebuggingViewRoute);
         }
 
         private async Task ConfirmAppRestartAsync()

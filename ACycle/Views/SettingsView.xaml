@@ -21,14 +21,19 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout>
-                <Label Text="{ext:LocaleString Key=SettingsView_CrossDeviceSynchronization}" />
+                <Label Text="{ext:LocaleString Key=SettingsView_SynchronizationInBackground}" />
                 <Switch
                     IsToggled="{Binding SynchronizationEnabled}"
                     IsEnabled="{Binding SynchronizationSwitchEnabled}" />
                 <Button
+                    Text="{ext:LocaleString Key=SettingsView_DoSync}"
+                    Command="{Binding DoSyncCommand}" />
+                <Button
                     Text="{ext:LocaleString Key=SettingsView_EditSynchronizationConfiguration}"
                     Command="{Binding OpenEndpointListViewCommand}" />
-                <Label Text="{Binding SynchronizationStatus}" />
+                <Label
+                    Text="{Binding SynchronizationStatus}"
+                    IsVisible="{Binding ShowSynchronizationStatus}" />
             </VerticalStackLayout>
 
             <Button

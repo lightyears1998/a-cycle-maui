@@ -5,10 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewModels="clr-namespace:ACycle.ViewModels"
     xmlns:ext="clr-namespace:ACycle.Extensions"
-    x:DataType="{x:Type viewModels:DiaryViewModel+DiaryRelay}">
+    x:DataType="{x:Type viewModels:SynchronizationEndpointViewModel+SynchronizationEndpointRelay}">
     <VerticalStackLayout>
-        <Label Text="{Binding Item.Title}" FontAttributes="Bold" />
-        <Label Text="{Binding Item.Content}" />
+        <Label Text="{Binding Item.IsEnabled}" FontAttributes="Bold" />
+        <Label Text="{Binding Item}" />
         <FlyoutBase.ContextFlyout>
             <MenuFlyout>
                 <MenuFlyoutItem Text="{ext:LocaleString Key=Text_Edit}" Command="{Binding EditCommand}" />

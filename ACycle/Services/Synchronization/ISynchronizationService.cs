@@ -6,10 +6,14 @@ namespace ACycle.Services
     {
         bool SynchronizationEnabled { get; }
 
+        string SynchronizationStatus { get; }
+
         ObservableCollectionEx<SynchronizationEndpoint> SynchronizationEndpoints { get; }
 
         Task InitializeAsync();
 
         Task SetSynchronizationEnabledAsync(bool value);
+
+        Task SyncAsync();
     }
 }
