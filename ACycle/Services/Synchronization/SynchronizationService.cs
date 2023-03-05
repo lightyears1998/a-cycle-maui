@@ -1,20 +1,45 @@
 ﻿using ACycle.Models;
+using ACycle.Services.Synchronization;
+using Microsoft.Extensions.Logging;
 
 namespace ACycle.Services
 {
     public class SynchronizationService : Service, ISynchronizationService
     {
+        private readonly ILogger _serviceLogger;
+        private readonly ILogger _workerLogger;
+
+        private readonly IConfigurationService _configurationService;
+        private readonly IServiceProvider _serviceProvider;
         private readonly IMetadataService _metadataService;
         private readonly ISynchronizationEndpointService _endpointService;
 
+        private IDispatcherTimer? _syncCountdownTimer;
+
         public bool SynchronizationEnabled { get; protected set; }
+
+        public TimeSpan SynchronizationInterval { get; } = TimeSpan.FromMinutes(10);
+
+        public string SynchronizationStatus { get; protected set; } = string.Empty;
 
         public ObservableCollectionEx<SynchronizationEndpoint> SynchronizationEndpoints { get; } = new();
 
-        public SynchronizationService(IMetadataService metadataService, ISynchronizationEndpointService endpointService)
+        public SynchronizationService(
+            ILogger<SynchronizationService> serviceLogger,
+            ILogger<SynchronizationWorker> workerLogger,
+            IConfigurationService configurationService,
+            IServiceProvider serviceProvider,
+            IMetadataService metadataService,
+            ISynchronizationEndpointService endpointService)
         {
+            _serviceLogger = serviceLogger;
+            _workerLogger = workerLogger;
+
+            _configurationService = configurationService;
+            _serviceProvider = serviceProvider;
             _metadataService = metadataService;
             _endpointService = endpointService;
+
             _endpointService.SynchronizationEndpointChanged += OnEndpointChanged;
         }
 
@@ -22,12 +47,54 @@ namespace ACycle.Services
         {
             SynchronizationEnabled = await _metadataService.GetBoolMetadataAsync(MetadataKeys.SYNCHRONIZATION_ENABLED, false);
             await LoadEndpointsAsync();
+
+            SetupSyncCountdownTimer();
+
+            _serviceLogger.LogInformation($"{nameof(SynchronizationService)} initialized.");
         }
 
         public async Task SetSynchronizationEnabledAsync(bool value)
         {
             await _metadataService.SetBoolMetadataAsync(MetadataKeys.SYNCHRONIZATION_ENABLED, value);
             SynchronizationEnabled = value;
+
+            if (SynchronizationEnabled)
+            {
+                SetupSyncCountdownTimer();
+            }
+            else
+            {
+                ClearSyncCountdownTimer();
+            }
+        }
+
+        private void SetupSyncCountdownTimer()
+        {
+            ClearSyncCountdownTimer();
+
+            _syncCountdownTimer = Application.Current!.Dispatcher.CreateTimer();
+            _syncCountdownTimer.IsRepeating = true;
+            _syncCountdownTimer.Interval = SynchronizationInterval;
+            _syncCountdownTimer.Tick += OnSyncCountdownTimerTick;
+            _syncCountdownTimer.Start();
+        }
+
+        private void ClearSyncCountdownTimer()
+        {
+            if (_syncCountdownTimer != null)
+            {
+                _syncCountdownTimer.Stop();
+                _syncCountdownTimer = null;
+            }
+        }
+
+        private void OnSyncCountdownTimerTick(object? sender, EventArgs args)
+        {
+            _serviceLogger.LogInformation($"{nameof(OnSyncCountdownTimerTick)} started.");
+
+            SyncAsync().Wait();
+
+            _serviceLogger.LogInformation($"{nameof(OnSyncCountdownTimerTick)} completed.");
         }
 
         protected async void OnEndpointChanged(object? sender, EventArgs args)
@@ -38,6 +105,34 @@ namespace ACycle.Services
         protected async Task LoadEndpointsAsync()
         {
             SynchronizationEndpoints.Reload(await _endpointService.LoadAsync());
+        }
+
+        public async Task SyncAsync()
+        {
+            try
+            {
+                foreach (var endpoint in SynchronizationEndpoints.Where(endpoint => endpoint.IsEnabled))
+                {
+                    await SyncAtEndpointAsync(endpoint);
+                }
+            }
+            catch (Exception ex) when (ex is SynchronizationException || ex is not null)
+            {
+                SynchronizationStatus = ex.ToString();
+                return;
+            }
+
+            SynchronizationStatus = "Sync completed.";
+        }
+
+        public async Task SyncAtEndpointAsync(SynchronizationEndpoint endpoint)
+        {
+            var worker = new SynchronizationWorker(
+                endpoint,
+                _workerLogger,
+                _configurationService);
+
+            await worker.SyncAsync();
         }
 
         protected static class MetadataKeys
