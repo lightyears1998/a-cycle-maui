@@ -1,4 +1,6 @@
-﻿namespace ACycle.Repositories
+﻿using ACycle.Repositories.Entry;
+
+namespace ACycle.Repositories
 {
     public interface IEntryRepository<T> : IRepository<T>
         where T : Entities.Entry, new()
@@ -16,5 +18,7 @@
         Task RemoveAsync(T entry);
 
         Task SaveIfFresherAsync(IEnumerable<T> entries);
+
+        Task<List<EntryMetadata>> GetAllMetadataAsync();
     }
 }

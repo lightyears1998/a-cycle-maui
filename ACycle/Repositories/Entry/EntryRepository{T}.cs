@@ -1,4 +1,5 @@
-﻿using ACycle.Services;
+﻿using ACycle.Repositories.Entry;
+using ACycle.Services;
 using ACycle.Services.Database;
 
 namespace ACycle.Repositories
@@ -74,6 +75,12 @@ namespace ACycle.Repositories
             var query = _connection.MainDatabase.Table<T>()
                 .Where(entry => entry.RemovedAt == null && entry.Uuid == uuid);
             return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<List<EntryMetadata>> GetAllMetadataAsync()
+        {
+            var entries = await FindAllAsync();
+            return entries.Select(entry => entry.GetMetadata()).ToList();
         }
     }
 }

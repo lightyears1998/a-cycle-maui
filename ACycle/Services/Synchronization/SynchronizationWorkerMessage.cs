@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json.Linq;
 
+#pragma warning disable CS0649 // Field 'field' is never assigned to, and will always have its default value.
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor.
+
 namespace ACycle.Services.Synchronization
 {
     public partial class SynchronizationWorker
     {
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-
         #region HttpMessage
 
         private record class HttpResponse<TPayload>
@@ -86,7 +87,5 @@ namespace ACycle.Services.Synchronization
         }
 
         #endregion WebSocketMessage
-
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     }
 }

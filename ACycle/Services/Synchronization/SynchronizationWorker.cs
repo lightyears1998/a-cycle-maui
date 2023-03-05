@@ -1,13 +1,12 @@
 ﻿using ACycle.Models;
+using ACycle.Repositories;
 using CommunityToolkit.Diagnostics;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Headers;
 using System.Net.WebSockets;
-using System.Runtime.CompilerServices;
 using System.Web;
 using Websocket.Client;
 
@@ -19,16 +18,19 @@ namespace ACycle.Services.Synchronization
         private readonly ILogger _logger;
 
         private readonly IConfigurationService _configurationService;
+        private readonly IEntryRepository _entryRepository;
 
         public SynchronizationWorker(
             SynchronizationEndpoint endpoint,
             ILogger logger,
-            IConfigurationService configurationService)
+            IConfigurationService configurationService,
+            IEntryRepository entryRepository)
         {
             _endpoint = endpoint;
             _logger = logger;
 
             _configurationService = configurationService;
+            _entryRepository = entryRepository;
         }
 
         public async Task SyncAsync()
@@ -108,13 +110,15 @@ namespace ACycle.Services.Synchronization
 
             var payload = await MakeHttpRequest<GetTokenPayload>(message);
             var token = payload.token;
-            ThrowExceptionIfNull(token, "Fail to get token");
+            ThrowExceptionIfNull(token, "Fail to get token.");
 
             return token;
         }
 
         private async Task DoFullSyncAsync(string token)
         {
+            var allMetadata = await _entryRepository.GetAllMetadataAsync();
+
             var exitEvent = new ManualResetEvent(false);
 
             using WebsocketClient client = new(_endpoint.WsUri, () =>
@@ -137,7 +141,7 @@ namespace ACycle.Services.Synchronization
                 try
                 {
                     var plainSocketMessage = socketMessage.ToString();
-                    _logger.LogInformation("Received: {Message}", plainSocketMessage);
+                    _logger.LogInformation("Received: {Message}.", plainSocketMessage);
 
                     var message = JsonConvert.DeserializeObject<WebSocketMessage>(plainSocketMessage);
                     Guard.IsNotNull(message);
@@ -155,9 +159,16 @@ namespace ACycle.Services.Synchronization
                             break;
 
                         case "sync-recent-request":
-                            sendMessage(new WebSocketMessage { 
+                            sendMessage(new WebSocketMessage
+                            {
                                 type = "sync-recent-response",
-                                errors = new Exception[] { new NotImplementedException() } });
+                                errors = new Exception[] { new NotImplementedException() }
+                            });
+                            break;
+
+                        case "sync-full-meta-query":
+                            var metaQueryPayload = (payload as JObject)!.ToObject<SyncFullMetaQueryPayload>()!;
+                            var skip = metaQueryPayload.skip;
                             break;
 
                         default:

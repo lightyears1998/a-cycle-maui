@@ -1,4 +1,5 @@
 ﻿using ACycle.Models;
+using ACycle.Repositories;
 using ACycle.Services.Synchronization;
 using Microsoft.Extensions.Logging;
 
@@ -10,6 +11,7 @@ namespace ACycle.Services
         private readonly ILogger _workerLogger;
 
         private readonly IConfigurationService _configurationService;
+        private readonly IEntryRepository _entryRepository;
         private readonly IServiceProvider _serviceProvider;
         private readonly IMetadataService _metadataService;
         private readonly ISynchronizationEndpointService _endpointService;
@@ -28,6 +30,7 @@ namespace ACycle.Services
             ILogger<SynchronizationService> serviceLogger,
             ILogger<SynchronizationWorker> workerLogger,
             IConfigurationService configurationService,
+            IEntryRepository entryRepository,
             IServiceProvider serviceProvider,
             IMetadataService metadataService,
             ISynchronizationEndpointService endpointService)
@@ -36,6 +39,7 @@ namespace ACycle.Services
             _workerLogger = workerLogger;
 
             _configurationService = configurationService;
+            _entryRepository = entryRepository;
             _serviceProvider = serviceProvider;
             _metadataService = metadataService;
             _endpointService = endpointService;
@@ -130,7 +134,8 @@ namespace ACycle.Services
             var worker = new SynchronizationWorker(
                 endpoint,
                 _workerLogger,
-                _configurationService);
+                _configurationService,
+                _entryRepository);
 
             await worker.SyncAsync();
         }

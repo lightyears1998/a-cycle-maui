@@ -1,17 +1,21 @@
 ﻿using ACycle.Entities;
+using ACycle.Repositories.Entry;
+using CommunityToolkit.Diagnostics;
 
 namespace ACycle.Repositories
 {
     public class EntryRepository : IEntryRepository
     {
+        private readonly IServiceProvider _serviceProvider;
+
         private readonly List<Type> _entryTypes = new();
         private readonly Dictionary<Type, string> _type2str = new();
         private readonly Dictionary<string, Type> _str2type = new();
 
-        public static EntryRepository Instance => new();
-
-        private EntryRepository()
+        public EntryRepository(IServiceProvider serviceProvider)
         {
+            _serviceProvider = serviceProvider;
+
             RegisterEntries();
         }
 
@@ -52,6 +56,21 @@ namespace ACycle.Repositories
             }
 
             return _type2str[type];
+        }
+
+        public async Task<List<EntryMetadata>> GetAllMetadataAsync()
+        {
+            List<EntryMetadata> allMetadata = new();
+            foreach (var type in _entryTypes)
+            {
+                var repoType = typeof(IEntryRepository<>).MakeGenericType(type);
+                dynamic repo = _serviceProvider.GetService(repoType)!;
+                Guard.IsNotNull(repo);
+
+                var metadata = (List<EntryMetadata>)await repo.GetAllMetadataAsync();
+                allMetadata.AddRange(metadata);
+            }
+            return allMetadata;
         }
     }
 }
