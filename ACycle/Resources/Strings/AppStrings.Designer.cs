@@ -331,11 +331,11 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit Synchronization Endpoints.
+        ///   Looks up a localized string similar to Edit Synchronization Configuration.
         /// </summary>
-        public static string SettingsView_EditSynchronizationEndpoints {
+        public static string SettingsView_EditSynchronizationConfiguration {
             get {
-                return ResourceManager.GetString("SettingsView_EditSynchronizationEndpoints", resourceCulture);
+                return ResourceManager.GetString("SettingsView_EditSynchronizationConfiguration", resourceCulture);
             }
         }
         
@@ -480,6 +480,24 @@ namespace ACycle.Resources.Strings {
         public static string SynchronizationEndpointEditorView_Title {
             get {
                 return ResourceManager.GetString("SynchronizationEndpointEditorView_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Endpoint.
+        /// </summary>
+        public static string SynchronizationEndpointView_AddEndpoint {
+            get {
+                return ResourceManager.GetString("SynchronizationEndpointView_AddEndpoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synchronization Endpoints.
+        /// </summary>
+        public static string SynchronizationEndpointView_Title {
+            get {
+                return ResourceManager.GetString("SynchronizationEndpointView_Title", resourceCulture);
             }
         }
         

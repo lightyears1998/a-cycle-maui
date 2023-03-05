@@ -207,8 +207,8 @@
   <data name="SettingsView_CrossDeviceSyncSettingsView_CrossDeviceSynchronization" xml:space="preserve">
     <value>Cross Device Synchronization</value>
   </data>
-  <data name="SettingsView_EditSynchronizationEndpoints" xml:space="preserve">
-    <value>Edit Synchronization Endpoints</value>
+  <data name="SettingsView_EditSynchronizationConfiguration" xml:space="preserve">
+    <value>Edit Synchronization Configuration</value>
   </data>
   <data name="SettingsView_LanguagePickerTitle" xml:space="preserve">
     <value>Language</value>
@@ -233,6 +233,12 @@
   </data>
   <data name="SynchronizationEndpointEditorView_Title" xml:space="preserve">
     <value>Synchronization Endpoint Editor</value>
+  </data>
+  <data name="SynchronizationEndpointView_AddEndpoint" xml:space="preserve">
+    <value>Add Endpoint</value>
+  </data>
+  <data name="SynchronizationEndpointView_Title" xml:space="preserve">
+    <value>Synchronization Endpoints</value>
   </data>
   <data name="SynchronizationEndpoint_Host" xml:space="preserve">
     <value>Host</value>
