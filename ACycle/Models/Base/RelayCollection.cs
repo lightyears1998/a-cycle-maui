@@ -90,7 +90,7 @@ namespace ACycle.Models.Base
     public class RelayComparer<TItem, TRelay> : IComparer<TRelay>
         where TItem : class where TRelay : Relay<TItem>
     {
-        private IComparer<TItem> _itemComparer;
+        private readonly IComparer<TItem> _itemComparer;
 
         public RelayComparer(IComparer<TItem> itemComparer)
         {
