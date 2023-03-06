@@ -55,7 +55,9 @@ namespace ACycle.Services
             Guard.IsNotNullOrWhiteSpace(mainDatabasePath);
 
             DisconnectFromDatabase();
-            _mainDatabase = new SQLiteAsyncConnection(mainDatabasePath);
+            _mainDatabase = new SQLiteAsyncConnection(
+                mainDatabasePath,
+                SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.FullMutex);
         }
 
         public void ConnectToDatabase(SQLiteAsyncConnection connection)
