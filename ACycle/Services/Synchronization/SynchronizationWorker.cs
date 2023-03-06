@@ -1,5 +1,6 @@
 ﻿using ACycle.Models;
 using ACycle.Repositories;
+using ACycle.Repositories.Entry;
 using CommunityToolkit.Diagnostics;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -43,7 +44,10 @@ namespace ACycle.Services.Synchronization
             var token = await GetTokenAsync(userId);
             _logger.LogInformation("Got token {Token}.", token);
 
-            await DoFullSyncAsync(token);
+            var metadata = await _entryRepository.GetAllMetadataAsync();
+            _logger.LogInformation("Metadata of entries are collected. Entry Count: {EntryCount}.", metadata.Count);
+
+            await DoFullSyncAsync(token, metadata);
             _logger.LogInformation("Full sync completed.");
 
             _logger.LogInformation("Sync completed for endpoint {Endpoint}.", _endpoint.BriefDescription);
@@ -60,7 +64,7 @@ namespace ACycle.Services.Synchronization
             return new Uri(_endpoint.HttpUri, pathAndQuery);
         }
 
-        private async Task<TPayload> MakeHttpRequest<TPayload>(HttpRequestMessage message)
+        private static async Task<TPayload> MakeHttpRequest<TPayload>(HttpRequestMessage message)
             where TPayload : class, new()
         {
             using HttpClient client = new();
@@ -115,11 +119,9 @@ namespace ACycle.Services.Synchronization
             return token;
         }
 
-        private async Task DoFullSyncAsync(string token)
+        private Task DoFullSyncAsync(string token, IList<EntryMetadata> metadata)
         {
-            var allMetadata = await _entryRepository.GetAllMetadataAsync();
-
-            var exitEvent = new ManualResetEvent(false);
+            var tcs = new TaskCompletionSource();
 
             using WebsocketClient client = new(_endpoint.WsUri, () =>
             {
@@ -128,8 +130,6 @@ namespace ACycle.Services.Synchronization
                 client.Options.SetRequestHeader("A-Cycle-Peer-Node-Uuid", _configurationService.NodeUuid.ToString());
                 return client;
             });
-
-            Exception? exception = null;
 
             var sendMessage = (WebSocketMessage message) =>
             {
@@ -177,20 +177,12 @@ namespace ACycle.Services.Synchronization
                 }
                 catch (Exception ex)
                 {
-                    exception = ex;
-                    exitEvent.Set();
+                    tcs.SetException(ex);
                 }
-            }, ex =>
-            {
-                exception = ex;
-                exitEvent.Set();
-            });
+            }, tcs.SetException);
 
-            await client.Start();
-            exitEvent.WaitOne();
-
-            if (exception != null)
-                throw exception;
+            _ = client.Start();
+            return tcs.Task;
         }
     }
 }
