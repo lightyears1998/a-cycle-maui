@@ -1,4 +1,6 @@
-﻿namespace ACycle.Repositories.Entry
+﻿using ACycle.Entities;
+
+namespace ACycle.Repositories.Entry
 {
     public static class EntryExtensions
     {
@@ -12,6 +14,11 @@
                 UpdatedAt = entry.UpdatedAt,
                 UpdatedBy = entry.UpdatedBy,
             };
+        }
+
+        public static bool IsFresherThan(this IEntryComparable entry, IEntryComparable other)
+        {
+            return entry.UpdatedAt > other.UpdatedAt;
         }
     }
 }

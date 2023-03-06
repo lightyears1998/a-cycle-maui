@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using ACycle.Entities;
+using Newtonsoft.Json;
 
 namespace ACycle.Repositories.Entry
 {
-    public record class EntryMetadata
+    public record class EntryMetadata : IEntryComparable
     {
         [JsonProperty("uuid")]
         public Guid Uuid { get; set; }
