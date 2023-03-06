@@ -89,7 +89,7 @@ namespace ACycle.Services.Synchronization
                 RequestUri = GetHttpRequestUri($"users?username={HttpUtility.UrlEncode(_endpoint.Username)}")
             };
 
-            var payload = await MakeHttpRequest<GetUserIdPayload>(message);
+            var payload = await MakeHttpRequest<GetUserIdPayload>(message).ConfigureAwait(false);
             var user = payload.user;
             ThrowExceptionIfNull(user, "User doesn't exist on the server.");
 
@@ -112,17 +112,15 @@ namespace ACycle.Services.Synchronization
                     new MediaTypeHeaderValue("application/json"))
             };
 
-            var payload = await MakeHttpRequest<GetTokenPayload>(message);
+            var payload = await MakeHttpRequest<GetTokenPayload>(message).ConfigureAwait(false);
             var token = payload.token;
             ThrowExceptionIfNull(token, "Fail to get token.");
 
             return token;
         }
 
-        private Task DoFullSyncAsync(string token, IList<EntryMetadata> metadata)
+        private async Task DoFullSyncAsync(string token, List<EntryMetadata> metadata)
         {
-            var tcs = new TaskCompletionSource();
-
             using WebsocketClient client = new(_endpoint.WsUri, () =>
             {
                 var client = new ClientWebSocket();
@@ -131,10 +129,20 @@ namespace ACycle.Services.Synchronization
                 return client;
             });
 
+            await RunFullSyncProtocolAsync(client, metadata).ConfigureAwait(false);
+        }
+
+        private Task RunFullSyncProtocolAsync(WebsocketClient client, List<EntryMetadata> metadata)
+        {
+            var tcs = new TaskCompletionSource();
+
             var sendMessage = (WebSocketMessage message) =>
             {
                 client.Send(JsonConvert.SerializeObject(message));
+                _logger.LogInformation("Sent: {Message}.", message.ToString());
             };
+
+            const int transmissionPerMessage = 20;
 
             client.MessageReceived.Subscribe(socketMessage =>
             {
@@ -169,6 +177,8 @@ namespace ACycle.Services.Synchronization
                         case "sync-full-meta-query":
                             var metaQueryPayload = (payload as JObject)!.ToObject<SyncFullMetaQueryPayload>()!;
                             var skip = metaQueryPayload.skip;
+                            var partialMetadata = metadata.GetRange(skip, transmissionPerMessage);
+
                             break;
 
                         default:

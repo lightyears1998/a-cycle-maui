@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using ACycle.Repositories.Entry;
+using Newtonsoft.Json.Linq;
 
 #pragma warning disable CS0649 // Field 'field' is never assigned to, and will always have its default value.
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor.
@@ -78,12 +79,15 @@ namespace ACycle.Services.Synchronization
         [WebSocketPayload("sync-full-meta-query")]
         private record class SyncFullMetaQueryPayload
         {
-            public long skip = 0;
+            public int skip = 0;
         }
 
         [WebSocketPayload("sync-full-meta-response")]
         private record class SyncFullMetaResponsePayload
         {
+            public int skip;
+            public Dictionary<string, object> currentCursor = new();
+            public EntryMetadata[] entryMetadata = Array.Empty<EntryMetadata>();
         }
 
         #endregion WebSocketMessage

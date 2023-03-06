@@ -3,15 +3,14 @@ using ACycle.Models.Base;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.Platform;
 using System.Windows.Input;
 
 namespace ACycle.ViewModels
 {
     public partial class SynchronizationEndpointViewModel : ViewModelBase
     {
-        private ISynchronizationEndpointService _endpointService;
-        private INavigationService _navigationService;
+        private readonly ISynchronizationEndpointService _endpointService;
+        private readonly INavigationService _navigationService;
 
         [ObservableProperty]
         private RelayCollection<SynchronizationEndpoint, SynchronizationEndpointRelay> _relaySynchronizationEndpoints;
@@ -80,6 +79,11 @@ namespace ACycle.ViewModels
             public ICommand RemoveCommand { get; }
 
             public string ShareUri => Item.PasswordSha256;
+
+            public ICommand CopyShareUriToClipboardCommand => new Command(async () =>
+            {
+                await Clipboard.Default.SetTextAsync(ShareUri);
+            });
 
             public SynchronizationEndpointRelay(SynchronizationEndpoint item, ICommand editCommand, ICommand removeCommand) : base(item)
             {

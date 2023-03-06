@@ -11,6 +11,7 @@
         <Label Text="{Binding Item}" />
         <FlyoutBase.ContextFlyout>
             <MenuFlyout>
+                <MenuFlyoutItem Text="Copy ShareUri to Clipboard" Command="{Binding CopyShareUriToClipboardCommand}" />
                 <MenuFlyoutItem Text="{ext:LocaleString Key=Text_Edit}" Command="{Binding EditCommand}" />
                 <MenuFlyoutItem Text="{ext:LocaleString Key=Text_Remove}" Command="{Binding RemoveCommand}" />
             </MenuFlyout>

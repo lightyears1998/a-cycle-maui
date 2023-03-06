@@ -49,10 +49,10 @@ namespace ACycle.Services
 
         public override async Task InitializeAsync()
         {
-            SynchronizationEnabled = await _metadataService.GetBoolMetadataAsync(MetadataKeys.SYNCHRONIZATION_ENABLED, false);
-            await LoadEndpointsAsync();
+            SynchronizationEnabled = await _metadataService.GetBoolMetadataAsync(MetadataKeys.SYNCHRONIZATION_ENABLED, false).ConfigureAwait(false);
+            await LoadEndpointsAsync().ConfigureAwait(false);
 
-            SetupSyncCountdownTimer();
+            AdjustTimer();
 
             _serviceLogger.LogInformation($"{nameof(SynchronizationService)} initialized.");
         }
@@ -62,9 +62,14 @@ namespace ACycle.Services
             await _metadataService.SetBoolMetadataAsync(MetadataKeys.SYNCHRONIZATION_ENABLED, value);
             SynchronizationEnabled = value;
 
+            AdjustTimer();
+        }
+
+        private void AdjustTimer()
+        {
             if (SynchronizationEnabled)
             {
-                SetupSyncCountdownTimer();
+                SetupTimer();
             }
             else
             {
@@ -72,7 +77,7 @@ namespace ACycle.Services
             }
         }
 
-        private void SetupSyncCountdownTimer()
+        private void SetupTimer()
         {
             ClearSyncCountdownTimer();
 
@@ -118,7 +123,7 @@ namespace ACycle.Services
             {
                 foreach (var endpoint in SynchronizationEndpoints.Where(endpoint => endpoint.IsEnabled))
                 {
-                    await SyncAtEndpointAsync(endpoint);
+                    await SyncAtEndpointAsync(endpoint).ConfigureAwait(false);
                 }
             }
             catch (Exception ex) when (ex is SynchronizationException || ex is not null)
@@ -138,7 +143,7 @@ namespace ACycle.Services
                 _configurationService,
                 _entryRepository);
 
-            await worker.SyncAsync();
+            await worker.SyncAsync().ConfigureAwait(false);
         }
 
         protected static class MetadataKeys
