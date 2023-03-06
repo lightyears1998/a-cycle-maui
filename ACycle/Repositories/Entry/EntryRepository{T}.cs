@@ -31,6 +31,19 @@ namespace ACycle.Repositories
             OnEntityUpdated(entry);
         }
 
+        public async Task SaveAsync(T entry)
+        {
+            var stock = await FindByUuidAsync(entry.Uuid);
+            if (stock == null)
+            {
+                await _connection.MainDatabase.InsertAsync(entry);
+            }
+            else
+            {
+                await _connection.MainDatabase.UpdateAsync(entry);
+            }
+        }
+
         public async Task RemoveAsync(T entry)
         {
             await _connection.MainDatabase.UpdateAsync(entry);
@@ -63,24 +76,26 @@ namespace ACycle.Repositories
             }
         }
 
-        public async Task<List<T>> FindAllAsync()
+        public async Task<List<T>> FindAllAsync(bool includeRemoved = false)
         {
-            var query = _connection.MainDatabase.Table<T>()
-                .Where(entry => entry.RemovedAt == null);
+            var query = _connection.MainDatabase.Table<T>();
+            if (!includeRemoved)
+                query = query.Where(entry => entry.RemovedAt == null);
             return await query.ToListAsync();
         }
 
-        public async Task<T?> FindByUuidAsync(Guid uuid)
+        public async Task<T?> FindByUuidAsync(Guid uuid, bool includeRemoved = true)
         {
-            var query = _connection.MainDatabase.Table<T>()
-                .Where(entry => entry.RemovedAt == null && entry.Uuid == uuid);
+            var query = _connection.MainDatabase.Table<T>().Where(entry => entry.Uuid == uuid);
+            if (!includeRemoved)
+                query = query.Where(entry => entry.RemovedAt == null);
             return await query.FirstOrDefaultAsync();
         }
 
         public async Task<List<EntryMetadata>> GetAllMetadataAsync()
         {
-            var entries = await FindAllAsync();
-            return entries.Select(entry => entry.GetMetadata()).ToList();
+            var entries = await FindAllAsync(includeRemoved: true);
+            return entries.AsParallel().Select(entry => entry.GetMetadata()).ToList();
         }
     }
 }

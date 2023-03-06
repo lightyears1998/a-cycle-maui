@@ -5,10 +5,6 @@ namespace ACycle.Repositories
     public interface IEntryRepository<T> : IRepository<T>
         where T : Entities.Entry, new()
     {
-        Task<List<T>> FindAllAsync();
-
-        Task<T?> FindByUuidAsync(Guid uuid);
-
         Task HardDeleteAsync(T entry);
 
         Task InsertAsync(T entry);
@@ -18,6 +14,10 @@ namespace ACycle.Repositories
         Task RemoveAsync(T entry);
 
         Task SaveIfFresherAsync(IEnumerable<T> entries);
+
+        Task<List<T>> FindAllAsync(bool includeRemoved = false);
+
+        Task<T?> FindByUuidAsync(Guid uuid, bool includeRemoved = true);
 
         Task<List<EntryMetadata>> GetAllMetadataAsync();
     }
