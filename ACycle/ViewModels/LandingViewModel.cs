@@ -64,29 +64,29 @@ namespace ACycle.ViewModels
 
         public override async Task InitializeAsync()
         {
-            await InitializeBasicServicesAsync();
+            await InitializeBasicServicesAsync().ConfigureAwait(false);
 
-            await SetupAppLanguageAsync();
+            await SetupAppLanguageAsync().ConfigureAwait(false);
             GetHeadingAndDescriptionText();
 
-            await PerformDatabaseMigrationAsync();
+            await PerformDatabaseMigrationAsync().ConfigureAwait(false);
 
-            await InitializeAdvancedServicesAsync();
+            await InitializeAdvancedServicesAsync().ConfigureAwait(false);
 
             NavigateToAppShell();
         }
 
         private async Task InitializeBasicServicesAsync()
         {
-            await _databaseService.InitializeAsync();
-            await _configurationService.InitializeAsync();
+            await _databaseService.InitializeAsync().ConfigureAwait(false);
+            await _configurationService.InitializeAsync().ConfigureAwait(false);
 
             _logger.LogDebug("Basic services are initialized.");
         }
 
         private async Task SetupAppLanguageAsync()
         {
-            var userInfo = await _userService.GetUserInfoAsync();
+            var userInfo = await _userService.GetUserInfoAsync().ConfigureAwait(false);
             if (userInfo.PreferredLanguage != null)
             {
                 LanguageHelper.SwitchLanguage(userInfo.PreferredLanguage);
@@ -97,25 +97,28 @@ namespace ACycle.ViewModels
 
         private async Task PerformDatabaseMigrationAsync()
         {
-            await _databaseMigrationService.MigrateDatabaseAsync(_databaseService.MainDatabase);
+            await _databaseMigrationService.MigrateDatabaseAsync(_databaseService.MainDatabase).ConfigureAwait(false);
 
             _logger.LogDebug("Database migration is finished.");
         }
 
         private async Task InitializeAdvancedServicesAsync()
         {
-            await _databaseService.CreateTablesAsync();
-            await _activityCategoryService.InitializeAsync();
-            await _syncService.InitializeAsync();
+            await _databaseService.CreateTablesAsync().ConfigureAwait(false);
+            await _activityCategoryService.InitializeAsync().ConfigureAwait(false);
+            await _syncService.InitializeAsync().ConfigureAwait(false);
 
             _logger.LogDebug("Advanced services are initialized.");
         }
 
         private void NavigateToAppShell()
         {
-            Application.Current!.MainPage = new AppShell();
+            MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                Application.Current!.MainPage = new AppShell();
 
-            _logger.LogDebug("Navigated to AppShell.");
+                _logger.LogDebug("Navigated to AppShell.");
+            });
         }
     }
 }
