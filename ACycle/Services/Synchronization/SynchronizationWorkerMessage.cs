@@ -90,6 +90,18 @@ namespace ACycle.Services.Synchronization
             public EntryMetadata[] entryMetadata = Array.Empty<EntryMetadata>();
         }
 
+        [WebSocketPayload("sync-full-entries-query")]
+        private record class SyncFullEntriesQueryPayload
+        {
+            public Guid[] uuids;
+        }
+
+        [WebSocketPayload("sync-full-entries-response")]
+        private record class SyncFullEntriesResponsePayload
+        {
+            public EntryContainer[] entries;
+        }
+
         #endregion WebSocketMessage
     }
 }

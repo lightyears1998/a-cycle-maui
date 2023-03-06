@@ -13,6 +13,9 @@ using Websocket.Client;
 
 namespace ACycle.Services.Synchronization
 {
+    /// <summary>
+    /// TODO refactoring is needed. Consider rewrite using finite state machine.
+    /// </summary>
     public partial class SynchronizationWorker
     {
         private readonly SynchronizationEndpoint _endpoint;
@@ -138,13 +141,54 @@ namespace ACycle.Services.Synchronization
 
             var sendMessage = (WebSocketMessage message) =>
             {
-                client.Send(JsonConvert.SerializeObject(message));
-                _logger.LogInformation("Sent: {Message}.", message.ToString());
+                var plainMessage = JsonConvert.SerializeObject(message)!;
+                client.Send(plainMessage);
+                _logger.LogInformation("Sent: {Message}.", plainMessage);
             };
 
-            const int transmissionPerMessage = 20;
+            var getMetadataInRange = (int skip) =>
+            {
+                if (metadata.Count == 0)
+                {
+                    return Array.Empty<EntryMetadata>();
+                }
 
-            client.MessageReceived.Subscribe(socketMessage =>
+                skip = Math.Max(skip, 0);
+                int index = Math.Min(metadata.Count - 1, skip);
+                int count = Math.Min(20, metadata.Count - skip);
+                return metadata.GetRange(index, count).ToArray();
+            };
+
+            var serverSaidGoodbye = false;
+            var clientSaidGoodbye = false;
+            var metaQueryCount = 0;
+            var metaQueryIndex = 0;
+            var entryResponseCount = 0;
+
+            var queryMetadata = () =>
+            {
+                sendMessage(new WebSocketMessage
+                {
+                    type = "sync-full-meta-query",
+                    payload = new SyncFullMetaQueryPayload
+                    {
+                        skip = metaQueryIndex
+                    }
+                });
+                metaQueryCount++;
+            };
+
+            var shouldSayGoodbye = () =>
+            {
+                return metaQueryCount <= entryResponseCount;
+            };
+
+            var meetExitCondition = () =>
+            {
+                return serverSaidGoodbye && clientSaidGoodbye;
+            };
+
+            client.MessageReceived.Subscribe(async socketMessage =>
             {
                 try
                 {
@@ -156,6 +200,7 @@ namespace ACycle.Services.Synchronization
 
                     var session = message.session;
                     var payload = message.payload;
+
                     switch (message.type)
                     {
                         case "handshake":
@@ -170,20 +215,115 @@ namespace ACycle.Services.Synchronization
                             sendMessage(new WebSocketMessage
                             {
                                 type = "sync-recent-response",
-                                errors = new Exception[] { new NotImplementedException() }
+                                errors = new NotImplementedException[] { new NotImplementedException() }
                             });
                             break;
 
                         case "sync-full-meta-query":
                             var metaQueryPayload = (payload as JObject)!.ToObject<SyncFullMetaQueryPayload>()!;
                             var skip = metaQueryPayload.skip;
-                            var partialMetadata = metadata.GetRange(skip, transmissionPerMessage);
+                            var partialMetadata = getMetadataInRange(skip);
+                            sendMessage(new WebSocketMessage
+                            {
+                                session = session,
+                                type = "sync-full-meta-response",
+                                payload = new SyncFullMetaResponsePayload
+                                {
+                                    skip = skip,
+                                    currentCursor = { },
+                                    entryMetadata = partialMetadata.ToArray()
+                                }
+                            });
+                            break;
 
+                        case "sync-full-meta-response":
+                            var metaResponsePayload = (payload as JObject)!.ToObject<SyncFullMetaResponsePayload>()!;
+
+                            if (metaResponsePayload.entryMetadata.Length == 0)
+                            {
+                                --metaQueryCount;
+                                if (meetExitCondition())
+                                {
+                                    tcs.SetResult();
+                                }
+                                break;
+                            }
+
+                            metaQueryIndex += metaResponsePayload.entryMetadata.Length;
+                            queryMetadata();
+
+                            var receivedMetadata = metaResponsePayload.entryMetadata;
+                            List<Guid> uuidsToQuery = new List<Guid>();
+                            foreach (var meta in receivedMetadata)
+                            {
+                                var stock = await _entryRepository.FindEntryByUuidAsync(meta.Uuid);
+                                if (stock == null || meta.IsFresherThan(stock))
+                                {
+                                    uuidsToQuery.Add(meta.Uuid);
+                                }
+                            }
+                            sendMessage(new WebSocketMessage
+                            {
+                                type = "sync-full-entries-query",
+                                payload = new SyncFullEntriesQueryPayload
+                                {
+                                    uuids = uuidsToQuery.ToArray(),
+                                }
+                            });
+                            break;
+
+                        case "sync-full-entries-query":
+                            var entriesQueryPayload = (payload as JObject)!.ToObject<SyncFullEntriesQueryPayload>()!;
+                            var uuids = entriesQueryPayload.uuids;
+                            var entries = await _entryRepository.FindEntriesByUuidsAsync(uuids);
+                            var entryContainers = _entryRepository.BoxEntries(entries);
+                            sendMessage(new WebSocketMessage
+                            {
+                                type = "sync-full-entries-response",
+                                payload = new SyncFullEntriesResponsePayload
+                                {
+                                    entries = entryContainers.ToArray(),
+                                }
+                            });
+                            break;
+
+                        case "sync-full-entries-response":
+                            var entriesResponsePayload = (payload as JObject)!.ToObject<SyncFullEntriesResponsePayload>()!;
+                            var incomingEntries = entriesResponsePayload.entries;
+                            foreach (var container in incomingEntries)
+                            {
+                                var incomingEntry = _entryRepository.UnboxEntryContainer(container);
+                                var stockEntry = await _entryRepository.FindEntryByUuidAsync(incomingEntry.Uuid);
+                                if (stockEntry == null || incomingEntry.IsFresherThan(stockEntry))
+                                {
+                                    await _entryRepository.SaveEntry(incomingEntry);
+                                }
+                            }
+
+                            entryResponseCount++;
+                            if (shouldSayGoodbye())
+                            {
+                                clientSaidGoodbye = true;
+                            }
+                            if (meetExitCondition())
+                            {
+                                tcs.SetResult();
+                            }
+                            break;
+
+                        case "goodbye":
+                            serverSaidGoodbye = true;
+                            if (meetExitCondition())
+                            {
+                                tcs.SetResult();
+                            }
                             break;
 
                         default:
                             throw new SynchronizationException($"Unrecognized message: {message.type}.");
                     }
+
+                    // TODO say goodbye and kill connection
                 }
                 catch (Exception ex)
                 {
@@ -191,7 +331,10 @@ namespace ACycle.Services.Synchronization
                 }
             }, tcs.SetException);
 
-            _ = client.Start();
+            client.Start().ContinueWith((_) =>
+            {
+                queryMetadata();
+            });
             return tcs.Task;
         }
     }
