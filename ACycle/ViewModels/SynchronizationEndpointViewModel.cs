@@ -3,6 +3,7 @@ using ACycle.Models.Base;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Platform;
 using System.Windows.Input;
 
 namespace ACycle.ViewModels
@@ -77,6 +78,8 @@ namespace ACycle.ViewModels
             public ICommand EditCommand { get; }
 
             public ICommand RemoveCommand { get; }
+
+            public string ShareUri => Item.PasswordSha256;
 
             public SynchronizationEndpointRelay(SynchronizationEndpoint item, ICommand editCommand, ICommand removeCommand) : base(item)
             {
