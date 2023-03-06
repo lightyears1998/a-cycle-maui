@@ -23,7 +23,8 @@ namespace ACycle.Models.Base
 
         public bool Remove(TItem item)
         {
-            return Remove(Relays.First(relay => relay.Item == item));
+            var innerItem = Relays.First(relay => relay.Item == item);
+            return Remove(innerItem);
         }
 
         public TRelay WrapItem(TItem item)

@@ -97,9 +97,10 @@ namespace ACycle.ViewModels
 
         private void OnDiaryRemoved(object? sender, EntryServiceEventArgs<Diary> args)
         {
-            if (Diaries.Contains(args.Entry))
+            var item = Diaries.FirstOrDefault(relay => relay.Item.Uuid == args.Entry.Uuid);
+            if (item != null)
             {
-                Diaries.Remove(args.Entry);
+                Diaries.Remove(item);
             }
         }
 

@@ -242,10 +242,6 @@ namespace ACycle.Services.Synchronization
                             if (metaResponsePayload.entryMetadata.Length == 0)
                             {
                                 --metaQueryCount;
-                                if (meetExitCondition())
-                                {
-                                    tcs.SetResult();
-                                }
                                 break;
                             }
 
@@ -299,42 +295,43 @@ namespace ACycle.Services.Synchronization
                                     await _entryRepository.SaveEntry(incomingEntry);
                                 }
                             }
-
                             entryResponseCount++;
-                            if (shouldSayGoodbye())
-                            {
-                                clientSaidGoodbye = true;
-                            }
-                            if (meetExitCondition())
-                            {
-                                tcs.SetResult();
-                            }
                             break;
 
                         case "goodbye":
                             serverSaidGoodbye = true;
-                            if (meetExitCondition())
-                            {
-                                tcs.SetResult();
-                            }
                             break;
 
                         default:
                             throw new SynchronizationException($"Unrecognized message: {message.type}.");
                     }
 
-                    // TODO say goodbye and kill connection
+                    if (shouldSayGoodbye())
+                    {
+                        client.SendInstant(JsonConvert.SerializeObject(new WebSocketMessage
+                        {
+                            session = "goodbye",
+                            type = "goodbye"
+                        })).Wait();
+                        clientSaidGoodbye = true;
+                    }
+
+                    if (meetExitCondition())
+                    {
+                        tcs.TrySetResult();
+                    }
                 }
                 catch (Exception ex)
                 {
-                    tcs.SetException(ex);
+                    tcs.TrySetException(ex);
                 }
-            }, tcs.SetException);
+            }, ex => tcs.TrySetException(ex));
 
             client.Start().ContinueWith((_) =>
             {
                 queryMetadata();
             });
+
             return tcs.Task;
         }
     }
