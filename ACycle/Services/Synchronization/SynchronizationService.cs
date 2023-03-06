@@ -96,9 +96,10 @@ namespace ACycle.Services
         {
             _serviceLogger.LogInformation($"{nameof(OnSyncCountdownTimerTick)} started.");
 
-            SyncAsync().Wait();
-
-            _serviceLogger.LogInformation($"{nameof(OnSyncCountdownTimerTick)} completed.");
+            SyncAsync().ContinueWith((_) =>
+            {
+                _serviceLogger.LogInformation($"{nameof(OnSyncCountdownTimerTick)} completed.");
+            });
         }
 
         protected async void OnEndpointChanged(object? sender, EventArgs args)

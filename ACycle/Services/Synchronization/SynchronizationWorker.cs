@@ -38,16 +38,16 @@ namespace ACycle.Services.Synchronization
         {
             _logger.LogInformation("Sync started for endpoint {Endpoint}.", _endpoint.BriefDescription);
 
-            var userId = await GetUserId();
+            var userId = await GetUserId().ConfigureAwait(false);
             _logger.LogInformation("Got userId {UserId}.", userId);
 
-            var token = await GetTokenAsync(userId);
+            var token = await GetTokenAsync(userId).ConfigureAwait(false);
             _logger.LogInformation("Got token {Token}.", token);
 
-            var metadata = await _entryRepository.GetAllMetadataAsync();
+            var metadata = await _entryRepository.GetAllMetadataAsync().ConfigureAwait(false);
             _logger.LogInformation("Metadata of entries are collected. Entry Count: {EntryCount}.", metadata.Count);
 
-            await DoFullSyncAsync(token, metadata);
+            await DoFullSyncAsync(token, metadata).ConfigureAwait(false);
             _logger.LogInformation("Full sync completed.");
 
             _logger.LogInformation("Sync completed for endpoint {Endpoint}.", _endpoint.BriefDescription);
