@@ -2,7 +2,7 @@
 
 namespace ACycle.Entities
 {
-    public class Entry
+    public class Entry : IEntryComparable
     {
         [PrimaryKey]
         [Column("uuid")]
