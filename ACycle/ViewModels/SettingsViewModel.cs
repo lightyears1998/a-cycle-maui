@@ -84,8 +84,6 @@ namespace ACycle.ViewModels
 
         public string SynchronizationStatus => _synchronizationService.SynchronizationStatus;
 
-        public bool ShowSynchronizationStatus => SynchronizationStatus != string.Empty;
-
         public SettingsViewModel(
             IAppLifecycleService appLifecycleService,
             IDialogService dialogService,
@@ -152,7 +150,6 @@ namespace ACycle.ViewModels
         {
             await _synchronizationService.SyncAsync();
             OnPropertyChanged(nameof(SynchronizationStatus));
-            OnPropertyChanged(nameof(ShowSynchronizationStatus));
         }
 
         [RelayCommand]

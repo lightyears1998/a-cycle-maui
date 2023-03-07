@@ -9,6 +9,9 @@
     <VerticalStackLayout>
         <Label Text="{Binding Item.IsEnabled}" FontAttributes="Bold" />
         <Label Text="{Binding Item}" />
+        <Button Text="{ext:LocaleString Key=Text_Edit}" Command="{Binding EditCommand}" />
+        <Button Text="{ext:LocaleString Key=Text_Remove}" Command="{Binding RemoveCommand}" />
+
         <FlyoutBase.ContextFlyout>
             <MenuFlyout>
                 <MenuFlyoutItem Text="Copy ShareUri to Clipboard" Command="{Binding CopyShareUriToClipboardCommand}" />

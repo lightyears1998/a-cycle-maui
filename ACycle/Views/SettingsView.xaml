@@ -23,12 +23,13 @@
 
             <VerticalStackLayout Grid.Row="1" Spacing="4">
                 <Label Text="{ext:LocaleString Key=SettingsView_Synchronization}" />
-                <Grid ColumnDefinitions="*, Auto">
+                <Grid HorizontalOptions="Fill" ColumnDefinitions="*, Auto">
                     <Label
                         VerticalOptions="Center"
                         Text="{ext:LocaleString Key=SettingsView_SynchronizationInBackground}" />
                     <Switch
                         Grid.Column="1"
+                        HorizontalOptions="End"
                         IsToggled="{Binding SynchronizationEnabled}"
                         IsEnabled="{Binding SynchronizationSwitchEnabled}" />
                 </Grid>
@@ -38,9 +39,7 @@
                 <Button
                     Text="{ext:LocaleString Key=SettingsView_EditSynchronizationConfiguration}"
                     Command="{Binding OpenEndpointListViewCommand}" />
-                <Label
-                    Text="{Binding SynchronizationStatus}"
-                    IsVisible="{Binding ShowSynchronizationStatus}" />
+                <Label Text="{Binding SynchronizationStatus}" />
             </VerticalStackLayout>
 
             <VerticalStackLayout  Grid.Row="2" Spacing="4">
