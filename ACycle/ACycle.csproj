@@ -40,6 +40,9 @@
 		<AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
 		<DefaultLanguage>en</DefaultLanguage>
 		<GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
+    
+    <!-- Optimization -->
+    <TrimMode>partial</TrimMode>
 	</PropertyGroup>
 
   <!-- App Icon -->
