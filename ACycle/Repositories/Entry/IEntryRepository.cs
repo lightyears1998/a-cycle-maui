@@ -22,6 +22,6 @@ namespace ACycle.Repositories
 
         Task<List<Entities.Entry>> FindEntriesByUuidsAsync(IEnumerable<Guid> uuids);
 
-        Task SaveEntry(Entities.Entry entry);
+        Task SaveEntryAsync(Entities.Entry entry);
     }
 }

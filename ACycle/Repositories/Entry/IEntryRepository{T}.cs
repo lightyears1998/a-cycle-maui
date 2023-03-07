@@ -11,6 +11,8 @@ namespace ACycle.Repositories
 
         Task UpdateAsync(T entry);
 
+        Task SaveAsync(T entry);
+
         Task RemoveAsync(T entry);
 
         Task SaveIfFresherAsync(IEnumerable<T> entries);

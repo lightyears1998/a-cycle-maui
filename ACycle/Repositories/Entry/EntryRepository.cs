@@ -68,7 +68,8 @@ namespace ACycle.Repositories
 
             if (_repos.TryGetValue(type, out dynamic? value))
             {
-                return value;
+                if (value != null)
+                    return value;
             }
 
             if (!_entryTypes.Contains(type))
@@ -169,10 +170,11 @@ namespace ACycle.Repositories
             return containers.AsParallel().Select(UnboxEntryContainer).ToList();
         }
 
-        public async Task SaveEntry(Entities.Entry entry)
+        public async Task SaveEntryAsync(Entities.Entry entry)
         {
-            var repo = GetRepository(entry.GetType());
-            await repo.SaveAsync(entry);
+            dynamic repo = GetRepository(entry.GetType());
+            dynamic runtime_entry = entry;
+            await repo.SaveAsync(runtime_entry);
         }
     }
 }

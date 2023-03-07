@@ -292,7 +292,7 @@ namespace ACycle.Services.Synchronization
                                 var stockEntry = await _entryRepository.FindEntryByUuidAsync(incomingEntry.Uuid);
                                 if (stockEntry == null || incomingEntry.IsFresherThan(stockEntry))
                                 {
-                                    await _entryRepository.SaveEntry(incomingEntry);
+                                    await _entryRepository.SaveEntryAsync(incomingEntry);
                                 }
                             }
                             entryResponseCount++;
