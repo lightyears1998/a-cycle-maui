@@ -171,7 +171,7 @@ namespace ACycle.ViewModels
             if (shouldRemove)
             {
                 await _diaryService.RemoveAsync(diary);
-                Diaries.Remove(diary);
+                OnPropertyChanged(nameof(SelectedDiaryIsNotEmpty));
             }
         }
 

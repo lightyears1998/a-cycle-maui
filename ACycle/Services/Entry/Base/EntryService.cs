@@ -194,11 +194,16 @@ namespace ACycle.Services
             }
         }
 
-        public virtual async Task<TModel> RemoveAsync(TModel model)
+        public virtual async Task<TModel> RemoveAsync(TModel model, bool updateTimestamp = true)
         {
             if (!model.IsRemoved)
             {
                 model.RemovedAt = DateTime.Now;
+                if (updateTimestamp)
+                {
+                    model.UpdatedAt = DateTime.Now;
+                    model.UpdatedBy = _configurationService.NodeUuid;
+                }
                 await _entityRepository.RemoveAsync(ConvertToEntity(model));
             }
 

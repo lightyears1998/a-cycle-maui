@@ -20,7 +20,7 @@
 
         Task<TModel> SaveAsync(TModel model, bool updateTimestamp = true);
 
-        Task<TModel> RemoveAsync(TModel model);
+        Task<TModel> RemoveAsync(TModel model, bool updateTimestamp = true);
 
         Task<List<TModel>> FindAllAsync();
     }
