@@ -113,5 +113,14 @@ namespace ACycle.Resources.Strings {
                 return ResourceManager.GetString("v1.0.4.0", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synchronization protocol is in GA..
+        /// </summary>
+        public static string v1_1 {
+            get {
+                return ResourceManager.GetString("v1.1", resourceCulture);
+            }
+        }
     }
 }
