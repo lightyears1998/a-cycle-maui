@@ -1,9 +1,12 @@
-﻿namespace ACycle.Views
+﻿using ACycle.ViewModels;
+
+namespace ACycle.Views
 {
     public partial class ActivityView : ContentPageBase
     {
-        public ActivityView()
+        public ActivityView(ActivityViewModel model)
         {
+            BindingContext = model;
             InitializeComponent();
         }
     }

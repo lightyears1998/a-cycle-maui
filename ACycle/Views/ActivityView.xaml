@@ -2,25 +2,50 @@
 <views:ContentPageBase
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:templates="clr-namespace:ACycle.Views.Templates"
     xmlns:views="clr-namespace:ACycle.Views"
+    xmlns:viewModels="clr-namespace:ACycle.ViewModels"
+    xmlns:ext="clr-namespace:ACycle.Extensions"
     x:Class="ACycle.Views.ActivityView"
-    Title="Activity">
-    <ScrollView>
-        <VerticalStackLayout>
-            <HorizontalStackLayout>
-                <Button Text="&lt;"></Button>
-                <DatePicker></DatePicker>
-                <Button Text="&gt;"></Button>
-            </HorizontalStackLayout>
-            <CollectionView></CollectionView>
-            <HorizontalStackLayout>
-                <Button Text="Add" />
-                <Button Text="Edit" />
-                <Button Text="Remove" />
-            </HorizontalStackLayout>
-            <HorizontalStackLayout>
-                <Button Text="Analysis" />
-            </HorizontalStackLayout>
-        </VerticalStackLayout>
-    </ScrollView>
+    x:DataType="viewModels:ActivityViewModel"
+    Title="{ext:LocaleString Key=ActivityView_Title}">
+    <Grid
+        VerticalOptions="Fill"
+        HorizontalOptions="Fill"
+        RowSpacing="8"
+        RowDefinitions="Auto, *, Auto">
+
+        <HorizontalStackLayout
+            HorizontalOptions="Center"
+            Grid.Row="0"
+            Spacing="4">
+            <Button Text="&lt;" Command="{Binding JumpToPreviousDateCommand}" />
+            <DatePicker
+                WidthRequest="120"
+                HeightRequest="{Binding Source={RelativeSource AncestorType={x:Type HorizontalStackLayout}}, Path=Height}"
+                Date="{Binding Date}" />
+            <Button Text="&gt;" Command="{Binding JumpToNextDateCommand}" />
+        </HorizontalStackLayout>
+
+        <ScrollView
+            Grid.Row="1">
+            <CollectionView ItemsSource="{Binding Activities}" SelectedItem="{Binding SelectedActivity}" SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <templates:ActivityCollectionItemTemplate />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+        <HorizontalStackLayout
+            Grid.Row="2"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            Spacing="4">
+            <Button Text="{ext:LocaleString Key=Action_Add}" Command="{Binding AddActivityCommand}" />
+            <Button Text="{ext:LocaleString Key=Action_Edit}" Command="{Binding EditActivityCommand}" />
+            <Button Text="{ext:LocaleString Key=Action_Remove}" Command="{Binding RemoveActivityCommand}" />
+        </HorizontalStackLayout>
+    </Grid>
 </views:ContentPageBase>
