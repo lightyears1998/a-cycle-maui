@@ -204,11 +204,17 @@
   <data name="LandingView_Heading" xml:space="preserve">
     <value>欢迎使用 ACycle 循迹！</value>
   </data>
+  <data name="SettingsView_Debugging" xml:space="preserve">
+    <value>调试</value>
+  </data>
   <data name="SettingsView_DoSync" xml:space="preserve">
     <value>进行同步</value>
   </data>
   <data name="SettingsView_EditSynchronizationConfiguration" xml:space="preserve">
     <value>编辑同步设置</value>
+  </data>
+  <data name="SettingsView_Language" xml:space="preserve">
+    <value>语言</value>
   </data>
   <data name="SettingsView_LanguagePickerTitle" xml:space="preserve">
     <value>语言</value>
@@ -218,6 +224,9 @@
   </data>
   <data name="SettingsView_RestartDueToLanguageChangeHint" xml:space="preserve">
     <value>请重启程序使应用程序语言更改生效。</value>
+  </data>
+  <data name="SettingsView_Synchronization" xml:space="preserve">
+    <value>同步</value>
   </data>
   <data name="SettingsView_SynchronizationInBackground" xml:space="preserve">
     <value>后台自动同步</value>

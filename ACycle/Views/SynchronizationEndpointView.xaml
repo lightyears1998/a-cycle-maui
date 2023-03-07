@@ -10,7 +10,7 @@
     x:DataType="viewModels:SynchronizationEndpointViewModel"
     Title="{ext:LocaleString Key=SynchronizationEndpointView_Title}">
 
-    <Grid Margin="8" RowDefinitions="Auto, *">
+    <Grid RowDefinitions="Auto, *">
         <HorizontalStackLayout HorizontalOptions="Center">
             <Button
                 Text="{ext:LocaleString Key=SynchronizationEndpointView_AddEndpoint}"

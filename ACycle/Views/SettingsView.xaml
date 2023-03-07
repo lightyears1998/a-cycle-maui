@@ -8,9 +8,10 @@
     x:Class="ACycle.Views.SettingsView"
     x:DataType="viewModels:SettingsViewModel"
     Title="{ext:LocaleString Key=SettingsView_Title}">
-    <ScrollView VerticalOptions="Fill" HorizontalOptions="Fill" Margin="8">
-        <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
-            <VerticalStackLayout Spacing="4">
+    <ScrollView VerticalOptions="Fill" HorizontalOptions="Fill">
+        <Grid MaximumWidthRequest="500" RowDefinitions="Auto, Auto, Auto" RowSpacing="8">
+            <VerticalStackLayout Grid.Row="0" Spacing="4">
+                <Label Text="{ext:LocaleString Key=SettingsView_Language}" />
                 <Picker
                     Title="{ext:LocaleString Key=SettingsView_LanguagePickerTitle}"
                     ItemsSource="{Binding SupportedLanguageDisplayNames}"
@@ -20,11 +21,17 @@
                     Text="{Binding RestartDueToLanguageChangeHint}" />
             </VerticalStackLayout>
 
-            <VerticalStackLayout>
-                <Label Text="{ext:LocaleString Key=SettingsView_SynchronizationInBackground}" />
-                <Switch
-                    IsToggled="{Binding SynchronizationEnabled}"
-                    IsEnabled="{Binding SynchronizationSwitchEnabled}" />
+            <VerticalStackLayout Grid.Row="1" Spacing="4">
+                <Label Text="{ext:LocaleString Key=SettingsView_Synchronization}" />
+                <Grid ColumnDefinitions="*, Auto">
+                    <Label
+                        VerticalOptions="Center"
+                        Text="{ext:LocaleString Key=SettingsView_SynchronizationInBackground}" />
+                    <Switch
+                        Grid.Column="1"
+                        IsToggled="{Binding SynchronizationEnabled}"
+                        IsEnabled="{Binding SynchronizationSwitchEnabled}" />
+                </Grid>
                 <Button
                     Text="{ext:LocaleString Key=SettingsView_DoSync}"
                     Command="{Binding DoSyncCommand}" />
@@ -36,9 +43,12 @@
                     IsVisible="{Binding ShowSynchronizationStatus}" />
             </VerticalStackLayout>
 
-            <Button
-                Text="{ext:LocaleString Key=SettingsView_OpenDebuggingMenu}"
-                Command="{Binding OpenDebuggingMenuCommand}" />
-        </VerticalStackLayout>
+            <VerticalStackLayout  Grid.Row="2" Spacing="4">
+                <Label Text="{ext:LocaleString Key=SettingsView_Debugging}" />
+                <Button
+                    Text="{ext:LocaleString Key=SettingsView_OpenDebuggingMenu}"
+                    Command="{Binding OpenDebuggingMenuCommand}" />
+            </VerticalStackLayout>
+        </Grid>
     </ScrollView>
 </views:ContentPageBase>

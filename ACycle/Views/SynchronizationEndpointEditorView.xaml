@@ -16,7 +16,7 @@
         </Style>
     </ContentPage.Resources>
 
-    <ScrollView Margin="8">
+    <ScrollView>
         <VerticalStackLayout Spacing="8">
             <VerticalStackLayout>
                 <Label Text="{ext:LocaleString Key=SynchronizationEndpoint_IsEnabled}" />

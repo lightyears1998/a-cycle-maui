@@ -12,7 +12,6 @@
     <Grid
         VerticalOptions="Fill"
         HorizontalOptions="Fill"
-        Margin="8"
         RowSpacing="8"
         RowDefinitions="Auto, *, Auto">
 

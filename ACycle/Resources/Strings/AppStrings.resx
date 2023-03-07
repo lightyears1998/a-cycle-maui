@@ -204,11 +204,17 @@
   <data name="LandingView_Heading" xml:space="preserve">
     <value>Welcome to ACycle!</value>
   </data>
+  <data name="SettingsView_Debugging" xml:space="preserve">
+    <value>Debugging</value>
+  </data>
   <data name="SettingsView_DoSync" xml:space="preserve">
     <value>Do Sync</value>
   </data>
   <data name="SettingsView_EditSynchronizationConfiguration" xml:space="preserve">
     <value>Edit Synchronization Configuration</value>
+  </data>
+  <data name="SettingsView_Language" xml:space="preserve">
+    <value>Language</value>
   </data>
   <data name="SettingsView_LanguagePickerTitle" xml:space="preserve">
     <value>Language</value>
@@ -218,6 +224,9 @@
   </data>
   <data name="SettingsView_RestartDueToLanguageChangeHint" xml:space="preserve">
     <value>Please restart the application for the language changes to take effects.</value>
+  </data>
+  <data name="SettingsView_Synchronization" xml:space="preserve">
+    <value>Synchronization</value>
   </data>
   <data name="SettingsView_SynchronizationInBackground" xml:space="preserve">
     <value>Synchronization in Background</value>

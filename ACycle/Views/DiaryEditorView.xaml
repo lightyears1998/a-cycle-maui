@@ -13,7 +13,7 @@
         <BackButtonBehavior Command="{x:Binding ConfirmForLeaveCommand}" />
     </Shell.BackButtonBehavior>
 
-    <Grid Margin="8" RowSpacing="8" RowDefinitions="Auto, *, Auto">
+    <Grid RowSpacing="8" RowDefinitions="Auto, *, Auto">
         <VerticalStackLayout Grid.Row="0" Spacing="4">
             <Label Text="{ext:LocaleString Key=Text_Title}" />
             <Entry Text="{Binding Diary.Title}" />

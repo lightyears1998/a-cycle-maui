@@ -322,6 +322,15 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Debugging.
+        /// </summary>
+        public static string SettingsView_Debugging {
+            get {
+                return ResourceManager.GetString("SettingsView_Debugging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do Sync.
         /// </summary>
         public static string SettingsView_DoSync {
@@ -336,6 +345,15 @@ namespace ACycle.Resources.Strings {
         public static string SettingsView_EditSynchronizationConfiguration {
             get {
                 return ResourceManager.GetString("SettingsView_EditSynchronizationConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string SettingsView_Language {
+            get {
+                return ResourceManager.GetString("SettingsView_Language", resourceCulture);
             }
         }
         
@@ -363,6 +381,15 @@ namespace ACycle.Resources.Strings {
         public static string SettingsView_RestartDueToLanguageChangeHint {
             get {
                 return ResourceManager.GetString("SettingsView_RestartDueToLanguageChangeHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synchronization.
+        /// </summary>
+        public static string SettingsView_Synchronization {
+            get {
+                return ResourceManager.GetString("SettingsView_Synchronization", resourceCulture);
             }
         }
         
