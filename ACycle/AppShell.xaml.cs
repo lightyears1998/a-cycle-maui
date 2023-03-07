@@ -4,8 +4,21 @@ namespace ACycle
 {
     public partial class AppShell : Shell
     {
+        public bool ShowDebuggingFlyoutItem
+        {
+            get
+            {
+#if DEBUG
+                return true;
+#else
+                return false;
+#endif
+            }
+        }
+
         public AppShell()
         {
+            BindingContext = this;
             InitializeComponent();
             InitializeRouting();
         }

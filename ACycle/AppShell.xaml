@@ -5,7 +5,8 @@
     xmlns:root="clr-namespace:ACycle"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ext="clr-namespace:ACycle.Extensions"
-    xmlns:views="clr-namespace:ACycle.Views">
+    xmlns:views="clr-namespace:ACycle.Views"
+    x:DataType="root:AppShell">
 
     <Shell.FlyoutBehavior>
         <OnPlatform x:TypeArguments="FlyoutBehavior">
@@ -25,7 +26,7 @@
     <FlyoutItem
         Title="{ext:LocaleString Key=AppShell_Activity}"
         Icon="appshell_activity.png"
-        IsVisible="False"
+        IsVisible="True"
         Route="Activity">
         <ShellContent ContentTemplate="{DataTemplate views:ActivityView}" />
     </FlyoutItem>
@@ -72,7 +73,7 @@
     <FlyoutItem
         Title="{ext:LocaleString Key=AppShell_Debugging}"
         Icon="appshell_debugging.png"
-        IsVisible="False"
+        IsVisible="{Binding ShowDebuggingFlyoutItem}"
         Route="{x:Static root:AppShell+Route.DebuggingViewRoute}">
         <ShellContent ContentTemplate="{DataTemplate views:DebuggingView}" />
     </FlyoutItem>
