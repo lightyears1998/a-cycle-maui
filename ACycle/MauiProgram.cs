@@ -94,6 +94,8 @@ namespace ACycle
         {
             builder.RegisterTransients(new Type[]
             {
+                typeof(ActivityViewModel),
+                typeof(ActivityEditorViewModel),
                 typeof(DatabaseMigrationViewModel),
                 typeof(DebuggingViewModel),
                 typeof(DiaryViewModel),
@@ -113,6 +115,7 @@ namespace ACycle
             builder.RegisterTransients(new Type[]
             {
                 typeof(ActivityView),
+                typeof(ActivityEditorView),
                 typeof(DatabaseMigrationView),
                 typeof(DebuggingView),
                 typeof(DiaryEditorView),
