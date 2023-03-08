@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ACycle.Controls"
+             x:Class="ACycle.Controls.DateTimePicker"
+             x:DataType="controls:DateTimePicker">
+    <HorizontalStackLayout HorizontalOptions="Fill" VerticalOptions="Fill" Spacing="4">
+        <DatePicker x:Name="_datePicker" PropertyChanged="OnDatePickerOrTimePickerPropertyChanged" />
+        <TimePicker x:Name="_timePicker" PropertyChanged="OnDatePickerOrTimePickerPropertyChanged" Format="HH:mm" />
+    </HorizontalStackLayout>
+</ContentView>
