@@ -249,10 +249,16 @@ namespace ACycle.Services.Synchronization
                             queryMetadata();
 
                             var receivedMetadata = metaResponsePayload.entryMetadata;
+                            foreach (var meta in receivedMetadata)
+                            {
+                                meta.UpdatedAt = meta.UpdatedAt.ToLocalTime(); // temporary hack for time-zone problem.
+                            }
+
                             List<Guid> uuidsToQuery = new List<Guid>();
                             foreach (var meta in receivedMetadata)
                             {
                                 var stock = await _entryRepository.FindEntryByUuidAsync(meta.Uuid);
+
                                 if (stock == null || meta.IsFresherThan(stock))
                                 {
                                     uuidsToQuery.Add(meta.Uuid);
