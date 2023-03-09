@@ -4,9 +4,11 @@ param (
 
 $csprojFilePath = './ACycle/ACycle.csproj'
 $windowsAppManifestFilePath = './ACycle/Platforms/Windows/Package.appxmanifest'
+$androidManifestFilePath = './ACycle/Platforms/Android/AndroidManifest.xml'
 
 $csprojFileContent = Get-Content -Path $csprojFilePath -Encoding UTF8
 $windowsAppManifestFileContent = Get-Content -Path $windowsAppManifestFilePath -Encoding UTF8
+$androidManifestFileContent = Get-Content -Path $androidManifestFilePath -Encoding UTF8
 
 # For .csporj file:
 ## 1) Increase the version number by 1.
@@ -23,5 +25,11 @@ $pattern = '<Identity Name="(?<Name>.*)" Publisher="(?<Publisher>.*)" Version=".
 $template = '<Identity Name="${Name}" Publisher="${Publisher}" Version="' + $VersionString + '" />'
 $windowsAppManifestFileContent = $windowsAppManifestFileContent -Replace $pattern, $template
 
+# For Android manifest:
+$pattern = 'android:versionName=".*"'
+$template = 'android:versionName="' + $VersionString + '"'
+$androidManifestFileContent = $androidManifestFileContent -Replace $pattern, $template
+
 Set-Content -Path $csprojFilePath -Value $csprojFileContent -Encoding UTF8
 Set-Content -Path $windowsAppManifestFilePath -Value $windowsAppManifestFileContent -Encoding UTF8
+Set-Content -Path $androidManifestFilePath -Value $androidManifestFileContent -Encoding UTF8
