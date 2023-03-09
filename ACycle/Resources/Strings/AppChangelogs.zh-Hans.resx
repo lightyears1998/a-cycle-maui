@@ -135,7 +135,7 @@
   <data name="v1.0.4.0" xml:space="preserve">
     <value>v1.0.3.1 的应用商店版本</value>
   </data>
-  <data name="v1.1" xml:space="preserve">
-    <value>同步功能基本可用。</value>
+  <data name="v1.1.0.0" xml:space="preserve">
+    <value>添加了活动记录功能；同步功能基本可用。</value>
   </data>
 </root>

@@ -115,11 +115,11 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Synchronization protocol is in GA..
+        ///   Looks up a localized string similar to Acitivity recording is recently added. Synchronization protocol is in GA..
         /// </summary>
-        public static string v1_1 {
+        public static string v1_1_0_0 {
             get {
-                return ResourceManager.GetString("v1.1", resourceCulture);
+                return ResourceManager.GetString("v1.1.0.0", resourceCulture);
             }
         }
     }

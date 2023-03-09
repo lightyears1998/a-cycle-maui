@@ -135,7 +135,7 @@
   <data name="v1.0.4.0" xml:space="preserve">
     <value>Store version of v1.0.3.1.</value>
   </data>
-  <data name="v1.1" xml:space="preserve">
-    <value>Synchronization protocol is in GA.</value>
+  <data name="v1.1.0.0" xml:space="preserve">
+    <value>Acitivity recording is recently added. Synchronization protocol is in GA.</value>
   </data>
 </root>
