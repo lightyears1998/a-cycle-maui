@@ -126,6 +126,33 @@
   <data name="Action_Remove" xml:space="preserve">
     <value>删除</value>
   </data>
+  <data name="ActivityEditorView_ActivityCleanupStageDescription" xml:space="preserve">
+    <value>清理阶段描述</value>
+  </data>
+  <data name="ActivityEditorView_ActivityCleanupStageDescriptionPlaceholder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActivityEditorView_ActivityComment" xml:space="preserve">
+    <value>附注</value>
+  </data>
+  <data name="ActivityEditorView_ActivityEndDateTime" xml:space="preserve">
+    <value>结束时间</value>
+  </data>
+  <data name="ActivityEditorView_ActivityExecutionStageDescription" xml:space="preserve">
+    <value>执行阶段描述</value>
+  </data>
+  <data name="ActivityEditorView_ActivityName" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="ActivityEditorView_ActivityPreparationStageDescription" xml:space="preserve">
+    <value>准备阶段描述</value>
+  </data>
+  <data name="ActivityEditorView_ActivityStartDateTime" xml:space="preserve">
+    <value>开始时间</value>
+  </data>
+  <data name="ActivityEditorView_Title" xml:space="preserve">
+    <value>活动编辑器</value>
+  </data>
   <data name="ActivityView_ConfirmRemoveText" xml:space="preserve">
     <value>您是要删除这项行动吗？</value>
   </data>

@@ -88,6 +88,87 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cleanup Stage Description.
+        /// </summary>
+        public static string ActivityEditorView_ActivityCleanupStageDescription {
+            get {
+                return ResourceManager.GetString("ActivityEditorView_ActivityCleanupStageDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ActivityEditorView_ActivityCleanupStageDescriptionPlaceholder {
+            get {
+                return ResourceManager.GetString("ActivityEditorView_ActivityCleanupStageDescriptionPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activity Comment.
+        /// </summary>
+        public static string ActivityEditorView_ActivityComment {
+            get {
+                return ResourceManager.GetString("ActivityEditorView_ActivityComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activity Ends In.
+        /// </summary>
+        public static string ActivityEditorView_ActivityEndDateTime {
+            get {
+                return ResourceManager.GetString("ActivityEditorView_ActivityEndDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Execution Stage Description.
+        /// </summary>
+        public static string ActivityEditorView_ActivityExecutionStageDescription {
+            get {
+                return ResourceManager.GetString("ActivityEditorView_ActivityExecutionStageDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activity Name.
+        /// </summary>
+        public static string ActivityEditorView_ActivityName {
+            get {
+                return ResourceManager.GetString("ActivityEditorView_ActivityName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preparation Stage Description.
+        /// </summary>
+        public static string ActivityEditorView_ActivityPreparationStageDescription {
+            get {
+                return ResourceManager.GetString("ActivityEditorView_ActivityPreparationStageDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activity Starts At.
+        /// </summary>
+        public static string ActivityEditorView_ActivityStartDateTime {
+            get {
+                return ResourceManager.GetString("ActivityEditorView_ActivityStartDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activity Editor.
+        /// </summary>
+        public static string ActivityEditorView_Title {
+            get {
+                return ResourceManager.GetString("ActivityEditorView_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you really want to remove this activity?.
         /// </summary>
         public static string ActivityView_ConfirmRemoveText {
