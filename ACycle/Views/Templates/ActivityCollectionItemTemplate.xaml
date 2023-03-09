@@ -8,7 +8,11 @@
     x:DataType="{x:Type viewModels:ActivityViewModel+ActivityRelay}">
     <VerticalStackLayout>
         <Label Text="{Binding Item.Name}" FontAttributes="Bold" />
+        <Label Text="{Binding DateTimeString}" />
+        <Label Text="{Binding Item.Comment}" />
         <Label Text="{Binding Item.PreparationStageDescription}" />
+        <Label Text="{Binding Item.ExecutionStageDescription}" />
+        <Label Text="{Binding Item.CleanupStageDescription}" />
         <FlyoutBase.ContextFlyout>
             <MenuFlyout>
                 <MenuFlyoutItem Text="{ext:LocaleString Key=Text_Edit}" Command="{Binding EditCommand}" />

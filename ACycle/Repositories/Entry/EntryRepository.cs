@@ -24,6 +24,7 @@ namespace ACycle.Repositories
 
         private void RegisterEntries()
         {
+            RegisterEntryType<ActivityV1>();
             RegisterEntryType<DiaryV1>();
         }
 

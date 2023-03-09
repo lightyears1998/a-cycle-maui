@@ -16,29 +16,29 @@
 
     <Grid RowSpacing="8" RowDefinitions="Auto, *, Auto">
         <VerticalStackLayout Grid.Row="0" Spacing="4">
-            <Label Text="{ext:LocaleString Key=Text_ActivityName}" />
+            <Label Text="{ext:LocaleString Key=ActivityEditorView_ActivityName}" />
             <Entry Text="{Binding Activity.Name}" />
 
-            <Label Text="{ext:LocaleString Key=Text_ActivityStartDateTime}" />
+            <Label Text="{ext:LocaleString Key=ActivityEditorView_ActivityStartDateTime}" />
             <controls:DateTimePicker DateTime="{Binding Activity.StartDateTime}" />
 
-            <Label Text="{ext:LocaleString Key=Text_ActivityEndDateTime}" />
+            <Label Text="{ext:LocaleString Key=ActivityEditorView_ActivityEndDateTime}" />
             <controls:DateTimePicker DateTime="{Binding Activity.EndDateTime}" />
 
-            <Label Text="{ext:LocaleString Key=Text_ActivityComment}" />
+            <Label Text="{ext:LocaleString Key=ActivityEditorView_ActivityComment}" />
             <Entry Text="{Binding Activity.Comment}" />
         </VerticalStackLayout>
 
         <ScrollView  Grid.Row="1">
             <VerticalStackLayout Spacing="4">
-                <Label Text="{ext:LocaleString Key=Text_ActivityPreparationStageDescription}" />
+                <Label Text="{ext:LocaleString Key=ActivityEditorView_ActivityPreparationStageDescription}" />
                 <Editor HeightRequest="120" Text="{Binding Activity.PreparationStageDescription}" />
 
-                <Label Text="{ext:LocaleString Key=Text_ActivityExecutionStageDescription}}" />
+                <Label Text="{ext:LocaleString Key=ActivityEditorView_ActivityExecutionStageDescription}" />
                 <Editor HeightRequest="120" Text="{Binding Activity.ExecutionStageDescription}" />
 
-                <Label Text="{ext:LocaleString Key=Text_ActivityCleanupStageDescription}" />
-                <Editor HeightRequest="120" Text="{Binding Activity.CleanupStageDescription}" />
+                <Label Text="{ext:LocaleString Key=ActivityEditorView_ActivityCleanupStageDescription}" />
+                <Editor HeightRequest="120" Text="{Binding Activity.CleanupStageDescription}" Placeholder="{ext:LocaleString Key=ActivityEditorView_ActivityCleanupStageDescriptionPlaceholder}" />
             </VerticalStackLayout>
         </ScrollView>
 

@@ -55,7 +55,7 @@ namespace ACycle.ViewModels
             Date = Date.AddDays(1);
         }
 
-        public override void OnViewAppearing()
+        public override void OnViewNavigatedTo(NavigatedToEventArgs args)
         {
             _ = LoadActivitiesAsync();
         }
@@ -131,6 +131,8 @@ namespace ACycle.ViewModels
             public ICommand EditCommand { get; protected set; }
 
             public ICommand RemoveCommand { get; protected set; }
+
+            public string DateTimeString => $"{Item.StartDateTime} => {Item.EndDateTime}";
 
             public ActivityRelay(Activity item, ICommand editCommand, ICommand removeCommand) : base(item)
             {
