@@ -4,9 +4,9 @@
     {
         public string Name { get; set; } = string.Empty;
 
-        public DateTime StartDateTime { get; set; }
+        public DateTime StartDateTime { get; set; } = DateTime.Now;
 
-        public DateTime EndDateTime { get; set; }
+        public DateTime EndDateTime { get; set; } = DateTime.Now;
 
         public string Comment { get; set; } = string.Empty;
 

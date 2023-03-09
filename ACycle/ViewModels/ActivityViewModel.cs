@@ -22,7 +22,10 @@ namespace ACycle.ViewModels
         private RelayCollection<Activity, ActivityRelay> _activities;
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(SelectedActivityIsNotNull))]
         private ActivityRelay? _selectedActivity;
+
+        public bool SelectedActivityIsNotNull => SelectedActivity != null;
 
         public ActivityViewModel(
             IEntryService<ActivityV1, Activity> activityService,
@@ -78,7 +81,7 @@ namespace ACycle.ViewModels
             await OpenEditor(null);
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(SelectedActivityIsNotNull))]
         public async Task EditActivityAsync()
         {
             if (SelectedActivity != null)
@@ -92,7 +95,7 @@ namespace ACycle.ViewModels
             await OpenEditor(activity);
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(SelectedActivityIsNotNull))]
         public async Task RemoveActivityAsync()
         {
             if (SelectedActivity != null)

@@ -2,6 +2,7 @@
 <views:ContentPageBase
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:ACycle.Controls"
     xmlns:views="clr-namespace:ACycle.Views"
     xmlns:viewModels="clr-namespace:ACycle.ViewModels"
     xmlns:ext="clr-namespace:ACycle.Extensions"
@@ -17,11 +18,30 @@
         <VerticalStackLayout Grid.Row="0" Spacing="4">
             <Label Text="{ext:LocaleString Key=Text_ActivityName}" />
             <Entry Text="{Binding Activity.Name}" />
+
+            <Label Text="{ext:LocaleString Key=Text_ActivityStartDateTime}" />
+            <controls:DateTimePicker DateTime="{Binding Activity.StartDateTime}" />
+
+            <Label Text="{ext:LocaleString Key=Text_ActivityEndDateTime}" />
+            <controls:DateTimePicker DateTime="{Binding Activity.EndDateTime}" />
+
+            <Label Text="{ext:LocaleString Key=Text_ActivityComment}" />
+            <Entry Text="{Binding Activity.Comment}" />
         </VerticalStackLayout>
-        <Grid RowSpacing="4" Grid.Row="1" RowDefinitions="Auto, *">
-            <Label Grid.Row="0" Text="{ext:LocaleString Key=Text_Content}" />
-            <Editor Grid.Row="1" Text="{Binding Activity.PreparationStageDescription}" />
-        </Grid>
+
+        <ScrollView  Grid.Row="1">
+            <VerticalStackLayout Spacing="4">
+                <Label Text="{ext:LocaleString Key=Text_ActivityPreparationStageDescription}" />
+                <Editor HeightRequest="120" Text="{Binding Activity.PreparationStageDescription}" />
+
+                <Label Text="{ext:LocaleString Key=Text_ActivityExecutionStageDescription}}" />
+                <Editor HeightRequest="120" Text="{Binding Activity.ExecutionStageDescription}" />
+
+                <Label Text="{ext:LocaleString Key=Text_ActivityCleanupStageDescription}" />
+                <Editor HeightRequest="120" Text="{Binding Activity.CleanupStageDescription}" />
+            </VerticalStackLayout>
+        </ScrollView>
+
         <HorizontalStackLayout Grid.Row="2" Spacing="4" HorizontalOptions="Center">
             <Button Text="{ext:LocaleString Key=Text_Save}" Command="{Binding SaveCommand}" />
             <Button Text="{ext:LocaleString Key=Text_Discard}" Command="{Binding DiscardCommand}" />
