@@ -25,6 +25,7 @@ namespace ACycle
 
         private static void InitializeRouting()
         {
+            Routing.RegisterRoute(Route.ActivityEditorViewRoute, typeof(ActivityEditorView));
             Routing.RegisterRoute(Route.DatabaseMigrationViewRoute, typeof(DatabaseMigrationView));
             Routing.RegisterRoute(Route.DebuggingViewRoute, typeof(DebuggingView));
             Routing.RegisterRoute(Route.DiaryEditorViewRoute, typeof(DiaryEditorView));
@@ -34,6 +35,8 @@ namespace ACycle
 
         public static class Route
         {
+            public const string ActivityEditorViewRoute = "Activity/Editor";
+
             public const string DatabaseMigrationViewRoute = "DatabaseMigration";
 
             public const string DebuggingViewRoute = "Debugging";

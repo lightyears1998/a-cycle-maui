@@ -88,6 +88,33 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you really want to remove this activity?.
+        /// </summary>
+        public static string ActivityView_ConfirmRemoveText {
+            get {
+                return ResourceManager.GetString("ActivityView_ConfirmRemoveText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirmation.
+        /// </summary>
+        public static string ActivityView_ConfirmRemoveTitle {
+            get {
+                return ResourceManager.GetString("ActivityView_ConfirmRemoveTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activity.
+        /// </summary>
+        public static string ActivityView_Title {
+            get {
+                return ResourceManager.GetString("ActivityView_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ACycle.
         /// </summary>
         public static string AppName {

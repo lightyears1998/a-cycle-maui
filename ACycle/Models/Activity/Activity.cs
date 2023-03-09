@@ -4,9 +4,11 @@
     {
         public string Name { get; set; } = string.Empty;
 
-        public DateTime? StartDate { get; set; }
+        public DateTime StartDateTime { get; set; } = DateTime.Now;
 
-        public DateTime? EndDate { get; set; }
+        public DateTime EndDateTime { get; set; } = DateTime.Now;
+
+        public string Comment { get; set; } = string.Empty;
 
         public string PreparationStageDescription { get; set; } = string.Empty;
 
