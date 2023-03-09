@@ -1,6 +1,5 @@
 ﻿using ACycle.Entities;
 using ACycle.Models;
-using ACycle.Resources.Strings;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.Input;
 
@@ -11,7 +10,6 @@ namespace ACycle.ViewModels
     {
         private readonly INavigationService _navigationService;
         private readonly IEntryService<DiaryV1, Diary> _diaryService;
-        private readonly IDialogService _dialogService;
 
         private Diary _lastSavedDiary = new();
         private Diary _diary = new();
@@ -57,18 +55,12 @@ namespace ACycle.ViewModels
             }
         }
 
-        public DiaryEditorViewModel(INavigationService navigationService, IEntryService<DiaryV1, Diary> diaryService, IDialogService dialogService)
+        public DiaryEditorViewModel(
+            INavigationService navigationService,
+            IEntryService<DiaryV1, Diary> diaryService)
         {
             _navigationService = navigationService;
             _diaryService = diaryService;
-            _dialogService = dialogService;
-        }
-
-        public override async Task InitializeAsync()
-        {
-            await base.InitializeAsync();
-
-            _lastSavedDiary = _diary with { };
         }
 
         [RelayCommand]

@@ -126,6 +126,15 @@
   <data name="Action_Remove" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="ActivityView_ConfirmRemoveText" xml:space="preserve">
+    <value>Do you really want to remove this activity?</value>
+  </data>
+  <data name="ActivityView_ConfirmRemoveTitle" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="ActivityView_Title" xml:space="preserve">
+    <value>Activity</value>
+  </data>
   <data name="AppName" xml:space="preserve">
     <value>ACycle</value>
   </data>

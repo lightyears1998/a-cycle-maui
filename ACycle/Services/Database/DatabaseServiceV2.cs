@@ -15,6 +15,7 @@ namespace ACycle.Services
 
         public override Type[] EntryBasedEntityTables => new Type[]
         {
+            typeof(ActivityV1),
             typeof(ActivityCategoryV1),
             typeof(DiaryV1),
         };
