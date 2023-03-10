@@ -15,8 +15,18 @@ namespace ACycle.ViewModels
         private INavigationService _navigationService;
         private IDialogService _dialogService;
 
-        [ObservableProperty]
         private DateTime _date = DateTime.Today;
+
+        public DateTime Date
+        {
+            get => _date; set
+            {
+                if (SetProperty(ref _date, value))
+                {
+                    _ = LoadActivitiesAsync();
+                }
+            }
+        }
 
         [ObservableProperty]
         private RelayCollection<Activity, ActivityRelay> _activities;
