@@ -3,16 +3,31 @@
     x:Class="ACycle.Views.Templates.ActivityCollectionItemTemplate"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewModels="clr-namespace:ACycle.ViewModels"
     xmlns:ext="clr-namespace:ACycle.Extensions"
     x:DataType="{x:Type viewModels:ActivityViewModel+ActivityRelay}">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <toolkit:IsStringNotNullOrWhiteSpaceConverter x:Key="IsStringNotNullOrWhiteSpaceConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
     <VerticalStackLayout>
         <Label Text="{Binding Item.Name}" FontAttributes="Bold" />
         <Label Text="{Binding DateTimeString}" />
-        <Label Text="{Binding Item.Comment}" />
-        <Label Text="{Binding Item.PreparationStageDescription}" />
-        <Label Text="{Binding Item.ExecutionStageDescription}" />
-        <Label Text="{Binding Item.CleanupStageDescription}" />
+        <Label
+            Text="{Binding Item.Comment}"
+            IsVisible="{Binding Item.Comment, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}" />
+        <Label
+            Text="{Binding Item.PreparationStageDescription}"
+            IsVisible="{Binding Item.PreparationStageDescription, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}" />
+        <Label
+            Text="{Binding Item.ExecutionStageDescription}"
+            IsVisible="{Binding Item.ExecutionStageDescription, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}" />
+        <Label
+            Text="{Binding Item.CleanupStageDescription}"
+            IsVisible="{Binding Item.CleanupStageDescription, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}" />
         <FlyoutBase.ContextFlyout>
             <MenuFlyout>
                 <MenuFlyoutItem Text="{ext:LocaleString Key=Text_Edit}" Command="{Binding EditCommand}" />
