@@ -673,6 +673,15 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cleanup Stage.
+        /// </summary>
+        public static string Text_CleanupStage {
+            get {
+                return ResourceManager.GetString("Text_CleanupStage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to leave the page?.
         /// </summary>
         public static string Text_ConfirmForLeave {
@@ -808,6 +817,15 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Execution Stage.
+        /// </summary>
+        public static string Text_ExecutionStage {
+            get {
+                return ResourceManager.GetString("Text_ExecutionStage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insufficient Application Permission.
         /// </summary>
         public static string Text_InsufficientApplicationPermission {
@@ -840,6 +858,15 @@ namespace ACycle.Resources.Strings {
         public static string Text_PickFile {
             get {
                 return ResourceManager.GetString("Text_PickFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preparation Stage.
+        /// </summary>
+        public static string Text_PreparationStage {
+            get {
+                return ResourceManager.GetString("Text_PreparationStage", resourceCulture);
             }
         }
         

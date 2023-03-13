@@ -321,6 +321,9 @@
   <data name="Text_AppRestartReason_UserRequest" xml:space="preserve">
     <value>The app is restarting due to user request.</value>
   </data>
+  <data name="Text_CleanupStage" xml:space="preserve">
+    <value>Cleanup Stage</value>
+  </data>
   <data name="Text_ConfirmForLeave" xml:space="preserve">
     <value>Do you want to leave the page?</value>
   </data>
@@ -366,6 +369,9 @@
   <data name="Text_ExceptionThrownTitle" xml:space="preserve">
     <value>Oh... Something Unexpected Happened</value>
   </data>
+  <data name="Text_ExecutionStage" xml:space="preserve">
+    <value>Execution Stage</value>
+  </data>
   <data name="Text_InsufficientApplicationPermission" xml:space="preserve">
     <value>Insufficient Application Permission</value>
   </data>
@@ -377,6 +383,9 @@
   </data>
   <data name="Text_PickFile" xml:space="preserve">
     <value>Pick File</value>
+  </data>
+  <data name="Text_PreparationStage" xml:space="preserve">
+    <value>Preparation Stage</value>
   </data>
   <data name="Text_Remove" xml:space="preserve">
     <value>Remvoe</value>
