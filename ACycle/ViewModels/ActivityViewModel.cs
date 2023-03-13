@@ -11,9 +11,9 @@ namespace ACycle.ViewModels
 {
     public partial class ActivityViewModel : ViewModelBase
     {
-        private IEntryService<ActivityV1, Activity> _activityService;
-        private INavigationService _navigationService;
-        private IDialogService _dialogService;
+        private readonly IEntryService<ActivityV1, Activity> _activityService;
+        private readonly INavigationService _navigationService;
+        private readonly IDialogService _dialogService;
 
         private DateTime _date = DateTime.Today;
 
@@ -142,7 +142,7 @@ namespace ACycle.ViewModels
 
             public ICommand RemoveCommand { get; protected set; }
 
-            public string DateTimeString => $"{Item.StartDateTime} => {Item.EndDateTime}";
+            public string DateTimeString => $"{Item.StartDateTime} => {Item.EndDateTime} ({TimeSpan.FromTicks(Item.EndDateTime.Ticks - Item.StartDateTime.Ticks).TotalHours:0.##}hr)";
 
             public ActivityRelay(Activity item, ICommand editCommand, ICommand removeCommand) : base(item)
             {
