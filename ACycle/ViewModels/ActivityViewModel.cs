@@ -33,6 +33,8 @@ namespace ACycle.ViewModels
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(SelectedActivityIsNotNull))]
+        [NotifyCanExecuteChangedFor(nameof(EditActivityCommand))]
+        [NotifyCanExecuteChangedFor(nameof(RemoveActivityCommand))]
         private ActivityRelay? _selectedActivity;
 
         public bool SelectedActivityIsNotNull => SelectedActivity != null;
