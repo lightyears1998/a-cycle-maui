@@ -26,19 +26,19 @@
             <controls:DateTimePicker DateTime="{Binding Activity.EndDateTime}" />
 
             <Label Text="{ext:LocaleString Key=ActivityEditorView_ActivityComment}" />
-            <Entry Text="{Binding Activity.Comment}" />
+            <Editor HeightRequest="80" Text="{Binding Activity.Comment}" />
         </VerticalStackLayout>
 
-        <ScrollView  Grid.Row="1">
+        <ScrollView Grid.Row="1">
             <VerticalStackLayout Spacing="4">
                 <Label Text="{ext:LocaleString Key=ActivityEditorView_ActivityPreparationStageDescription}" />
-                <Editor HeightRequest="120" Text="{Binding Activity.PreparationStageDescription}" />
+                <Editor HeightRequest="80" Text="{Binding Activity.PreparationStageDescription}" />
 
                 <Label Text="{ext:LocaleString Key=ActivityEditorView_ActivityExecutionStageDescription}" />
-                <Editor HeightRequest="120" Text="{Binding Activity.ExecutionStageDescription}" />
+                <Editor HeightRequest="80" Text="{Binding Activity.ExecutionStageDescription}" />
 
                 <Label Text="{ext:LocaleString Key=ActivityEditorView_ActivityCleanupStageDescription}" />
-                <Editor HeightRequest="120" Text="{Binding Activity.CleanupStageDescription}" Placeholder="{ext:LocaleString Key=ActivityEditorView_ActivityCleanupStageDescriptionPlaceholder}" />
+                <Editor HeightRequest="80" Text="{Binding Activity.CleanupStageDescription}" Placeholder="{ext:LocaleString Key=ActivityEditorView_ActivityCleanupStageDescriptionPlaceholder}" />
             </VerticalStackLayout>
         </ScrollView>
 
