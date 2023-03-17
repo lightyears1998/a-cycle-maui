@@ -511,6 +511,33 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sync when Cellular is connected.
+        /// </summary>
+        public static string SettingsView_SyncWhenCellularIsConnected {
+            get {
+                return ResourceManager.GetString("SettingsView_SyncWhenCellularIsConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sync when Ethernet is connected.
+        /// </summary>
+        public static string SettingsView_SyncWhenEthernetIsConnected {
+            get {
+                return ResourceManager.GetString("SettingsView_SyncWhenEthernetIsConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sync when WiFi is connected.
+        /// </summary>
+        public static string SettingsView_SyncWhenWiFiIsConnected {
+            get {
+                return ResourceManager.GetString("SettingsView_SyncWhenWiFiIsConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string SettingsView_Title {
