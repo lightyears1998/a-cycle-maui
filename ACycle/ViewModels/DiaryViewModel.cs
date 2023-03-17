@@ -61,14 +61,16 @@ namespace ACycle.ViewModels
 
             _diaries = new((item, collection) => new DiaryRelay(
                 item,
-                editCommand: new Command(() =>
+                relay =>
                 {
-                    _ = OpenEditorForEditingAsync(item);
-                }),
-                removeCommand: new Command(() =>
-                {
-                    _ = RemoveDiaryAsync(item);
-                })));
+                    return (new RelayCommand(() =>
+                    {
+                        _ = OpenEditorForEditingAsync(relay.Item);
+                    }), new RelayCommand(() =>
+                    {
+                        _ = RemoveDiaryAsync(relay.Item);
+                    }));
+                }));
 
             _diaryService.ModelCreated += OnDiaryCreated;
             _diaryService.ModelUpdated += OnDiaryUpdated;
@@ -186,10 +188,11 @@ namespace ACycle.ViewModels
 
             public ICommand RemoveCommand { get; set; }
 
-            public DiaryRelay(Diary item, ICommand editCommand, ICommand removeCommand) : base(item)
+            public DiaryRelay(Diary item, Func<DiaryRelay, (ICommand EditCommand, ICommand RemoveCommand)> commandBuilder) : base(item)
             {
-                EditCommand = editCommand;
-                RemoveCommand = removeCommand;
+                var commands = commandBuilder(this);
+                EditCommand = commands.EditCommand;
+                RemoveCommand = commands.RemoveCommand;
             }
         }
     }

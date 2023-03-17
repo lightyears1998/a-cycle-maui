@@ -11,9 +11,9 @@ namespace ACycle.ViewModels
 {
     public partial class ActivityViewModel : ViewModelBase
     {
-        private IEntryService<ActivityV1, Activity> _activityService;
-        private INavigationService _navigationService;
-        private IDialogService _dialogService;
+        private readonly IEntryService<ActivityV1, Activity> _activityService;
+        private readonly INavigationService _navigationService;
+        private readonly IDialogService _dialogService;
 
         private DateTime _date = DateTime.Today;
 
@@ -48,11 +48,13 @@ namespace ACycle.ViewModels
             _navigationService = navigation;
             _dialogService = dialogService;
 
-            _activities = new RelayCollection<Activity, ActivityRelay>((item, _) => new ActivityRelay(
-                item: item,
-                editCommand: new AsyncRelayCommand(async () => await EditActivityAsync(item)),
-                removeCommand: new AsyncRelayCommand(async () => await RemoveActivityAsync(item))
-            ));
+            _activities = new RelayCollection<Activity, ActivityRelay>((item, relay) => new ActivityRelay(item, relay =>
+            {
+                return (
+                    new RelayCommand(() => _ = EditActivityAsync(relay.Item)),
+                    new RelayCommand(() => _ = RemoveActivityAsync(relay.Item))
+                    );
+            }));
         }
 
         [RelayCommand]
@@ -140,16 +142,17 @@ namespace ACycle.ViewModels
 
         public class ActivityRelay : Relay<Activity>
         {
-            public ICommand EditCommand { get; protected set; }
+            public ICommand EditCommand { get; set; }
 
-            public ICommand RemoveCommand { get; protected set; }
+            public ICommand RemoveCommand { get; set; }
 
-            public string DateTimeString => $"{Item.StartDateTime} => {Item.EndDateTime}";
+            public string DateTimeString => $"{Item.StartDateTime} => {Item.EndDateTime} ({TimeSpan.FromTicks(Item.EndDateTime.Ticks - Item.StartDateTime.Ticks).TotalHours:0.##}hr)";
 
-            public ActivityRelay(Activity item, ICommand editCommand, ICommand removeCommand) : base(item)
+            public ActivityRelay(Activity item, Func<ActivityRelay, (ICommand EditCommand, ICommand RemoveCommand)> commandBuilder) : base(item)
             {
-                EditCommand = editCommand;
-                RemoveCommand = removeCommand;
+                var commands = commandBuilder(this);
+                EditCommand = commands.EditCommand;
+                RemoveCommand = commands.RemoveCommand;
             }
         }
     }

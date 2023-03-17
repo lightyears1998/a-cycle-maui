@@ -15,19 +15,54 @@
 
     <VerticalStackLayout>
         <Label Text="{Binding Item.Name}" FontAttributes="Bold" />
+
         <Label Text="{Binding DateTimeString}" />
+
         <Label
             Text="{Binding Item.Comment}"
             IsVisible="{Binding Item.Comment, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}" />
-        <Label
-            Text="{Binding Item.PreparationStageDescription}"
-            IsVisible="{Binding Item.PreparationStageDescription, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}" />
-        <Label
-            Text="{Binding Item.ExecutionStageDescription}"
-            IsVisible="{Binding Item.ExecutionStageDescription, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}" />
-        <Label
-            Text="{Binding Item.CleanupStageDescription}"
-            IsVisible="{Binding Item.CleanupStageDescription, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}" />
+
+        <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="Auto, *" RowSpacing="4" ColumnSpacing="4">
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                IsVisible="{Binding Item.PreparationStageDescription, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
+                VerticalOptions="Center"
+                Text="{ext:LocaleString Key=Text_PreparationStage}" />
+            <Label
+                Grid.Row="0"
+                Grid.Column="1"
+                IsVisible="{Binding Item.PreparationStageDescription, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
+                Text="{Binding Item.PreparationStageDescription}"
+                LineBreakMode="WordWrap" />
+
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                IsVisible="{Binding Item.ExecutionStageDescription, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
+                VerticalOptions="Center"
+                Text="{ext:LocaleString Key=Text_ExecutionStage}" />
+            <Label
+                Grid.Row="1"
+                Grid.Column="1"
+                IsVisible="{Binding Item.ExecutionStageDescription, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
+                Text="{Binding Item.ExecutionStageDescription}"
+                LineBreakMode="WordWrap" />
+
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                IsVisible="{Binding Item.CleanupStageDescription, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
+                VerticalOptions="Center"
+                Text="{ext:LocaleString Key=Text_CleanupStage}" />
+            <Label
+                Grid.Row="2"
+                Grid.Column="1"
+                IsVisible="{Binding Item.CleanupStageDescription, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
+                Text="{Binding Item.CleanupStageDescription}"
+                LineBreakMode="WordWrap" />
+        </Grid>
+
         <FlyoutBase.ContextFlyout>
             <MenuFlyout>
                 <MenuFlyoutItem Text="{ext:LocaleString Key=Text_Edit}" Command="{Binding EditCommand}" />

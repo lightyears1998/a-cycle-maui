@@ -80,7 +80,26 @@ namespace ACycle.ViewModels
         }
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(SynchronizationEnabled))]
         private bool _synchronizationSwitchEnabled = true;
+
+        public bool SynchronizationEnabledWhenWiFiIsConnected
+        {
+            get => _synchronizationService.SynchronizationEnabledWhenWiFiIsConnected;
+            set => _synchronizationService.SetSynchronizationEnabledWhenWiFiIsConnectedAsync(value);
+        }
+
+        public bool SynchronizationEnabledWhenEthernetIsConnected
+        {
+            get => _synchronizationService.SynchronizationEnabledWhenEthernetIsConnected;
+            set => _synchronizationService.SetSynchronizationEnabledWhenEthernetIsConnectedAsync(value);
+        }
+
+        public bool SynchronizationEnabledWhenCellularIsConnected
+        {
+            get => _synchronizationService.SynchronizationEnabledWhenCellularIsConnected;
+            set => _synchronizationService.SetSynchronizationEnabledWhenCellularIsConnectedAsync(value);
+        }
 
         public string SynchronizationStatus => _synchronizationService.SynchronizationStatus;
 

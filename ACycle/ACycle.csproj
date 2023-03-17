@@ -29,7 +29,7 @@
     <ApplicationIdGuid Condition="'$(Configuration)' == 'Release'">657C9818-E670-4BCC-8B2F-597CC27EEC16</ApplicationIdGuid>
 
     <!-- Versions -->
-    <ApplicationVersion>3</ApplicationVersion>
+    <ApplicationVersion>5</ApplicationVersion>
     <!-- <ApplicationDisplayVersion>NA</ApplicationDisplayVersion> -->
     <!-- Do NOT set ApplicationDisplayVersion: It is buggy. -->
     <!-- Setting ApplicationDisplayVersion to other string differs from the default can possibly prevent VS from building the project. -->

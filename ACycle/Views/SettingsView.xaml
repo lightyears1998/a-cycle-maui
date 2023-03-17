@@ -23,7 +23,7 @@
 
             <VerticalStackLayout Grid.Row="1" Spacing="4">
                 <Label Text="{ext:LocaleString Key=SettingsView_Synchronization}" />
-                <Grid HorizontalOptions="Fill" ColumnDefinitions="*, Auto">
+                <Grid HorizontalOptions="Fill" RowDefinitions="Auto, Auto" ColumnDefinitions="*, Auto">
                     <Label
                         VerticalOptions="Center"
                         Text="{ext:LocaleString Key=SettingsView_SynchronizationInBackground}" />
@@ -32,6 +32,43 @@
                         HorizontalOptions="End"
                         IsToggled="{Binding SynchronizationEnabled}"
                         IsEnabled="{Binding SynchronizationSwitchEnabled}" />
+
+                    <Grid
+                        IsVisible="{Binding SynchronizationEnabled}"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        RowDefinitions="Auto, Auto, Auto"
+                        ColumnDefinitions="*, Auto">
+                        <Label
+                            Grid.Row="0"
+                            VerticalOptions="Center"
+                            Text="{ext:LocaleString Key=SettingsView_SyncWhenEthernetIsConnected}" />
+                        <Switch
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            IsToggled="{Binding SynchronizationEnabledWhenEthernetIsConnected}" />
+
+                        <Label
+                            Grid.Row="1"
+                            VerticalOptions="Center"
+                            Text="{ext:LocaleString Key=SettingsView_SyncWhenWiFiIsConnected}" />
+                        <Switch
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            IsToggled="{Binding SynchronizationEnabledWhenWiFiIsConnected}" />
+
+                        <Label
+                            Grid.Row="2"
+                            VerticalOptions="Center"
+                            Text="{ext:LocaleString Key=SettingsView_SyncWhenCellularIsConnected}" />
+                        <Switch
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            IsToggled="{Binding SynchronizationEnabledWhenCellularIsConnected}" />
+                    </Grid>
                 </Grid>
                 <Button
                     Text="{ext:LocaleString Key=SettingsView_DoSync}"

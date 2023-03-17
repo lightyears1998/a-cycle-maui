@@ -267,6 +267,15 @@
   <data name="SettingsView_SynchronizationInBackground" xml:space="preserve">
     <value>后台自动同步</value>
   </data>
+  <data name="SettingsView_SyncWhenCellularIsConnected" xml:space="preserve">
+    <value>使用蜂窝移动数据自动同步</value>
+  </data>
+  <data name="SettingsView_SyncWhenEthernetIsConnected" xml:space="preserve">
+    <value>使用以太网自动同步</value>
+  </data>
+  <data name="SettingsView_SyncWhenWiFiIsConnected" xml:space="preserve">
+    <value>使用 WiFi 自动同步</value>
+  </data>
   <data name="SettingsView_Title" xml:space="preserve">
     <value>应用程序设置</value>
   </data>
@@ -321,6 +330,9 @@
   <data name="Text_AppRestartReason_UserRequest" xml:space="preserve">
     <value>由于用户请求，正在重启 App。</value>
   </data>
+  <data name="Text_CleanupStage" xml:space="preserve">
+    <value>清理阶段</value>
+  </data>
   <data name="Text_ConfirmForLeave" xml:space="preserve">
     <value>确认离开？</value>
   </data>
@@ -366,6 +378,9 @@
   <data name="Text_ExceptionThrownTitle" xml:space="preserve">
     <value>发生了些意料之外的事情…</value>
   </data>
+  <data name="Text_ExecutionStage" xml:space="preserve">
+    <value>执行阶段</value>
+  </data>
   <data name="Text_InsufficientApplicationPermission" xml:space="preserve">
     <value>App 权限不足</value>
   </data>
@@ -377,6 +392,9 @@
   </data>
   <data name="Text_PickFile" xml:space="preserve">
     <value>选择文件</value>
+  </data>
+  <data name="Text_PreparationStage" xml:space="preserve">
+    <value>准备阶段</value>
   </data>
   <data name="Text_Remove" xml:space="preserve">
     <value>移除</value>

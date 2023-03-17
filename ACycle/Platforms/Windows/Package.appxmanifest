@@ -6,10 +6,10 @@
   IgnorableNamespaces="uap rescap">
 
   <!-- Identity used for development -->
-  <Identity Name="maui-package-name-placeholder" Publisher="CN=135B6461-1239-49C8-BA74-14472A5C1C2A" Version="1.1.1.0" />
+  <Identity Name="maui-package-name-placeholder" Publisher="CN=135B6461-1239-49C8-BA74-14472A5C1C2A" Version="1.2.0.0" />
 
   <!-- Identity used for Microsoft Store deployment -->
-  <!--<Identity Name="5124lightyears1998.ACycle" Publisher="CN=135B6461-1239-49C8-BA74-14472A5C1C2A" Version="1.1.1.0" />-->
+  <!--<Identity Name="5124lightyears1998.ACycle" Publisher="CN=135B6461-1239-49C8-BA74-14472A5C1C2A" Version="1.2.0.0" />-->
 
   <Properties>
     <DisplayName>ACycle</DisplayName>
