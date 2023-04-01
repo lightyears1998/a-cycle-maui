@@ -1,6 +1,4 @@
-﻿using ACycle.Entities;
-using ACycle.Models;
-using ACycle.Models.Base;
+﻿using ACycle.Models;
 using ACycle.Resources.Strings;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -12,7 +10,7 @@ namespace ACycle.ViewModels
     public partial class DiaryViewModel : ViewModelBase
     {
         private readonly IDialogService _dialogService;
-        private readonly IEntryService<DiaryV1, Diary> _diaryService;
+        private readonly IDiaryService _diaryService;
         private readonly INavigationService _navigationService;
 
         private DateTime _date = DateTime.Today;
@@ -52,7 +50,7 @@ namespace ACycle.ViewModels
 
         public DiaryViewModel(
             IDialogService dialogService,
-            IEntryService<DiaryV1, Diary> diaryService,
+            IDiaryService diaryService,
             INavigationService navigationService)
         {
             _dialogService = dialogService;

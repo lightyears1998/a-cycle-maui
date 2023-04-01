@@ -1,5 +1,4 @@
-﻿using ACycle.Entities;
-using ACycle.Models;
+﻿using ACycle.Models;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -19,8 +18,8 @@ namespace ACycle.ViewModels
         private CategoryItem _selectedCategory = CategoryItem.NullItem;
 
         private readonly INavigationService _navigationService;
-        private readonly IEntryService<ActivityV1, Activity> _activityService;
-        private readonly IEntryService<ActivityCategoryV1, ActivityCategory> _categoryService;
+        private readonly IActivityService _activityService;
+        private readonly IActivityCategoryService _categoryService;
 
         public bool ActivityHasActivity => _activity != _lastSavedActivity;
 
@@ -32,8 +31,8 @@ namespace ACycle.ViewModels
 
         public ActivityEditorViewModel(
             INavigationService navigationService,
-            IEntryService<ActivityV1, Activity> activityService,
-            IEntryService<ActivityCategoryV1, ActivityCategory> categoryService)
+            IActivityService activityService,
+            IActivityCategoryService categoryService)
         {
             _navigationService = navigationService;
             _activityService = activityService;

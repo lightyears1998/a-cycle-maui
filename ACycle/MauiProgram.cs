@@ -73,11 +73,9 @@ namespace ACycle
         {
             builder.Services
                 .AddSingleton<IAppLifecycleService, AppLifecycleService>()
-                .AddSingleton<IActivityCategoryService, ActivityCategoryService>()
                 .AddTransient<IBackupService, BackupService>()
                 .AddSingleton<IConfigurationService, ConfigurationService>()
                 .AddSingleton(typeof(IDatabaseService), StaticConfiguration.DatabaseServiceImplement)
-                .AddSingleton(typeof(IEntryService<,>), typeof(EntryService<,>))
                 .AddSingleton<IDatabaseMigrationService, DatabaseMigrationService>()
                 .AddSingleton<IDialogService, DialogService>()
                 .AddSingleton<IMetadataService, MetadataService>()
@@ -86,6 +84,19 @@ namespace ACycle
                 .AddSingleton<ISynchronizationService, SynchronizationService>()
                 .AddSingleton<ISynchronizationEndpointService, SynchronizationEndpointService>()
                 .AddSingleton<IUserService, UserService>();
+
+            builder.RegisterEntryBasedServices();
+
+            return builder;
+        }
+
+        public static MauiAppBuilder RegisterEntryBasedServices(this MauiAppBuilder builder)
+        {
+            builder.Services
+                .AddSingleton(typeof(IEntryService<,>), typeof(EntryService<,>))
+                .AddSingleton<IActivityService, ActivityService>()
+                .AddSingleton<IActivityCategoryService, ActivityCategoryService>()
+                .AddSingleton<IDiaryService, DiaryService>();
 
             return builder;
         }

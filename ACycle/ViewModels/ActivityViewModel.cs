@@ -1,6 +1,4 @@
-﻿using ACycle.Entities;
-using ACycle.Models;
-using ACycle.Models.Base;
+﻿using ACycle.Models;
 using ACycle.Resources.Strings;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -11,7 +9,7 @@ namespace ACycle.ViewModels
 {
     public partial class ActivityViewModel : ViewModelBase
     {
-        private readonly IEntryService<ActivityV1, Activity> _activityService;
+        private readonly IActivityService _activityService;
         private readonly INavigationService _navigationService;
         private readonly IDialogService _dialogService;
 
@@ -40,7 +38,7 @@ namespace ACycle.ViewModels
         public bool SelectedActivityIsNotNull => SelectedActivity != null;
 
         public ActivityViewModel(
-            IEntryService<ActivityV1, Activity> activityService,
+            IActivityService activityService,
             INavigationService navigation,
             IDialogService dialogService)
         {

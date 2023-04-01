@@ -1,5 +1,4 @@
-﻿using ACycle.Entities;
-using ACycle.Models;
+﻿using ACycle.Models;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.Input;
 
@@ -9,7 +8,7 @@ namespace ACycle.ViewModels
     public partial class DiaryEditorViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
-        private readonly IEntryService<DiaryV1, Diary> _diaryService;
+        private readonly IDiaryService _diaryService;
 
         private Diary _lastSavedDiary = new();
         private Diary _diary = new();
@@ -57,7 +56,7 @@ namespace ACycle.ViewModels
 
         public DiaryEditorViewModel(
             INavigationService navigationService,
-            IEntryService<DiaryV1, Diary> diaryService)
+            IDiaryService diaryService)
         {
             _navigationService = navigationService;
             _diaryService = diaryService;

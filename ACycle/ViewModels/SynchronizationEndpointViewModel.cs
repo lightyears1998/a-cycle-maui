@@ -1,5 +1,4 @@
 ﻿using ACycle.Models;
-using ACycle.Models.Base;
 using ACycle.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;

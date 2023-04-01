@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace ACycle.Models.Base
+namespace ACycle.Models
 {
     public class RelayCollection<TItem, TRelay> : ObservableCollectionEx<TRelay>
         where TItem : class where TRelay : Relay<TItem>
