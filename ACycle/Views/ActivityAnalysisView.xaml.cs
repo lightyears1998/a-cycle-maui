@@ -2,9 +2,9 @@ using ACycle.ViewModels;
 
 namespace ACycle.Views
 {
-    public partial class ActivityEditorView : ContentPageBase
+    public partial class ActivityAnalysisView : ContentPageBase
     {
-        public ActivityEditorView(ActivityEditorViewModel model)
+        public ActivityAnalysisView(ActivityAnalysisViewModel model)
         {
             BindingContext = model;
             InitializeComponent();

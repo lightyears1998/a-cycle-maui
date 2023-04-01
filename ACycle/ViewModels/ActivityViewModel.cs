@@ -140,6 +140,12 @@ namespace ACycle.ViewModels
                 activity == null ? null : new Dictionary<string, object> { { "Activity", activity } });
         }
 
+        [RelayCommand]
+        private async Task GoToAnalysisView()
+        {
+            await _navigationService.NavigateToAsync(AppShell.Route.ActivityAnalysisViewRoute);
+        }
+
         public class ActivityRelay : Relay<Activity>
         {
             public ICommand EditCommand { get; set; }

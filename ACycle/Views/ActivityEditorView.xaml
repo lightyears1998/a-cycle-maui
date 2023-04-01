@@ -19,6 +19,20 @@
             <Label Text="{ext:LocaleString Key=ActivityEditorView_ActivityName}" />
             <Entry Text="{Binding Activity.Name}" />
 
+            <HorizontalStackLayout Spacing="4">
+                <Label Text="{ext:LocaleString Key=ActivityEditorView_Category}" VerticalOptions="Center" />
+                <Picker
+                    VerticalOptions="Center"
+                    ItemsSource="{Binding CategoryItems}"
+                    SelectedItem="{Binding SelectedCategory}"
+                    ItemDisplayBinding="{Binding Name}">
+                </Picker>
+                <Button
+                    VerticalOptions="Center"
+                    Text="{ext:LocaleString Key=ActivityEditorView_EditCategories}"
+                    Command="{Binding OpenCategoryViewCommand}" />
+            </HorizontalStackLayout>
+
             <Label Text="{ext:LocaleString Key=ActivityEditorView_ActivityStartDateTime}" />
             <controls:DateTimePicker DateTime="{Binding Activity.StartDateTime}" />
 

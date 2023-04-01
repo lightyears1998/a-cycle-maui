@@ -150,6 +150,12 @@
   <data name="ActivityEditorView_ActivityStartDateTime" xml:space="preserve">
     <value>Activity Starts At</value>
   </data>
+  <data name="ActivityEditorView_Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="ActivityEditorView_EditCategories" xml:space="preserve">
+    <value>Edit Categories</value>
+  </data>
   <data name="ActivityEditorView_Title" xml:space="preserve">
     <value>Activity Editor</value>
   </data>

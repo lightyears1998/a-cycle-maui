@@ -10,6 +10,11 @@
     x:Class="ACycle.Views.ActivityView"
     x:DataType="viewModels:ActivityViewModel"
     Title="{ext:LocaleString Key=ActivityView_Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="activity_view_analysis.png" Text="Analysis" Command="{Binding GoToAnalysisViewCommand}" />
+    </ContentPage.ToolbarItems>
+
     <Grid
         VerticalOptions="Fill"
         HorizontalOptions="Fill"

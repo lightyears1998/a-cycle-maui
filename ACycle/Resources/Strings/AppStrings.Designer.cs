@@ -160,6 +160,24 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string ActivityEditorView_Category {
+            get {
+                return ResourceManager.GetString("ActivityEditorView_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Categories.
+        /// </summary>
+        public static string ActivityEditorView_EditCategories {
+            get {
+                return ResourceManager.GetString("ActivityEditorView_EditCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Activity Editor.
         /// </summary>
         public static string ActivityEditorView_Title {

@@ -1,6 +1,7 @@
 ﻿using ACycle.Entities;
 using ACycle.Models;
 using ACycle.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace ACycle.ViewModels
@@ -11,8 +12,15 @@ namespace ACycle.ViewModels
         private Activity _activity = new();
         private Activity _lastSavedActivity = new();
 
-        private INavigationService _navigationService;
-        private IEntryService<ActivityV1, Activity> _activityService;
+        [ObservableProperty]
+        private ObservableCollectionEx<CategoryItem> _categoryItems = new() { CategoryItem.NullItem };
+
+        [ObservableProperty]
+        private CategoryItem _selectedCategory = CategoryItem.NullItem;
+
+        private readonly INavigationService _navigationService;
+        private readonly IEntryService<ActivityV1, Activity> _activityService;
+        private readonly IEntryService<ActivityCategoryV1, ActivityCategory> _categoryService;
 
         public bool ActivityHasActivity => _activity != _lastSavedActivity;
 
@@ -24,10 +32,12 @@ namespace ACycle.ViewModels
 
         public ActivityEditorViewModel(
             INavigationService navigationService,
-            IEntryService<ActivityV1, Activity> activityService)
+            IEntryService<ActivityV1, Activity> activityService,
+            IEntryService<ActivityCategoryV1, ActivityCategory> categoryService)
         {
             _navigationService = navigationService;
             _activityService = activityService;
+            _categoryService = categoryService;
         }
 
         [RelayCommand]
@@ -55,6 +65,27 @@ namespace ACycle.ViewModels
         public async Task DiscardAsync()
         {
             await ConfirmForLeave();
+        }
+
+        [RelayCommand]
+        public async Task OpenCategoryView()
+        {
+            await _navigationService.NavigateToAsync(AppShell.Route.ActivityCategoryViewRoute);
+        }
+
+        public record class CategoryItem
+        {
+            public string Name { set; get; }
+
+            public ActivityCategory? Category { set; get; }
+
+            public static readonly CategoryItem NullItem = new CategoryItem("无", null);
+
+            public CategoryItem(string name, ActivityCategory? category)
+            {
+                Name = name;
+                Category = category;
+            }
         }
     }
 }
