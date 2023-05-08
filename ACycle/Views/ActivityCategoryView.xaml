@@ -11,6 +11,31 @@
     x:DataType="viewModels:ActivityCategoryViewModel"
     Title="{ext:LocaleString Key=ActivityCategoryView_Title}">
 
-    <VerticalStackLayout>
-    </VerticalStackLayout>
+    <Grid
+        RowDefinitions="Auto, *"
+        RowSpacing="8">
+
+        <VerticalStackLayout>
+            <HorizontalStackLayout>
+                <CheckBox VerticalOptions="Center" />
+                <Label VerticalOptions="Center" Text="显示已归档的分类" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Spacing="4">
+                <Label VerticalOptions="Center" Text="分类名称" />
+                <Entry VerticalOptions="Center" />
+                <Button VerticalOptions="Center" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <ScrollView
+            Grid.Row="1">
+            <CollectionView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+    </Grid>
 </views:ContentPageBase>

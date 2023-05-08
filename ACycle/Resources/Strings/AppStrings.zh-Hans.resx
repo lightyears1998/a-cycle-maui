@@ -126,6 +126,9 @@
   <data name="Action_Remove" xml:space="preserve">
     <value>删除</value>
   </data>
+  <data name="ActivityCategoryView_Title" xml:space="preserve">
+    <value>活动分类</value>
+  </data>
   <data name="ActivityEditorView_ActivityCleanupStageDescription" xml:space="preserve">
     <value>清理阶段描述</value>
   </data>

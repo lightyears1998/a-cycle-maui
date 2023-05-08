@@ -88,6 +88,15 @@ namespace ACycle.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activity Categories.
+        /// </summary>
+        public static string ActivityCategoryView_Title {
+            get {
+                return ResourceManager.GetString("ActivityCategoryView_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cleanup Stage Description.
         /// </summary>
         public static string ActivityEditorView_ActivityCleanupStageDescription {

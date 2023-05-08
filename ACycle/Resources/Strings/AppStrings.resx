@@ -126,6 +126,9 @@
   <data name="Action_Remove" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="ActivityCategoryView_Title" xml:space="preserve">
+    <value>Activity Categories</value>
+  </data>
   <data name="ActivityEditorView_ActivityCleanupStageDescription" xml:space="preserve">
     <value>Cleanup Stage Description</value>
   </data>
