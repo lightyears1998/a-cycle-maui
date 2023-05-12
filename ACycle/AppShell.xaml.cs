@@ -1,5 +1,5 @@
 ﻿using ACycle.Views;
-using System.Security;
+using CommunityToolkit.Mvvm.Input;
 
 namespace ACycle
 {
@@ -24,6 +24,12 @@ namespace ACycle
             InitializeRouting();
         }
 
+        [RelayCommand]
+        private async Task NavigateToSettings()
+        {
+            await GoToAsync("Settings");
+        }
+
         private static void InitializeRouting()
         {
             Routing.RegisterRoute(Route.ActivityAnalysisViewRoute, typeof(ActivityAnalysisView));
@@ -32,6 +38,7 @@ namespace ACycle
             Routing.RegisterRoute(Route.DatabaseMigrationViewRoute, typeof(DatabaseMigrationView));
             Routing.RegisterRoute(Route.DebuggingViewRoute, typeof(DebuggingView));
             Routing.RegisterRoute(Route.DiaryEditorViewRoute, typeof(DiaryEditorView));
+            Routing.RegisterRoute(Route.SettingsViewRoute, typeof(SettingsView));
             Routing.RegisterRoute(Route.SynchronizationEndpointViewRoute, typeof(SynchronizationEndpointView));
             Routing.RegisterRoute(Route.SynchronizationEndpointEditorViewRoute, typeof(SynchronizationEndpointEditorView));
         }
@@ -49,6 +56,8 @@ namespace ACycle
             public const string DebuggingViewRoute = "Debugging";
 
             public const string DiaryEditorViewRoute = "Diary/Editor";
+
+            public const string SettingsViewRoute = "Settings";
 
             public const string SynchronizationEndpointViewRoute = "SynchronizationEndpoint";
 

@@ -15,6 +15,7 @@
         </OnPlatform>
     </Shell.FlyoutBehavior>
 
+    <!-- Focus -->
     <FlyoutItem
         Title="{ext:LocaleString Key=AppShell_Focus}"
         Icon="appshell_focus.png"
@@ -23,6 +24,7 @@
         <ShellContent ContentTemplate="{DataTemplate views:FocusView}" />
     </FlyoutItem>
 
+    <!-- Activity -->
     <FlyoutItem
         Title="{ext:LocaleString Key=AppShell_Activity}"
         Icon="appshell_activity.png"
@@ -31,22 +33,25 @@
         <ShellContent ContentTemplate="{DataTemplate views:ActivityView}" />
     </FlyoutItem>
 
+    <!-- Planning -->
     <FlyoutItem
         Title="{ext:LocaleString Key=AppShell_Planning}"
         Icon="appshell_planning.png"
-        IsVisible="False"
+        IsVisible="True"
         Route="Planning">
         <ShellContent ContentTemplate="{DataTemplate views:PlanningView}" />
     </FlyoutItem>
 
+    <!-- Ledger -->
     <FlyoutItem
         Title="{ext:LocaleString Key=AppShell_Ledger}"
         Icon="appshell_ledger.png"
-        IsVisible="True"
+        IsVisible="False"
         Route="Ledger">
         <ShellContent ContentTemplate="{DataTemplate views:LedgerView}" />
     </FlyoutItem>
 
+    <!-- Health -->
     <FlyoutItem
         Title="{ext:LocaleString Key=AppShell_Health}"
         Icon="appshell_health.png"
@@ -55,6 +60,7 @@
         <ShellContent ContentTemplate="{DataTemplate views:HealthView}" />
     </FlyoutItem>
 
+    <!-- Diary -->
     <FlyoutItem
         Title="{ext:LocaleString Key=AppShell_Diary}"
         Icon="appshell_diary.png"
@@ -62,14 +68,7 @@
         <ShellContent ContentTemplate="{DataTemplate views:DiaryView}" />
     </FlyoutItem>
 
-    <FlyoutItem
-        Title="{ext:LocaleString Key=AppShell_Settings}"
-        Icon="appshell_settings.png"
-        IsVisible="True"
-        Route="Settings">
-        <ShellContent ContentTemplate="{DataTemplate views:SettingsView}" />
-    </FlyoutItem>
-
+    <!-- Debugging -->
     <FlyoutItem
         Title="{ext:LocaleString Key=AppShell_Debugging}"
         Icon="appshell_debugging.png"
@@ -77,4 +76,12 @@
         Route="{x:Static root:AppShell+Route.DebuggingViewRoute}">
         <ShellContent ContentTemplate="{DataTemplate views:DebuggingView}" />
     </FlyoutItem>
+
+    <!-- Footer -->
+    <Shell.FlyoutFooter>
+        <HorizontalStackLayout Padding="8">
+            <Button Command="{Binding NavigateToSettingsCommand}"
+                    Text="{ext:LocaleString Key=AppShell_Settings}" />
+        </HorizontalStackLayout>
+    </Shell.FlyoutFooter>
 </Shell>
